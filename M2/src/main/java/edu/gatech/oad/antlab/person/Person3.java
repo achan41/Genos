@@ -41,8 +41,18 @@ public class Person3 {
 	 * @param input the string to be reversed
 	 * @return the reversed string
 	 */
-	private String calc(String input) {
-	  //Person 3 put your implementation here
-	  return null;
-	}
+    public String calc(String input) {
+        String revStr = "";
+        for (int i = 0; i <= input.length() - 1; i++) {
+            revStr = input.substring(i,i+1) + revStr;
+        }
+        return revStr;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(calc("robo"));
+        System.out.println(calc("a toyota"));
+
+    }
 }
+
