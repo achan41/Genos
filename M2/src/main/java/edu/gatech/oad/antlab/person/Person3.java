@@ -48,11 +48,5 @@ public class Person3 {
         }
         return revStr;
     }
-
-    public static void main(String[] args) {
-        System.out.println(calc("robo"));
-        System.out.println(calc("a toyota"));
-
-    }
 }
 
