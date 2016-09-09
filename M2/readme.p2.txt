@@ -1,2 +1,2 @@
 Dionisia Tara
-dtara3@gatech.edu
+dtara3@gatech.edu   
