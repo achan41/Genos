@@ -3,9 +3,9 @@
   <component name="NewModuleRootManager" inherit-compiler-output="false">
     <output url="file:///production/CleanWaterApp" />
     <output-test url="file:///test/CleanWaterApp" />
-    <exclude-output />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/out" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
