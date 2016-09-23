@@ -13,7 +13,7 @@ public class WelcomeScreenController {
     @FXML private PasswordField passwordField;
     @FXML private Label messageText, usernameLabel, passwordLabel;
     @FXML private Text actionTarget, welcomeText;
-    @FXML private Button cancelButton, loginButton, loginScreenButton, registerScreenButton;
+    @FXML private Button cancelButton, loginButton, loginScreenButton, registerScreenButton, logoutButton;
     private String welcomeMSG = "Welcome";
     private UserDatabase database = new UserDatabase();
 
@@ -40,6 +40,8 @@ public class WelcomeScreenController {
                 this.messageText.setText("Your password is incorrect!");
                 this.passwordField.clear();
             }
+            this.setLoginVisible(false);
+            this.setMainScreenVisible(true);
         }
         catch (NullPointerException e) {
             this.messageText.setText("This user does not exist");
@@ -56,6 +58,7 @@ public class WelcomeScreenController {
         this.setLoginVisible(false);
         this.setRegisterVisible(false);
         this.welcomeText.setText(welcomeMSG);
+        logoutButton.setVisible(false);
     }
 
     /**
@@ -75,6 +78,7 @@ public class WelcomeScreenController {
         loginButton.setVisible(visible);
         loginScreenButton.setVisible(!visible);
         registerScreenButton.setVisible(!visible);
+        logoutButton.setVisible(!visible);
     }
 
     /**
@@ -83,5 +87,28 @@ public class WelcomeScreenController {
      */
     @FXML
     protected void setRegisterVisible(boolean visible) {
+    }
+
+    /**
+     * Modify the view after the login is successful
+     * @param visible true if login is successful
+     */
+    @FXML
+    protected void setMainScreenVisible(boolean visible) {
+        welcomeText.setVisible(!visible);
+        logoutButton.setVisible(visible);
+        loginScreenButton.setVisible(!visible);
+        registerScreenButton.setVisible((!visible));
+
+    }
+    /**
+     * Change back to the welcome screen when user logs out
+     * @param e when the button is clicked
+     */
+    @FXML
+    protected void handleLogoutButtonAction(ActionEvent e) {
+        setMainScreenVisible(false);
+        welcomeText.setText(welcomeMSG);
+        messageText.setVisible(false);
     }
 }
