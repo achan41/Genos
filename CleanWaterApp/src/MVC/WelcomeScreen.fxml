@@ -14,23 +14,26 @@
 <GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MVC.WelcomeScreenController">
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 
-    <Text text="Welcome!" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
+    <Text fx:id="welcomeText" text="Welcome!" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-    <Label prefHeight="17.0" prefWidth="65.0" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Label fx:id="usernameLabel" prefHeight="17.0" prefWidth="65.0" text="User Name:" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-    <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <TextField fx:id="usernameField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <Label fx:id="passwordLabel" text="Password:" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <PasswordField fx:id="passwordField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
     <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <Button onAction="#handleLoginButtonAction" text="Login" />
-        <Button onAction="#handleRegisterButtonAction" text="Register" />
+        <Button fx:id="loginButton" onAction="#handleLoginButtonAction" text="Login" visible="false" />
+        <Button fx:id="registerButton" onAction="#handleRegisterButtonAction" text="Register" visible="false" />
     </HBox>
 
     <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="6" />
    <Label fx:id="messageText" prefHeight="24.0" prefWidth="180.0" GridPane.columnIndex="1" />
+   <Button fx:id="loginScreenButton" mnemonicParsing="false" onAction="#handleLoginScreenButtonAction" text="Login" GridPane.rowIndex="6" />
+   <Button fx:id="registerScreenButton" mnemonicParsing="false" onAction="#handleRegisterScreenButtonAction" text="Register" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" visible="false" GridPane.rowIndex="4" />
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
