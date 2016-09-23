@@ -18,7 +18,7 @@ public class MainFXApplication extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("WelcomeScreen.fxml"));
 
-        Scene scene = new Scene(root, 300, 275);
+        Scene scene = new Scene(root, 400, 275);
 
         primaryStage.setTitle("Clean Water App: Welcome!");
         primaryStage.setScene(scene);
