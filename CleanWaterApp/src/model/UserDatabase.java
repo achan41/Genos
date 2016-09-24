@@ -1,4 +1,6 @@
-package MVC;
+package model;
+
+import model.User;
 
 import java.util.HashMap;
 

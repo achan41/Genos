@@ -1,4 +1,4 @@
-package MVC;
+package model;
 
 /**
  * Created by Taiga on 9/21/2016.

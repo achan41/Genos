@@ -1,5 +1,6 @@
-package MVC;
+package controller;
 
+import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -87,6 +88,7 @@ public class WelcomeScreenController {
      */
     @FXML
     protected void setRegisterVisible(boolean visible) {
+
     }
 
     /**

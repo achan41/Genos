@@ -1,4 +1,4 @@
-package MVC;
+package fxapp;
 
 
 //import controller.WelcomeScreenController;
@@ -16,7 +16,7 @@ public class MainFXApplication extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("WelcomeScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
 
         Scene scene = new Scene(root, 400, 275);
 
