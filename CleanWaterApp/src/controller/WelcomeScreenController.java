@@ -25,11 +25,11 @@ public class WelcomeScreenController {
         this.setLoginVisible(true);
     }
 
-    @FXML
+   /* @FXML
     protected void handleRegisterScreenButtonAction(ActionEvent e) {
         this.setLoginVisible(false);
         this.setRegisterVisible(true);
-    }
+    }*/
 
     @FXML
     protected void handleLoginButtonAction(ActionEvent event) {
@@ -51,7 +51,11 @@ public class WelcomeScreenController {
     }
 
     @FXML
-    protected void handleRegisterButtonAction(ActionEvent event) {
+    protected void launchRegisterScreen(ActionEvent event) {
+        //tell mainfxapplication to launch register screen
+        //to do that, need reference to mainapp passed to controller
+
+        //add student to database
     }
 
     @FXML
