@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -18,6 +19,8 @@ import java.io.IOException;
  */
 public class MainFXApplication extends Application {
 
+    public Stage mainScreen;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
@@ -26,7 +29,8 @@ public class MainFXApplication extends Application {
 
         primaryStage.setTitle("Clean Water App: Welcome!");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        mainScreen = primaryStage;
+        mainScreen.show();
     }
 
     public static void main(String[] args) {launch(args);
@@ -35,20 +39,21 @@ public class MainFXApplication extends Application {
     public void showRegistrationScreen() {
         try {
             // Load the fxml file and create a new stage for the popup dialog.
+            mainScreen = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainFXApplication.class.getResource("../view/RegistrationScreen.fxml"));
-            AnchorPane page = loader.load();
+            BorderPane page = loader.load();
 
-            // Create the dialog Stage.
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Registration");
-            dialogStage.initModality(Modality.WINDOW_MODAL);
+            // Set up mainScreen
+            mainScreen.setTitle("Registration");
+            mainScreen.initModality(Modality.WINDOW_MODAL);
             //dialogStage.initOwner(mainScreen);
             Scene scene = new Scene(page);
-            dialogStage.setScene(scene);
+            mainScreen.setScene(scene);
 
             // Show the dialog and wait until the user closes it
-            dialogStage.showAndWait();
+            mainScreen.showAndWait();
+
 
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,6 +1,7 @@
 package controller;
 
 import model.UserDatabase;
+import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,6 +18,7 @@ public class WelcomeScreenController {
     @FXML private Button cancelButton, loginButton, loginScreenButton, registerScreenButton, logoutButton;
     private String welcomeMSG = "Welcome";
     private UserDatabase database = new UserDatabase();
+    private MainFXApplication mainApp;
 
 
     @FXML
@@ -53,9 +55,10 @@ public class WelcomeScreenController {
     @FXML
     protected void launchRegisterScreen(ActionEvent event) {
         //tell mainfxapplication to launch register screen
-        //to do that, need reference to mainapp passed to controller
-
-        //add student to database
+        //to do that, need reference to mainApp passed to controller
+        mainApp = new MainFXApplication();
+        mainApp.showRegistrationScreen();
+        //add user to database
     }
 
     @FXML
