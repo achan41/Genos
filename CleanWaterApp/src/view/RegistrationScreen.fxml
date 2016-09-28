@@ -42,9 +42,18 @@
                <GridPane.margin>
                   <Insets left="40.0" />
                </GridPane.margin></Label>
-            <TextField fx:id="registrationName" GridPane.columnIndex="1" />
-            <TextField fx:id="registrationUsername" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="registrationPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="registrationName" GridPane.columnIndex="1">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="registrationUsername" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin></TextField>
+            <TextField fx:id="registrationPassword" GridPane.columnIndex="1" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="40.0" />
+               </GridPane.margin></TextField>
             <ComboBox fx:id="accountTypesBox" prefWidth="150.0" promptText="Choose One" GridPane.columnIndex="1" GridPane.rowIndex="3" />
          </children>
       </GridPane>
@@ -54,6 +63,9 @@
          <font>
             <Font size="23.0" />
          </font>
+         <BorderPane.margin>
+            <Insets top="20.0" />
+         </BorderPane.margin>
       </Label>
    </top>
    <bottom>
