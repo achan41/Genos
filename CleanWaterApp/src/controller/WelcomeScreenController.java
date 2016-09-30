@@ -39,12 +39,13 @@ public class WelcomeScreenController {
             boolean validLogin = this.database.login(this.usernameField.getText(), this.passwordField.getText());
             if (validLogin) {
                 this.messageText.setText("Successfully logged in, " + this.usernameField.getText() + "!");
+                this.setLoginVisible(false);
+                this.setMainScreenVisible(true);
             } else {
                 this.messageText.setText("Your password is incorrect!");
                 this.passwordField.clear();
             }
-            this.setLoginVisible(false);
-            this.setMainScreenVisible(true);
+
         }
         catch (NullPointerException e) {
             this.messageText.setText("This user does not exist");
