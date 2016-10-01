@@ -22,8 +22,21 @@ public class User {
      * @param password user's password
      */
     public User(String username, String password) {
+        this(username, null, password, null);
+    }
+
+    /**
+     * creates User
+     * @param username user's username
+     * @param name user's real name
+     * @param password user's password
+     * @param accountType user's account type
+     */
+    public User(String username, String name, String password, AccountType accountType) {
         this.username.set(username);
         this.password.set(password);
+        this.name.set(name);
+        this.accountType.set(accountType);
     }
 
     /**

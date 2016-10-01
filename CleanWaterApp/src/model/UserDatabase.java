@@ -115,4 +115,13 @@ public class UserDatabase {
             return false;
         }
     }
+
+
+    /**
+     * adds user to database
+     * @param user user
+     */
+    public void addUser(User user) {
+        database.put(user.getUsername(), user);
+    }
 }

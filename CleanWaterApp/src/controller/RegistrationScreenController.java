@@ -5,12 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 import model.AccountType;
+import model.User;
 import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 
@@ -57,8 +57,10 @@ public class RegistrationScreenController {
     @FXML
     protected void handleRegistration(ActionEvent event) {
         if (isValidUser()) {
-
+            database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
+                    registrationPassword.getText(), accountTypeBox.getValue()));
         }
+
     }
 
     /**
@@ -74,7 +76,8 @@ public class RegistrationScreenController {
         if (registrationUsername.getText() == null || registrationUsername.getText().length() == 0) {
             errorMessage += "Please enter a username!\n";
         }
-        if (database.userExists(registrationUsername.getText())) {
+        String username = registrationUsername.getText();
+        if (database.userExists(username)) {
             errorMessage += "A user with this name already exists!\n";
         }
         if (registrationPassword.getText() == null || registrationPassword.getText().length() == 0) {

@@ -1,5 +1,6 @@
 package controller;
 
+import model.User;
 import model.UserDatabase;
 import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
@@ -21,17 +22,22 @@ public class WelcomeScreenController {
     private MainFXApplication mainApp;
 
 
+    /**
+     * Initializes controller class in order to listen to database changes
+     */
+    @FXML
+    private void initialize() {
+    }
+
     @FXML
     protected void handleLoginScreenButtonAction(ActionEvent e) {
         this.setLoginVisible(true);
     }
 
-   /* @FXML
-    protected void handleRegisterScreenButtonAction(ActionEvent e) {
-        this.setLoginVisible(false);
-        this.setRegisterVisible(true);
-    }*/
-
+    /**
+     * handles login attempts
+     * @param event
+     */
     @FXML
     protected void handleLoginButtonAction(ActionEvent event) {
         try {
@@ -44,7 +50,6 @@ public class WelcomeScreenController {
                 this.messageText.setText("Your password is incorrect!");
                 this.passwordField.clear();
             }
-
         }
         catch (NullPointerException e) {
             this.messageText.setText("This user does not exist");
@@ -52,6 +57,10 @@ public class WelcomeScreenController {
         }
     }
 
+    /**
+     * opens registration screen upon button press
+     * @param event
+     */
     @FXML
     protected void launchRegisterScreen(ActionEvent event) {
         //tell mainfxapplication to launch register screen
@@ -61,6 +70,10 @@ public class WelcomeScreenController {
         //add user to database
     }
 
+    /**
+     * cancels login attempts
+     * @param event
+     */
     @FXML
     protected void handleCancelButtonAction(ActionEvent event) {
         this.setLoginVisible(false);
