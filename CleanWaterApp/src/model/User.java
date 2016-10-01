@@ -9,6 +9,8 @@ import javafx.beans.property.StringProperty;
  * Created by Taiga on 9/21/2016.
  */
 public class User {
+
+    private final StringProperty name = new SimpleStringProperty();
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
     private final ObjectProperty<AccountType> accountType = new SimpleObjectProperty<>();
@@ -22,6 +24,14 @@ public class User {
     public User(String username, String password) {
         this.username.set(username);
         this.password.set(password);
+    }
+
+    /**
+     * returns user's real name
+     * @return user's name
+     */
+    public String getName() {
+        return name.get();
     }
 
     /**
@@ -45,6 +55,14 @@ public class User {
      * @return user account type
      */
     public AccountType getAccountType() {return accountType.get();}
+
+    /**
+     * sets user's name to be new name
+     * @param name changed name
+     */
+    public void setName(String name) {
+        this.name.set(name);
+    }
 
     /**
      * sets user username to be username
@@ -79,13 +97,4 @@ public class User {
         return username.get() + " " + password.get() + " " + accountType.get();
     }
 
-
-    /**
-     * returns whether or not the user is a valid user
-     * @param user user to be checked
-     * @return boolean value whether the user is valid or not
-     */
-    public boolean isValid(User user) {
-        return (user.getUsername() != null && user.getPassword() != null && user.getAccountType() != null);
-    }
 }

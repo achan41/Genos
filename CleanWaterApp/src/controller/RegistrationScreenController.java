@@ -8,12 +8,11 @@ import model.AccountType;
 import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
-import model.UserProfile;
 
 /**
  * Created by Taiga on 10/1/2016.
@@ -24,7 +23,6 @@ public class RegistrationScreenController {
     @FXML PasswordField registrationPassword;
     @FXML ComboBox<AccountType> accountTypeBox;
     private UserDatabase database = new UserDatabase();
-    private UserProfile profile;
     private MainFXApplication mainApp;
     private Stage registrationStage;
 
@@ -44,7 +42,7 @@ public class RegistrationScreenController {
     public void setRegistrationStage(Stage stage) {registrationStage = stage;}
 
     /**
-     * handles registration cancellation
+     * closes window upon cancelling registration
      * @param event
      */
     @FXML
@@ -58,6 +56,43 @@ public class RegistrationScreenController {
      */
     @FXML
     protected void handleRegistration(ActionEvent event) {
+        if (isValidUser()) {
 
+        }
+    }
+
+    /**
+     * Checks if user is valid for registration
+     * @return true if valid user registration
+     */
+    @FXML
+    private boolean isValidUser() {
+        String errorMessage = "";
+        if (registrationName.getText() == null || registrationName.getText().length() == 0) {
+            errorMessage += "Please enter a name!\n";
+        }
+        if (registrationUsername.getText() == null || registrationUsername.getText().length() == 0) {
+            errorMessage += "Please enter a username!\n";
+        }
+        if (database.userExists(registrationUsername.getText())) {
+            errorMessage += "A user with this name already exists!\n";
+        }
+        if (registrationPassword.getText() == null || registrationPassword.getText().length() == 0) {
+            errorMessage += "Please enter a password!\n";
+        }
+        if (accountTypeBox.getValue() == null) {
+            errorMessage += "You have selected an invalid account type.\n";
+        }
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initOwner(registrationStage);
+            alert.setTitle("Invalid Registration");
+            alert.setHeaderText("Please check your registration");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            return false;
+        }
     }
 }

@@ -1,7 +1,6 @@
 package fxapp;
 
 
-//import controller.WelcomeScreenController;
 
 import controller.RegistrationScreenController;
 import javafx.application.Application;
