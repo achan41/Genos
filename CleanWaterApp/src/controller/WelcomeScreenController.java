@@ -23,7 +23,6 @@ public class WelcomeScreenController {
 
     @FXML
     protected void handleLoginScreenButtonAction(ActionEvent e) {
-        this.setRegisterVisible(false);
         this.setLoginVisible(true);
     }
 
@@ -65,7 +64,6 @@ public class WelcomeScreenController {
     @FXML
     protected void handleCancelButtonAction(ActionEvent event) {
         this.setLoginVisible(false);
-        this.setRegisterVisible(false);
         this.welcomeText.setText(welcomeMSG);
         logoutButton.setVisible(false);
     }
@@ -88,15 +86,6 @@ public class WelcomeScreenController {
         loginScreenButton.setVisible(!visible);
         registerScreenButton.setVisible(!visible);
         logoutButton.setVisible(!visible);
-    }
-
-    /**
-     * sets register FXML objects to visible boolean
-     * @param visible whether or not register form is visible
-     */
-    @FXML
-    protected void setRegisterVisible(boolean visible) {
-
     }
 
     /**

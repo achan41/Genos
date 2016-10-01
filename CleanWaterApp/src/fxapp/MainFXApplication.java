@@ -3,6 +3,7 @@ package fxapp;
 
 //import controller.WelcomeScreenController;
 
+import controller.RegistrationScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,6 +51,10 @@ public class MainFXApplication extends Application {
             //dialogStage.initOwner(mainScreen);
             Scene scene = new Scene(page);
             mainScreen.setScene(scene);
+
+            // Sets the person into the controller
+            RegistrationScreenController controller = loader.getController();
+            controller.setRegistrationStage(mainScreen);
 
             // Show the dialog and wait until the user closes it
             mainScreen.showAndWait();
