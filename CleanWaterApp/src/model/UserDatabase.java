@@ -13,32 +13,44 @@ public class UserDatabase {
     private User user;
     private String username;
     private HashMap<String, User> database = new HashMap<>();
+    //database file path
     private File databaseFile = new File("src/model/database.txt");
     /**
      * create userDatabase with user/pass default
      */
     public UserDatabase() {
         try {
+            //if database.txt file does not exist
             if(!databaseFile.exists()) {
                 try {
+                    // create new database file at database file path
                     databaseFile.createNewFile();
+                    //write initial data in database
+                    /**
                     FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
                     BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
                     databaseWriter.flush();
                     databaseWriter.close();
+                     **/
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            // read database file to userdatabase
             FileReader inputDatabase = new FileReader(databaseFile.getAbsolutePath());
             BufferedReader bufferReader = new BufferedReader(inputDatabase);
             String databaseLine;
+            //iterate through each line until null line
             while ((databaseLine = bufferReader.readLine()) != null) {
+                // split line based on "/"
                 String[] userData = databaseLine.split("/");
+                // create user based on data from line
                 User tempUser = new User(userData[0], userData[1], userData[2], AccountType.valueOf(userData[3]));
+                // add user to database
                 database.put(tempUser.getUsername(), tempUser);
             }
             bufferReader.close();
+            // catch possible IOException or NullPointerException
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,25 +164,15 @@ public class UserDatabase {
     public void addUser(User user) {
         database.put(user.getUsername(), user);
         try {
-            if(!databaseFile.exists()) {
-                try {
-                    databaseFile.createNewFile();
-                    FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                    BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                    databaseWriter.flush();
-                    databaseWriter.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            } else {
-                FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                for (Map.Entry<String, User> entry : database.entrySet()) {
-                    databaseWriter.write(entry.getValue().toString() + "\n");
-                }
-                databaseWriter.flush();
-                databaseWriter.close();
+            // create file writer to write user to database
+            FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+            BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+            // iterate through user data and append to one line, using the User.toString method
+            for (Map.Entry<String, User> entry : database.entrySet()) {
+                databaseWriter.write(entry.getValue().toString() + "\n");
             }
+            databaseWriter.flush();
+            databaseWriter.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
