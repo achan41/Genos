@@ -31,7 +31,6 @@ public class UserDatabase {
                 }
             }
             FileReader inputDatabase = new FileReader(databaseFile.getAbsolutePath());
-            System.out.println(databaseFile.getAbsolutePath());
             BufferedReader bufferReader = new BufferedReader(inputDatabase);
             String databaseLine;
             while ((databaseLine = bufferReader.readLine()) != null) {
