@@ -38,6 +38,7 @@ public class User {
         this.username.set(username);
         this.password.set(password);
         this.name.set(name);
+        this.profile = new UserProfile(name);
         this.accountType.set(accountType);
     }
 
@@ -67,9 +68,15 @@ public class User {
 
     /**
      * returns account type of user
-     * @return user account type
+     * @return AccountType account type
      */
     public AccountType getAccountType() {return accountType.get();}
+
+    /**
+     * returns profile of user
+     * @return UserProfile profile
+     */
+    public UserProfile getProfile() { return profile; }
 
     /**
      * sets user's name to be new name

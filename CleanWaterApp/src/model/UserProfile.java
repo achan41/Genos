@@ -9,8 +9,8 @@ public class UserProfile {
     private String address;
     private String number;
 
-    public UserProfile() {
-        this.setName("Enter your name");
+    public UserProfile(String name) {
+        this.setName(name);
         this.setEmail("Enter your email");
         this.setAddress("Enter your address");
         this.setNumber("Enter your number");
