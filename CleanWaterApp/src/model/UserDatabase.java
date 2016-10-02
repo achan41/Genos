@@ -16,7 +16,7 @@ public class UserDatabase {
     //database file path
     private File databaseFile = new File("src/model/database.txt");
     /**
-     * create userDatabase with user/pass default
+     * create userDatabase after reading database file
      */
     public UserDatabase() {
         try {

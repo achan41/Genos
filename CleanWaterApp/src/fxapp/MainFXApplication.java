@@ -66,6 +66,9 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * shows login screen
+     */
     public void showLoginScreen() {
         try {
             //creates new stage linking to loginscreen.fxml
@@ -91,6 +94,9 @@ public class MainFXApplication extends Application {
         }
     }
 
+    /**
+     * shows user screen
+     */
     public void showUserScreen() {
         try {
             mainScreen = new Stage();

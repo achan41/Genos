@@ -70,6 +70,7 @@ public class RegistrationScreenController {
     @FXML
     private boolean isValidUser() {
         String errorMessage = "";
+        //get text from registration form
         String name = registrationName.getText();
         String username = registrationUsername.getText();
         String password = registrationPassword.getText();
@@ -93,6 +94,7 @@ public class RegistrationScreenController {
         if (errorMessage.length() == 0) {
             return true;
         } else {
+            //send alert warning of registration error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.initOwner(registrationStage);
             alert.setTitle("Invalid Registration");
