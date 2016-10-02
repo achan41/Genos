@@ -2,13 +2,14 @@ package fxapp;
 
 
 
+import controller.LoginScreenController;
 import controller.RegistrationScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -58,6 +59,28 @@ public class MainFXApplication extends Application {
             // Show the dialog and wait until the user closes it
             mainScreen.showAndWait();
 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showLoginScreen() {
+        try {
+            mainScreen= new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/LoginScreen.fxml"));
+            VBox pane = loader.load();
+
+            mainScreen.setTitle("Login Screen");
+            mainScreen.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(pane);
+            mainScreen.setScene(scene);
+
+            LoginScreenController controller = loader.getController();
+            controller.setLoginStage(mainScreen);
+
+            mainScreen.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
