@@ -5,10 +5,10 @@ package model;
  * Created by Taiga on 10/1/2016.
  */
 public enum AccountType {
-    USR ("User", "USR"),
-    WKR ("Worker", "WKR"),
-    MGR ("Manager", "MGR"),
-    ADM ("Admin","ADM");
+    User ("User", "USR"),
+    Worker ("Worker", "WKR"),
+    Manager ("Manager", "MGR"),
+    Admin ("Admin","ADM");
 
     private final String name;
     private final String charRep;

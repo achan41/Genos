@@ -59,8 +59,8 @@ public class RegistrationScreenController {
         if (isValidUser()) {
             database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
                     registrationPassword.getText(), accountTypeBox.getValue()));
+            registrationStage.close();
         }
-        registrationStage.close();
     }
 
     /**
@@ -70,18 +70,22 @@ public class RegistrationScreenController {
     @FXML
     private boolean isValidUser() {
         String errorMessage = "";
-        if (registrationName.getText() == null || registrationName.getText().length() == 0) {
-            errorMessage += "Please enter a name!\n";
-        }
-        if (registrationUsername.getText() == null || registrationUsername.getText().length() == 0) {
-            errorMessage += "Please enter a username!\n";
-        }
+        String name = registrationName.getText();
         String username = registrationUsername.getText();
-        if (database.userExists(username)) {
+        String password = registrationPassword.getText();
+        if (name == null || name.length() == 0 || name.contains("/")) {
+            errorMessage += "Please enter a valid name!\n";
+        }
+        if (username == null || username.length() == 0 || username.contains("/")) {
+            errorMessage += "Please enter a valid username!\n";
+        }
+        try {
+            database.userExists(username);
+        } catch (Exception e) {
             errorMessage += "A user with this name already exists!\n";
         }
-        if (registrationPassword.getText() == null || registrationPassword.getText().length() == 0) {
-            errorMessage += "Please enter a password!\n";
+        if (password == null || password.length() == 0 || password.contains("/")) {
+            errorMessage += "Please enter a valid password!\n";
         }
         if (accountTypeBox.getValue() == null) {
             errorMessage += "You have selected an invalid account type.\n";

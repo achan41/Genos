@@ -5,6 +5,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.HashMap;
+
 /**
  * Created by Taiga on 9/21/2016.
  */
@@ -107,7 +109,7 @@ public class User {
      */
     @Override
     public String toString() {
-        return username.get() + " " + password.get() + " " + accountType.get();
+        return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString();
     }
 
 }

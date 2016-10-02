@@ -68,16 +68,19 @@ public class MainFXApplication extends Application {
 
     public void showLoginScreen() {
         try {
+            //creates new stage linking to loginscreen.fxml
             mainScreen = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainFXApplication.class.getResource("../view/LoginScreen.fxml"));
             VBox pane = loader.load();
 
+            //creates window properties and links scene to stage
             mainScreen.setTitle("Login Screen");
             mainScreen.initModality(Modality.WINDOW_MODAL);
             Scene scene = new Scene(pane);
             mainScreen.setScene(scene);
 
+            //links loginscreencontroller to login screen stage
             LoginScreenController controller = loader.getController();
             controller.setLoginStage(mainScreen);
 

@@ -1,8 +1,9 @@
 package model;
 
 import model.User;
-
+import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by Taiga on 9/21/2016.
@@ -12,12 +13,36 @@ public class UserDatabase {
     private User user;
     private String username;
     private HashMap<String, User> database = new HashMap<>();
-
+    private File databaseFile = new File("src/model/database.txt");
     /**
      * create userDatabase with user/pass default
      */
     public UserDatabase() {
-        database.put("user", new User("user", "pass"));
+        try {
+            if(!databaseFile.exists()) {
+                try {
+                    databaseFile.createNewFile();
+                    FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+                    BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+                    databaseWriter.flush();
+                    databaseWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            FileReader inputDatabase = new FileReader(databaseFile.getAbsolutePath());
+            System.out.println(databaseFile.getAbsolutePath());
+            BufferedReader bufferReader = new BufferedReader(inputDatabase);
+            String databaseLine;
+            while ((databaseLine = bufferReader.readLine()) != null) {
+                String[] userData = databaseLine.split("/");
+                User tempUser = new User(userData[0], userData[1], userData[2], AccountType.valueOf(userData[3]));
+                database.put(tempUser.getUsername(), tempUser);
+            }
+            bufferReader.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -43,7 +68,11 @@ public class UserDatabase {
      * @return boolean value whether user exists in database
      */
     public boolean userExists(User user) {
-        return database.containsValue(user);
+        try {
+            return database.containsValue(user);
+        } catch (NullPointerException e) {
+            return false;
+        }
     }
 
     /**
@@ -123,5 +152,28 @@ public class UserDatabase {
      */
     public void addUser(User user) {
         database.put(user.getUsername(), user);
+        try {
+            if(!databaseFile.exists()) {
+                try {
+                    databaseFile.createNewFile();
+                    FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+                    BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+                    databaseWriter.flush();
+                    databaseWriter.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+                BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+                for (Map.Entry<String, User> entry : database.entrySet()) {
+                    databaseWriter.write(entry.getValue().toString() + "\n");
+                }
+                databaseWriter.flush();
+                databaseWriter.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

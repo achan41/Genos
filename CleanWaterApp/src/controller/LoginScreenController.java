@@ -61,6 +61,7 @@ public class LoginScreenController {
                 return true;
             } else {
                 message = "Your password is incorrect!";
+                // creates alert window notifying of incorrect password
                 this.passwordField.clear();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Error");
@@ -70,6 +71,7 @@ public class LoginScreenController {
             }
         }
         catch (NullPointerException e) {
+            // creates alert window notifying of user not existing in database
             message = "This user does not exist";
             this.usernameField.clear();
             this.passwordField.clear();
