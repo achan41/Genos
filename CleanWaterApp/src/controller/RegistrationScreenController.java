@@ -60,7 +60,7 @@ public class RegistrationScreenController {
             database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
                     registrationPassword.getText(), accountTypeBox.getValue()));
         }
-
+        registrationStage.close();
     }
 
     /**

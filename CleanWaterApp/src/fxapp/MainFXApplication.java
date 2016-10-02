@@ -4,6 +4,7 @@ package fxapp;
 
 import controller.LoginScreenController;
 import controller.RegistrationScreenController;
+import controller.UserScreenController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -67,7 +68,7 @@ public class MainFXApplication extends Application {
 
     public void showLoginScreen() {
         try {
-            mainScreen= new Stage();
+            mainScreen = new Stage();
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(MainFXApplication.class.getResource("../view/LoginScreen.fxml"));
             VBox pane = loader.load();
@@ -82,6 +83,27 @@ public class MainFXApplication extends Application {
 
             mainScreen.showAndWait();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showUserScreen() {
+        try {
+            mainScreen = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(MainFXApplication.class.getResource("../view/UserScreen.fxml"));
+            VBox pane = loader.load();
+
+            mainScreen.setTitle("Login Screen");
+            mainScreen.initModality(Modality.WINDOW_MODAL);
+            Scene scene = new Scene(pane);
+            mainScreen.setScene(scene);
+
+            UserScreenController controller = loader.getController();
+            controller.setUserScreenStage(mainScreen);
+
+            mainScreen.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }

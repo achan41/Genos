@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.UserDatabase;
 import fxapp.MainFXApplication;
@@ -7,10 +8,6 @@ import javafx.event.ActionEvent;
 import model.User;
 import model.UserDatabase;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
 
 /**
  * Created by Taiga on 10/1/2016.
@@ -44,30 +41,44 @@ public class LoginScreenController {
      */
     @FXML
     protected void handleLogin(ActionEvent event) {
+        if (isValidLogin()) {
+            mainApp = new MainFXApplication();
+            mainApp.showUserScreen();
+            loginStage.close();
+        }
+    }
+
+    /**
+     * checks if a user's login is valid
+     * @return true if valid login iinformation
+     */
+    @FXML
+    private boolean isValidLogin() {
         String message = "";
-        Alert alert;
         try {
             boolean validLogin = this.database.login(this.usernameField.getText(), this.passwordField.getText());
             if (validLogin) {
-                message = "Successfully logged in, " + this.usernameField.getText() + "!";
-                alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Login Message");
-
+                return true;
             } else {
                 message = "Your password is incorrect!";
-                alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Login Error");
                 this.passwordField.clear();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login Error");
+                alert.initOwner(loginStage);
+                alert.setContentText(message);
+                alert.showAndWait();
             }
         }
         catch (NullPointerException e) {
             message = "This user does not exist";
-            alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Login Error");
+            this.usernameField.clear();
             this.passwordField.clear();
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Error");
+            alert.initOwner(loginStage);
+            alert.setContentText(message);
+            alert.showAndWait();
         }
-        alert.initOwner(loginStage);
-        alert.setContentText(message);
-        alert.showAndWait();
+        return false;
     }
 }
