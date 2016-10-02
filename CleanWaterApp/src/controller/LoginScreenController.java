@@ -20,7 +20,7 @@ public class LoginScreenController {
     @FXML private PasswordField passwordField;
     private Stage loginStage;
     private MainFXApplication mainApp;
-    private UserDatabase database;
+    private UserDatabase database = new UserDatabase();
 
 
     /**
@@ -38,33 +38,36 @@ public class LoginScreenController {
         loginStage.close();
     }
 
-    @FXML
-    protected void handleLogin(ActionEvent event) {
-
-    }
-
     /**
-     * handles login attempts
+     * handles login event
      * @param event
      */
-    /**
     @FXML
-    protected void handleLoginButtonAction(ActionEvent event) {
+    protected void handleLogin(ActionEvent event) {
+        String message = "";
+        Alert alert;
         try {
             boolean validLogin = this.database.login(this.usernameField.getText(), this.passwordField.getText());
             if (validLogin) {
-                this.messageText.setText("Successfully logged in, " + this.usernameField.getText() + "!");
-                this.setLoginVisible(false);
-                this.setMainScreenVisible(true);
+                message = "Successfully logged in, " + this.usernameField.getText() + "!";
+                alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Login Message");
+
             } else {
-                this.messageText.setText("Your password is incorrect!");
+                message = "Your password is incorrect!";
+                alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login Error");
                 this.passwordField.clear();
             }
         }
         catch (NullPointerException e) {
-            this.messageText.setText("This user does not exist");
+            message = "This user does not exist";
+            alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Login Error");
             this.passwordField.clear();
         }
+        alert.initOwner(loginStage);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
-    **/
 }
