@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_genos" default="compile.module.genos">
+  <dirname property="module.genos.basedir" file="${ant.file.module_genos}"/>
+  
+  <property name="module.jdk.home.genos" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.genos" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.genos" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.genos" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="genos.output.dir" value="${module.genos.basedir}/out/production/Genos"/>
+  <property name="genos.testoutput.dir" value="${module.genos.basedir}/out/test/Genos"/>
+  
+  <path id="genos.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="genos.module.production.classpath">
+    <path refid="${module.jdk.classpath.genos}"/>
+  </path>
+  
+  <path id="genos.runtime.production.module.classpath">
+    <pathelement location="${genos.output.dir}"/>
+  </path>
+  
+  <path id="genos.module.classpath">
+    <path refid="${module.jdk.classpath.genos}"/>
+    <pathelement location="${genos.output.dir}"/>
+  </path>
+  
+  <path id="genos.runtime.module.classpath">
+    <pathelement location="${genos.testoutput.dir}"/>
+    <pathelement location="${genos.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.genos">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.genos">
+    <patternset refid="excluded.from.module.genos"/>
+  </patternset>
+  
+  <path id="genos.module.sourcepath">
+    <dirset dir="${module.genos.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.genos" depends="compile.module.genos.production,compile.module.genos.tests" description="Compile module Genos"/>
+  
+  <target name="compile.module.genos.production" depends="register.custom.compilers" description="Compile module Genos; production classes">
+    <mkdir dir="${genos.output.dir}"/>
+    <javac2 destdir="${genos.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.genos}/javac">
+      <compilerarg line="${compiler.args.genos}"/>
+      <bootclasspath refid="genos.module.bootclasspath"/>
+      <classpath refid="genos.module.production.classpath"/>
+      <src refid="genos.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.genos"/>
+    </javac2>
+    
+    <copy todir="${genos.output.dir}">
+      <fileset dir="${module.genos.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.genos.tests" depends="register.custom.compilers,compile.module.genos.production" description="compile module Genos; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.genos" description="cleanup module">
+    <delete dir="${genos.output.dir}"/>
+    <delete dir="${genos.testoutput.dir}"/>
+  </target>
+</project>
