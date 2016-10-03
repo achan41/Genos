@@ -116,7 +116,7 @@ public class User {
      */
     @Override
     public String toString() {
-        return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString();
+        return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString() + "/" + profile.getEmail() + "/" + profile.getAddress() + "/" + profile.getNumber();
     }
 
 }
