@@ -1,13 +1,16 @@
 package model;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Created by Allen on 9/30/2016.
  */
 public class UserProfile {
-    private String name;
-    private String email;
-    private String address;
-    private String number;
+    private final StringProperty name = new SimpleStringProperty();
+    private final StringProperty email = new SimpleStringProperty();
+    private final StringProperty address = new SimpleStringProperty();
+    private final StringProperty number = new SimpleStringProperty();
 
     public UserProfile(String name) {
         this.setName(name);
@@ -17,11 +20,41 @@ public class UserProfile {
     }
 
     /**
+     * returns user's real name
+     * @return user's name
+     */
+    public String getName() {
+        return name.get();
+    }
+
+    /**
+     * returns the email
+     * @return String email
+     */
+    public String getEmail() {
+        return email.get();
+    }
+
+    /**
+     * returns the address
+     * @return String address
+     */
+    public String getAddress() {
+        return address.get();
+    }
+
+    /**
+     * returns the contact number
+     * @return String number
+     */
+    public String getNumber() { return number.get(); }
+
+    /**
      * sets user profile's name to the name
      * @param name User's name
      */
     private void setName(String name) {
-        this.name = name;
+        this.name.set(name);
     }
 
     /**
@@ -29,7 +62,7 @@ public class UserProfile {
      * @param email User's email
      */
     private void setEmail(String email) {
-        this.email = email;
+        this.email.set(email);
     }
 
     /**
@@ -37,7 +70,7 @@ public class UserProfile {
      * @param address User's address
      */
     private void setAddress(String address) {
-        this.address = address;
+        this.address.set(address);
     }
 
     /**
@@ -45,8 +78,10 @@ public class UserProfile {
      * @param number User's number
      */
     private void setNumber(String number) {
-        this.number = number;
+        this.number.set(number);
     }
+
+
 }
 
 
