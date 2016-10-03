@@ -3,51 +3,35 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeScreenController">
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.WelcomeScreenController">
     <padding><Insets bottom="10" left="25" right="25" top="25" /></padding>
 
     <Text fx:id="welcomeText" text="Welcome!" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-    <Label fx:id="usernameLabel" prefHeight="17.0" prefWidth="70.0" text="User Name:" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-
-    <TextField fx:id="usernameField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-
-    <Label fx:id="passwordLabel" text="Password:" visible="false" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-
-    <PasswordField fx:id="passwordField" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-
     <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
-      <Button fx:id="registerScreenButton" mnemonicParsing="false" onAction="#launchRegisterScreen" prefHeight="27.0" prefWidth="103.0" text="Register" />
-        <Button fx:id="loginButton" onAction="#handleLoginButtonAction" text="Login" visible="false" />
-        <Button fx:id="registerButton" text="Register" visible="false" />
+        <Button fx:id="registerScreenButton" mnemonicParsing="false" onAction="#launchRegisterScreen" prefHeight="27.0" prefWidth="103.0" text="Register" />
     </HBox>
-
-    <Text fx:id="actiontarget" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-   <Label fx:id="messageText" prefHeight="24.0" prefWidth="180.0" GridPane.columnIndex="1" />
-   <Button fx:id="loginScreenButton" mnemonicParsing="false" onAction="#handleLoginScreenButtonAction" prefHeight="27.0" prefWidth="66.0" text="Login" GridPane.rowIndex="4" />
-   <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelButtonAction" text="Cancel" visible="false" GridPane.rowIndex="4" />
-   <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handleLogoutButtonAction" prefHeight="27.0" prefWidth="71.0" text="Logout" visible="false" GridPane.rowIndex="6" />
-   <columnConstraints>
-      <ColumnConstraints />
-      <ColumnConstraints />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+    <Label fx:id="messageText" prefHeight="24.0" prefWidth="180.0" GridPane.columnIndex="1" />
+    <Button fx:id="loginScreenButton" mnemonicParsing="false" onAction="#handleLoginScreenButtonAction" prefHeight="27.0" prefWidth="66.0" text="Login" GridPane.rowIndex="4" />
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 
 </GridPane>

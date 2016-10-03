@@ -14,7 +14,7 @@ public class UserDatabase {
     private String username;
     private HashMap<String, User> database = new HashMap<>();
     //database file path
-    private File databaseFile = new File("src/model/database.txt");
+    private File databaseFile = new File("database.txt");
     /**
      * create userDatabase after reading database file
      */
