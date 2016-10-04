@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -11,6 +13,7 @@ public class UserProfile {
     private final StringProperty email = new SimpleStringProperty();
     private final StringProperty address = new SimpleStringProperty();
     private final StringProperty number = new SimpleStringProperty();
+    private final ObjectProperty<Title> title = new SimpleObjectProperty<>();
 
     public UserProfile(String name) {
         this.setName(name);
@@ -53,7 +56,7 @@ public class UserProfile {
      * sets user profile's name to the name
      * @param name User's name
      */
-    private void setName(String name) {
+    public void setName(String name) {
         this.name.set(name);
     }
 
@@ -61,7 +64,7 @@ public class UserProfile {
      * sets user profile's email to the email
      * @param email User's email
      */
-    private void setEmail(String email) {
+    public void setEmail(String email) {
         this.email.set(email);
     }
 
@@ -69,7 +72,7 @@ public class UserProfile {
      * sets user profile's address to the address
      * @param address User's address
      */
-    private void setAddress(String address) {
+    public void setAddress(String address) {
         this.address.set(address);
     }
 
@@ -77,11 +80,17 @@ public class UserProfile {
      * sets user profile's number to be the number
      * @param number User's number
      */
-    private void setNumber(String number) {
+    public void setNumber(String number) {
         this.number.set(number);
     }
 
-
+    /**
+     * sets title of user
+     * @param head user's title
+     */
+    public void setTitle(Title head) {
+        title.set(head);
+    }
 }
 
 

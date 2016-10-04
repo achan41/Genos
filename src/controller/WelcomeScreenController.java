@@ -8,9 +8,22 @@ public class WelcomeScreenController {
     private MainFXApplication mainApp;
 
 
+
+    /**
+     * setup the main fx application link
+     *
+     * @param mainFXApplication a link to the MainFXApplication
+     */
+    public void setMainApp(MainFXApplication mainFXApplication) {
+        mainApp = mainFXApplication;
+    }
+
+    /**
+     * opens login screen upon button press
+     * @param event button press
+     */
     @FXML
-    protected void handleLoginScreenButtonAction(ActionEvent e) {
-        mainApp = new MainFXApplication();
+    protected void handleLoginScreenButtonAction(ActionEvent event) {
         mainApp.showLoginScreen();
     }
 
@@ -23,7 +36,6 @@ public class WelcomeScreenController {
     protected void launchRegisterScreen(ActionEvent event) {
         //tell mainfxapplication to launch register screen
         //to do that, need reference to mainApp passed to controller
-        mainApp = new MainFXApplication();
         mainApp.showRegistrationScreen();
         //add user to database
     }

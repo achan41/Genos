@@ -3,6 +3,10 @@ package controller;
 import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import model.AccountType;
 import model.User;
@@ -13,6 +17,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
+
+import java.io.IOException;
 
 /**
  * Created by Taiga on 10/1/2016.
@@ -35,11 +41,15 @@ public class RegistrationScreenController {
         accountTypeBox.setItems(list);
     }
 
+    public void setMainApp(MainFXApplication mainFXapp) {
+        mainApp = mainFXapp;
+    }
+
     /**
      * sets current stage of this display
      * @param stage stage for this display
      */
-    public void setRegistrationStage(Stage stage) {registrationStage = stage;}
+    public void setRegistrationStage(Stage stage) { registrationStage = stage;}
 
     /**
      * closes window upon cancelling registration
@@ -57,9 +67,19 @@ public class RegistrationScreenController {
     @FXML
     protected void handleRegistration(ActionEvent event) {
         if (isValidUser()) {
-            database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
-                    registrationPassword.getText(), accountTypeBox.getValue()));
+            User insert = new User(registrationUsername.getText(), registrationName.getText(),
+                    registrationPassword.getText(), accountTypeBox.getValue());
+            database.addUser(insert);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = registrationStage;
+            alert.initOwner(stage);
+            alert.setTitle("Success!");
+            alert.setHeaderText("Successfully created account.");
+            alert.showAndWait();
+            mainApp.setUser(insert);
+
             registrationStage.close();
+
         }
     }
 
