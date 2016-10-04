@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="276.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreenController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="275.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.LoginScreenController">
    <children>
       <AnchorPane prefHeight="200.0" prefWidth="200.0">
          <children>
@@ -16,8 +16,8 @@
             <Label layoutX="84.0" layoutY="80.0" text="Username" />
             <Label layoutX="86.0" layoutY="113.0" text="Password" />
             <Label layoutX="176.0" layoutY="39.0" text="Login Screen" />
-            <Button defaultButton="true" layoutX="285.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
-            <Button layoutX="84.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleCancelLogin" text="Cancel" />
+            <Button fx:id="loginButton" defaultButton="true" layoutX="285.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleLogin" text="Login" />
+            <Button fx:id="cancelButton" layoutX="84.0" layoutY="161.0" mnemonicParsing="false" onAction="#handleCancelLogin" text="Cancel" />
          </children>
       </AnchorPane>
    </children>

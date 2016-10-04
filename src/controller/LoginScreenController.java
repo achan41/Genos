@@ -21,16 +21,9 @@ public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button cancelButton;
-    private Stage loginStage;
     private MainFXApplication mainApp;
     private UserDatabase database = new UserDatabase();
 
-
-    /**
-     * sets current stage of this display
-     * @param stage stage for this display
-     */
-    public void setLoginStage(Stage stage) {loginStage = stage;}
 
     /**
      * closes window upon cancelling registration
@@ -50,11 +43,7 @@ public class LoginScreenController {
      * @param event
      */
     @FXML
-    protected void handleLogin(ActionEvent event) {
         if (isValidLogin()) {
-            mainApp = new MainFXApplication();
-            mainApp.showUserScreen();
-            loginStage.close();
         }
     }
 
@@ -75,7 +64,6 @@ public class LoginScreenController {
                 this.passwordField.clear();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Error");
-                alert.initOwner(loginStage);
                 alert.setContentText(message);
                 alert.showAndWait();
             }
@@ -87,7 +75,6 @@ public class LoginScreenController {
             this.passwordField.clear();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
-            alert.initOwner(loginStage);
             alert.setContentText(message);
             alert.showAndWait();
         }
