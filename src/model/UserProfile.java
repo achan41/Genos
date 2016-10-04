@@ -81,7 +81,13 @@ public class UserProfile {
         this.number.set(number);
     }
 
-
+    /**
+     * returns strong concatenation of user profile
+     * @return user data string
+     */
+    public String toString() {
+        return email + "/" + address + "/" + number;
+    }
 }
 
 

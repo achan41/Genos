@@ -1,1 +1,1 @@
-user/name/pass/Admin/Enter your email/Enter your address/Enter your number
+user/name/pass/Admin/StringProperty [value: Enter your email]/StringProperty [value: Enter your address]/StringProperty [value: Enter your number]

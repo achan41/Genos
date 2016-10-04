@@ -63,7 +63,10 @@ public class UserScreenController {
     @FXML
     protected void handleEditProfile(ActionEvent event) throws IOException {
         Stage stage = (Stage) editProfileButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("../view/EditProfile.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/EditProfile.fxml"));
+        Parent root = fxmlLoader.load();
+        EditProfileController controller = fxmlLoader.<EditProfileController>getController();
+        controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -57,7 +57,7 @@ public class LoginScreenController {
 
     /**
      * checks if a user's login is valid
-     * @return true if valid login iinformation
+     * @return true if valid login information
      */
     @FXML
     private boolean isValidLogin() {

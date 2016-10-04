@@ -15,22 +15,23 @@ public class UserDatabase {
     private HashMap<String, User> database = new HashMap<>();
     //database file path
     private File databaseFile = new File("database.txt");
+
     /**
      * create userDatabase after reading database file
      */
     public UserDatabase() {
         try {
             //if database.txt file does not exist
-            if(!databaseFile.exists()) {
+            if (!databaseFile.exists()) {
                 try {
                     // create new database file at database file path
                     databaseFile.createNewFile();
                     //write initial data in database
                     /**
-                    FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                    BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                    databaseWriter.flush();
-                    databaseWriter.close();
+                     FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+                     BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+                     databaseWriter.flush();
+                     databaseWriter.close();
                      **/
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -58,6 +59,7 @@ public class UserDatabase {
 
     /**
      * creates userdatabase with imported data
+     *
      * @param database imported database
      */
     public UserDatabase(HashMap<String, User> database) {
@@ -66,6 +68,7 @@ public class UserDatabase {
 
     /**
      * checks to see if a user exists in the database
+     *
      * @param user String username
      * @return boolean value whether user exists in database
      */
@@ -75,6 +78,7 @@ public class UserDatabase {
 
     /**
      * returns user of certain username
+     *
      * @param username username to search for
      * @return user with user data
      */
@@ -84,6 +88,7 @@ public class UserDatabase {
 
     /**
      * checks to see if a user exists in the database
+     *
      * @param user User object
      * @return boolean value whether user exists in database
      */
@@ -97,6 +102,7 @@ public class UserDatabase {
 
     /**
      * checks to see if login (user/pass) is valid
+     *
      * @param username user's username
      * @param password user's password
      * @return boolean value whether login was valid
@@ -115,13 +121,13 @@ public class UserDatabase {
 
     /**
      * checks to see if login (user) is valid
+     *
      * @param user user
      * @return boolean value whether login was valid
      */
     public boolean login(User user) throws NullPointerException {
         String username = user.getUsername();
         User tempUser = database.get(username);
-        System.out.println(username);
         if (database.get(username) == null) {
             throw new NullPointerException("This user does not exist");
         }
@@ -134,6 +140,7 @@ public class UserDatabase {
 
     /**
      * appends database to current user database
+     *
      * @param database database to be added
      */
     public void addDatabase(HashMap<String, User> database) {
@@ -142,6 +149,7 @@ public class UserDatabase {
 
     /**
      * checks if user database is empty
+     *
      * @return boolean whether or not userbase is empty
      */
     public boolean isEmpty() {
@@ -150,6 +158,7 @@ public class UserDatabase {
 
     /**
      * return database
+     *
      * @return database
      */
     public HashMap<String, User> getDatabase() {
@@ -158,6 +167,7 @@ public class UserDatabase {
 
     /**
      * removes user
+     *
      * @param user user to be removed
      * @return boolean whether or not the user was removed
      */
@@ -172,6 +182,7 @@ public class UserDatabase {
 
     /**
      * removes user
+     *
      * @param user user to be removed
      * @return boolean whether or not the user was removed
      */
@@ -187,6 +198,7 @@ public class UserDatabase {
 
     /**
      * adds user to database
+     *
      * @param user user
      */
     public void addUser(User user) {
@@ -205,4 +217,35 @@ public class UserDatabase {
             e.printStackTrace();
         }
     }
+
+    /**
+     * replaces old user data with new user data
+     *
+     * @param oldUser old user to delete
+     * @param newUser new user to replace with
+     * @return whether or not the user was able to be replaced
+     */
+
+    public boolean editUser(User oldUser, User newUser) {
+        try {
+            database.replace(oldUser.getUsername(), oldUser, newUser);
+            try {
+                // create file writer to write user to database
+                FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+                BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+                // iterate through user data and append to one line, using the User.toString method
+                for (Map.Entry<String, User> entry : database.entrySet()) {
+                    databaseWriter.write(entry.getValue().toString() + "\n");
+                }
+                databaseWriter.flush();
+                databaseWriter.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
 }
