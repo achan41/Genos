@@ -9,8 +9,11 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+<<<<<<< HEAD
 import model.Title;
 import model.User;
+=======
+>>>>>>> origin/master
 
 /**
  * Created by Allen on 10/2/2016.
