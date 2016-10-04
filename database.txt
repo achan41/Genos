@@ -1,1 +1,0 @@
-user/name/pass/Admin/StringProperty [value: Enter your email]/StringProperty [value: Enter your address]/StringProperty [value: Enter your number]
