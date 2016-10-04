@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import model.User;
 import model.UserDatabase;
 
 import java.io.IOException;
@@ -20,7 +21,29 @@ public class UserScreenController {
     @FXML private Label welcomeMessage;
     @FXML Button logoutButton;
     private Stage userScreenStage;
+    private User user;
     private UserDatabase database = new UserDatabase();
+
+    /**
+     * called automatically in order to populate accountTypeBox with account types
+     */
+    @FXML
+    private void initialize() {
+    }
+
+    /**
+     * sets user from login screen
+     * @param user user
+     */
+    public void setUser(User user) throws NullPointerException {
+        this.user = user;
+        try {
+            welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+    }
 
     /**
      * sets current stage of this display

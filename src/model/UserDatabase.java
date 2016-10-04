@@ -105,6 +105,25 @@ public class UserDatabase {
     }
 
     /**
+     * checks to see if login (user) is valid
+     * @param user user
+     * @return boolean value whether login was valid
+     */
+    public boolean login(User user) throws NullPointerException {
+        String username = user.getUsername();
+        User tempUser = database.get(username);
+        System.out.println(username);
+        if (database.get(username) == null) {
+            throw new NullPointerException("This user does not exist");
+        }
+        if (tempUser.getPassword().equals(user.getPassword())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * appends database to current user database
      * @param database database to be added
      */

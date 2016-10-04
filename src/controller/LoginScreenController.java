@@ -20,7 +20,7 @@ import java.io.IOException;
 public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Button cancelButton;
+    @FXML private Button cancelButton, loginButton;
     private UserDatabase database = new UserDatabase();
 
 
@@ -44,8 +44,11 @@ public class LoginScreenController {
     @FXML
     protected void handleLogin(ActionEvent event) throws IOException {
         if (isValidLogin()) {
-            Stage stage = (Stage) cancelButton.getScene().getWindow();
-            Parent root = FXMLLoader.load(getClass().getResource("../view/UserScreen.fxml"));
+            Stage stage = (Stage) loginButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            controller.setUser(new User(this.usernameField.getText(), this.passwordField.getText()));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -60,7 +63,8 @@ public class LoginScreenController {
     private boolean isValidLogin() {
         String message = "";
         try {
-            boolean validLogin = this.database.login(this.usernameField.getText(), this.passwordField.getText());
+            User user = new User(this.usernameField.getText(), this.passwordField.getText());
+            boolean validLogin = this.database.login(user);
             if (validLogin) {
                 return true;
             } else {
