@@ -21,7 +21,7 @@ import java.io.IOException;
 public class MainFXApplication extends Application {
 
     private Stage mainScreen;
-    private Scene registerScreen;
+    private Boolean profileMode = false;
     private User person;
 
     public Stage getStage() {
@@ -47,6 +47,10 @@ public class MainFXApplication extends Application {
     }
 
     public static void main(String[] args) {launch(args);
+    }
+
+    public void setProfileMode(Boolean mode) {
+        profileMode = mode;
     }
 
     public void setUser(User user) {
@@ -80,20 +84,23 @@ public class MainFXApplication extends Application {
 
             // Show the dialog and wait until the user closes it
             mainScreen.showAndWait();
-            try {
-                FXMLLoader loadr = new FXMLLoader();
-                loadr.setLocation(MainFXApplication.class.getResource("../view/EditProfile.fxml"));
-                BorderPane pane = loadr.load();
-                scene = new Scene(pane);
-                EditProfileController controller1 = loadr.getController();
-                controller1.setProfileStage(mainScreen);
-                controller1.setMainApp(this);
+            if(profileMode) {
+                try {
+                    FXMLLoader loadr = new FXMLLoader();
+                    loadr.setLocation(MainFXApplication.class.getResource("../view/EditProfile.fxml"));
+                    BorderPane pane = loadr.load();
+                    scene = new Scene(pane);
+                    EditProfileController controller1 = loadr.getController();
+                    controller1.setProfileStage(mainScreen);
+                    controller1.setMainApp(this);
 
-                mainScreen.setScene(scene);
-                mainScreen.show();
+                    profileMode = false;
+                    mainScreen.setScene(scene);
+                    mainScreen.show();
 
-            } catch (IOException e) {
-                e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (IOException e) {

@@ -51,6 +51,12 @@ public class EditProfileController {
             mainApp.getUser().getProfile().setAddress(profileAddress.getText());
             mainApp.getUser().getProfile().setNumber(profileContact.getText());
             mainApp.getUser().getProfile().setTitle(title.getValue());
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            Stage stage = profileStage;
+            alert.initOwner(stage);
+            alert.setTitle("Success!");
+            alert.setHeaderText("Successfully created profile.");
+            alert.showAndWait();
             profileStage.close();
         }
     }

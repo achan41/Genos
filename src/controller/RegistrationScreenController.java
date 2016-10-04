@@ -1,6 +1,6 @@
 package controller;
 
-import fxapp.MainFXApplication;
+import  fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -70,16 +70,10 @@ public class RegistrationScreenController {
             User insert = new User(registrationUsername.getText(), registrationName.getText(),
                     registrationPassword.getText(), accountTypeBox.getValue());
             database.addUser(insert);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            Stage stage = registrationStage;
-            alert.initOwner(stage);
-            alert.setTitle("Success!");
-            alert.setHeaderText("Successfully created account.");
-            alert.showAndWait();
             mainApp.setUser(insert);
+            mainApp.setProfileMode(true);
 
             registrationStage.close();
-
         }
     }
 
