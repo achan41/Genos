@@ -221,14 +221,15 @@ public class UserDatabase {
     /**
      * replaces old user data with new user data
      *
-     * @param oldUser old user to delete
+     * @param oldUsername old username to check database for
      * @param newUser new user to replace with
      * @return whether or not the user was able to be replaced
      */
 
-    public boolean editUser(User oldUser, User newUser) {
+    public boolean editUser(String oldUsername, User newUser) {
         try {
-            database.replace(oldUser.getUsername(), oldUser, newUser);
+            database.remove(oldUsername);
+            database.put(oldUsername, newUser);
             try {
                 // create file writer to write user to database
                 FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());

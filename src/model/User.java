@@ -51,7 +51,12 @@ public class User {
         this.username.set(user.getUsername());
         this.password.set(user.getPassword());
         this.name.set(user.getName());
-        this.userProfile.set(userProfile);
+        this.accountType.set(user.getAccountType());
+        if (userProfile == null) {
+            this.userProfile.set(new UserProfile(user.getName()));
+        } else {
+            this.userProfile.set(userProfile);
+        }
     }
 
     /**
@@ -128,8 +133,12 @@ public class User {
      */
     @Override
     public String toString() {
-        return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString()
-                + "/" + userProfile.get().toString();
+        if (userProfile != null) {
+            return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString()
+                    + "/" + userProfile.getValue().toString();
+        } else {
+            return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString();
+        }
     }
 
 }

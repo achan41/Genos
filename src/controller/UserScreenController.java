@@ -19,6 +19,7 @@ import java.io.IOException;
 public class UserScreenController {
     @FXML private Label welcomeMessage;
     @FXML Button logoutButton, editProfileButton;
+    @FXML Label emailLabel, addressLabel, contactLabel;
     private User user;
     private UserDatabase database = new UserDatabase();
 
@@ -36,7 +37,13 @@ public class UserScreenController {
     public void setUser(User user) throws NullPointerException {
         this.user = user;
         try {
-            welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
+            if (user.getUsername() != null || user.getUsername() != "") {
+                welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
+            }
+            emailLabel.setText("Email: " + user.getProfile().getEmail());
+            addressLabel.setText("Address: " + user.getProfile().getAddress());
+            contactLabel.setText("Contact: " + user.getProfile().getNumber());
+
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

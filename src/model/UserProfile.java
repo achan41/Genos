@@ -14,16 +14,16 @@ public class UserProfile {
 
     public UserProfile(String name) {
         this.setName(name);
-        this.setEmail("Enter your email");
-        this.setAddress("Enter your address");
-        this.setNumber("Enter your number");
+        this.setEmail("Edit your profile");
+        this.setAddress("Edit your profile");
+        this.setNumber("Edit your profile");
     }
 
     public UserProfile(String name, String email, String address, String number) {
-        this.setName(name);
-        this.setEmail(email);
-        this.setAddress(address);
-        this.setNumber(number);
+        this.name.set(name);
+        this.email.set(email);
+        this.address.set(address);
+        this.number.set(number);
     }
 
     /**
@@ -92,8 +92,9 @@ public class UserProfile {
      * returns strong concatenation of user profile
      * @return user data string
      */
+    @Override
     public String toString() {
-        return email + "/" + address + "/" + number;
+        return email.get() + "/" + address.get() + "/" + number.get();
     }
 }
 
