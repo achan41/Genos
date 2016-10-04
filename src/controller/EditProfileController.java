@@ -9,11 +9,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-<<<<<<< HEAD
 import model.Title;
 import model.User;
-=======
->>>>>>> origin/master
 
 /**
  * Created by Allen on 10/2/2016.
@@ -25,7 +22,6 @@ public class EditProfileController {
     @FXML TextField profileContact;
     @FXML ComboBox<Title> title;
     private Stage profileStage;
-    private User person;
     private MainFXApplication mainApp;
 
     /**
@@ -39,10 +35,6 @@ public class EditProfileController {
 
     public void setMainApp(MainFXApplication mainFXapp) {
         mainApp = mainFXapp;
-    }
-
-    public void setUser(User user) {
-        person = user;
     }
 
     /**

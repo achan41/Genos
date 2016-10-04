@@ -2,17 +2,12 @@ package fxapp;
 
 
 
-<<<<<<< HEAD
 import controller.*;
-=======
->>>>>>> origin/master
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -54,7 +49,6 @@ public class MainFXApplication extends Application {
     public static void main(String[] args) {launch(args);
     }
 
-<<<<<<< HEAD
     public void setUser(User user) {
         person = user;
     }
@@ -186,6 +180,4 @@ public class MainFXApplication extends Application {
             e.printStackTrace();
         }
     }
-=======
->>>>>>> origin/master
 }

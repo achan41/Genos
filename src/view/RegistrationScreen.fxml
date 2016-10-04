@@ -69,7 +69,7 @@
    <bottom>
       <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#handleCancelRegistration" text="Cancel">
+            <Button mnemonicParsing="false" onAction="#handleCancelRegistration" text="Cancel">
                <HBox.margin>
                   <Insets left="200.0" top="10.0" />
                </HBox.margin></Button>
