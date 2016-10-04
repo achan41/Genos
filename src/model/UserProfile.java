@@ -19,6 +19,13 @@ public class UserProfile {
         this.setNumber("Enter your number");
     }
 
+    public UserProfile(String name, String email, String address, String number) {
+        this.setName(name);
+        this.setEmail(email);
+        this.setAddress(address);
+        this.setNumber(number);
+    }
+
     /**
      * returns user's real name
      * @return user's name
