@@ -1,6 +1,5 @@
 package controller;
 
-import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +25,6 @@ public class RegistrationScreenController {
     @FXML ComboBox<AccountType> accountTypeBox;
     @FXML Button cancelButton;
     private UserDatabase database = new UserDatabase();
-    private Stage registrationStage;
 
     /**
      * called automatically in order to populate accountTypeBox with account types
@@ -36,12 +34,6 @@ public class RegistrationScreenController {
         ObservableList<AccountType> list = FXCollections.observableArrayList(AccountType.values());
         accountTypeBox.setItems(list);
     }
-
-    /**
-     * sets current stage of this display
-     * @param stage stage for this display
-     */
-    public void setRegistrationStage(Stage stage) {registrationStage = stage;}
 
     /**
      * closes window upon cancelling registration
@@ -101,7 +93,6 @@ public class RegistrationScreenController {
         } else {
             //send alert warning of registration error
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(registrationStage);
             alert.setTitle("Invalid Registration");
             alert.setHeaderText("Please check your registration");
             alert.setContentText(errorMessage);

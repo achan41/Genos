@@ -48,7 +48,7 @@ public class LoginScreenController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             Parent root = fxmlLoader.load();
             UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-            controller.setUser(new User(this.usernameField.getText(), this.passwordField.getText()));
+            controller.setUser(database.getUser(usernameField.getText()));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

@@ -74,6 +74,15 @@ public class UserDatabase {
     }
 
     /**
+     * returns user of certain username
+     * @param username username to search for
+     * @return user with user data
+     */
+    public User getUser(String username) {
+        return database.get(username);
+    }
+
+    /**
      * checks to see if a user exists in the database
      * @param user User object
      * @return boolean value whether user exists in database

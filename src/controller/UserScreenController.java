@@ -1,6 +1,5 @@
 package controller;
 
-import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,8 +18,7 @@ import java.io.IOException;
  */
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton;
-    private Stage userScreenStage;
+    @FXML Button logoutButton, editProfileButton;
     private User user;
     private UserDatabase database = new UserDatabase();
 
@@ -46,12 +44,6 @@ public class UserScreenController {
     }
 
     /**
-     * sets current stage of this display
-     * @param stage stage for this display
-     */
-    public void setUserScreenStage(Stage stage) {userScreenStage = stage;}
-
-    /**
      * handles logout request
      * @param event
      */
@@ -60,6 +52,19 @@ public class UserScreenController {
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
         Scene scene = new Scene(root, 400, 275);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * handles edit profile
+     * @param event
+     */
+    @FXML
+    protected void handleEditProfile(ActionEvent event) throws IOException {
+        Stage stage = (Stage) editProfileButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("../view/EditProfile.fxml"));
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
