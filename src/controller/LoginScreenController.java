@@ -1,5 +1,8 @@
 package controller;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.UserDatabase;
@@ -9,12 +12,15 @@ import model.User;
 import model.UserDatabase;
 import javafx.fxml.FXML;
 
+import java.io.IOException;
+
 /**
  * Created by Taiga on 10/1/2016.
  */
 public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
+    @FXML private Button cancelButton;
     private Stage loginStage;
     private MainFXApplication mainApp;
     private UserDatabase database = new UserDatabase();
@@ -31,8 +37,12 @@ public class LoginScreenController {
      * @param event
      */
     @FXML
-    protected void handleCancelLogin(ActionEvent event) {
-        loginStage.close();
+    protected void handleCancelLogin(ActionEvent event) throws IOException {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
+        Scene scene = new Scene(root, 400, 275);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
