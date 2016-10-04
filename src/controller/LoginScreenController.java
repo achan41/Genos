@@ -21,7 +21,6 @@ public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button cancelButton;
-    private MainFXApplication mainApp;
     private UserDatabase database = new UserDatabase();
 
 
@@ -43,7 +42,13 @@ public class LoginScreenController {
      * @param event
      */
     @FXML
+    protected void handleLogin(ActionEvent event) throws IOException {
         if (isValidLogin()) {
+            Stage stage = (Stage) cancelButton.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("../view/UserScreen.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
@@ -64,6 +69,7 @@ public class LoginScreenController {
                 this.passwordField.clear();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Login Error");
+                alert.initOwner(cancelButton.getScene().getWindow());
                 alert.setContentText(message);
                 alert.showAndWait();
             }
@@ -75,6 +81,7 @@ public class LoginScreenController {
             this.passwordField.clear();
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Login Error");
+            alert.initOwner(cancelButton.getScene().getWindow());
             alert.setContentText(message);
             alert.showAndWait();
         }

@@ -26,7 +26,6 @@ public class RegistrationScreenController {
     @FXML ComboBox<AccountType> accountTypeBox;
     @FXML Button cancelButton;
     private UserDatabase database = new UserDatabase();
-    private MainFXApplication mainApp;
     private Stage registrationStage;
 
     /**
@@ -61,11 +60,11 @@ public class RegistrationScreenController {
      * @param event when the button is clicked
      */
     @FXML
-    protected void handleRegistration(ActionEvent event) {
+    protected void handleRegistration(ActionEvent event) throws IOException {
         if (isValidUser()) {
             database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
                     registrationPassword.getText(), accountTypeBox.getValue()));
-            registrationStage.close();
+            handleCancelRegistration(event);
         }
     }
 
