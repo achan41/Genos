@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Title;
 import model.User;
+import model.UserDatabase;
 
 /**
  * Created by Allen on 10/2/2016.
@@ -23,6 +24,7 @@ public class EditProfileController {
     @FXML ComboBox<Title> title;
     private Stage profileStage;
     private MainFXApplication mainApp;
+    private UserDatabase database = new UserDatabase();
 
     /**
      * called automatically in order to populate accountTypeBox with account types
@@ -33,8 +35,13 @@ public class EditProfileController {
         title.setItems(list);
     }
 
-    public void setMainApp(MainFXApplication mainFXapp) {
-        mainApp = mainFXapp;
+    /**
+     * setup the main fx application link
+     *
+     * @param mainFXApplication a link to the MainFXApplication
+     */
+    public void setMainApp(MainFXApplication mainFXApplication) {
+        mainApp = mainFXApplication;
     }
 
     /**
@@ -46,12 +53,15 @@ public class EditProfileController {
     @FXML
     private void handleSubmit(ActionEvent event) {
         if (isValidProfile()) {
+            User person1 = mainApp.getUser();
             mainApp.getUser().getProfile().setName(profileName.getText());
             mainApp.getUser().getProfile().setEmail(profileEmail.getText());
             mainApp.getUser().getProfile().setAddress(profileAddress.getText());
             mainApp.getUser().getProfile().setNumber(profileContact.getText());
             mainApp.getUser().getProfile().setTitle(title.getValue());
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            User person = mainApp.getUser();
+            database.editUser(person1.getName(), person);
             Stage stage = profileStage;
             alert.initOwner(stage);
             alert.setTitle("Success!");

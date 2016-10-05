@@ -41,8 +41,13 @@ public class RegistrationScreenController {
         accountTypeBox.setItems(list);
     }
 
-    public void setMainApp(MainFXApplication mainFXapp) {
-        mainApp = mainFXapp;
+    /**
+     * setup the main fx application link
+     *
+     * @param mainFXApplication a link to the MainFXApplication
+     */
+    public void setMainApp(MainFXApplication mainFXApplication) {
+        mainApp = mainFXApplication;
     }
 
     /**

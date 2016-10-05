@@ -27,6 +27,15 @@ public class LoginScreenController {
     public void setLoginStage(Stage stage) {loginStage = stage;}
 
     /**
+     * setup the main fx application link
+     *
+     * @param mainFXApplication a link to the MainFXApplication
+     */
+    public void setMainApp(MainFXApplication mainFXApplication) {
+        mainApp = mainFXApplication;
+    }
+
+    /**
      * closes window upon cancelling registration
      * @param event
      */
@@ -42,7 +51,7 @@ public class LoginScreenController {
     @FXML
     protected void handleLogin(ActionEvent event) {
         if (isValidLogin()) {
-            mainApp = new MainFXApplication();
+            mainApp.setUser(database.getUser(usernameField.getText()));
             mainApp.showUserScreen();
             loginStage.close();
         }

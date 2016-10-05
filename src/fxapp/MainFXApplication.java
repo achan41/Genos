@@ -128,6 +128,7 @@ public class MainFXApplication extends Application {
 
             EditProfileController controller = loader.getController();
             controller.setProfileStage(mainScreen);
+            controller.setMainApp(this);
 
             mainScreen.showAndWait();
 
@@ -156,6 +157,7 @@ public class MainFXApplication extends Application {
             //links loginscreencontroller to login screen stage
             LoginScreenController controller = loader.getController();
             controller.setLoginStage(mainScreen);
+            controller.setMainApp(this);
 
             mainScreen.showAndWait();
 
@@ -181,6 +183,8 @@ public class MainFXApplication extends Application {
 
             UserScreenController controller = loader.getController();
             controller.setUserScreenStage(mainScreen);
+            controller.setUser(person);
+            controller.setMainApp(this);
 
             mainScreen.showAndWait();
         } catch (IOException e) {
