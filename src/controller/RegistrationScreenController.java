@@ -12,7 +12,6 @@ import model.User;
 import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-
 import java.io.IOException;
 
 /**

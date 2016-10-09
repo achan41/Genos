@@ -228,7 +228,8 @@ public class UserDatabase {
 
     public boolean editUser(User oldUser, User newUser) {
         try {
-            database.replace(oldUser.getUsername(), oldUser, newUser);
+            database.remove(oldUser);
+            database.put(oldUser.getUsername(), newUser);
             try {
                 // create file writer to write user to database
                 FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());

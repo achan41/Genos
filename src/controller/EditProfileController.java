@@ -67,7 +67,7 @@ public class EditProfileController {
     private boolean isValidProfileEdit() {
         String message = "";
         try {
-            user = new User(profileName.getText(), profileName.getText(), user.getPassword(), user.getAccountType());
+            user = new User(user.getUsername(), profileName.getText(), user.getPassword(), user.getAccountType());
             userProfile = new UserProfile(profileName.getText(), profileEmail.getText(), profileAddress.getText(),
                     profileContact.getText());
             if (database.editUser(user, new User(user, userProfile))) {
