@@ -51,6 +51,7 @@ public class User {
         this.username.set(user.getUsername());
         this.password.set(user.getPassword());
         this.name.set(user.getName());
+        this.accountType.set(user.getAccountType());
         if (userProfile == null) {
             this.userProfile.set(new UserProfile(user.getName()));
         } else {

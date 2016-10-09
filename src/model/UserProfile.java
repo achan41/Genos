@@ -20,10 +20,10 @@ public class UserProfile {
     }
 
     public UserProfile(String name, String email, String address, String number) {
-        this.setName(name);
-        this.setEmail(email);
-        this.setAddress(address);
-        this.setNumber(number);
+        this.name.set(name);
+        this.email.set(email);
+        this.address.set(address);
+        this.number.set(number);
     }
 
     /**
