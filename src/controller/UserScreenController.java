@@ -23,9 +23,6 @@ public class UserScreenController {
     private User user;
     private UserDatabase database = new UserDatabase();
 
-    /**
-     * called automatically in order to populate accountTypeBox with account types
-     */
     @FXML
     private void initialize() {
     }

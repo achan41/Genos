@@ -60,6 +60,12 @@ public class UserProfile {
     public String getNumber() { return number.get(); }
 
     /**
+     * returns the user's title
+     * @return user's title
+     */
+    public Title getTitle() { return title.get();}
+
+    /**
      * sets user profile's name to the name
      * @param name User's name
      */
@@ -93,11 +99,9 @@ public class UserProfile {
 
     /**
      * sets title of user
-     * @param head user's title
+     * @param title user's title
      */
-    public void setTitle(Title head) {
-        title.set(head);
-    }
+    public void setTitle(Title title) {this.title.set(title);}
 
     /**
      * returns strong concatenation of user profile
