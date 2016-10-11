@@ -76,7 +76,7 @@ public class EditProfileController {
         String email = profileEmail.getText();
         String addr = profileAddress.getText();
         String contact = profileContact.getText();
-        Title title = profileTitle
+        Title title = profileTitle.getValue();
         if (name == null || name.length() == 0 || name.contains("/")) {
             errorMessage += "Please enter a valid name!\n";
         }
