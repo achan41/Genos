@@ -59,7 +59,7 @@
                <GridPane.margin>
                   <Insets right="40.0" />
                </GridPane.margin></TextField>
-            <ComboBox fx:id="title" prefWidth="150.0" promptText="Choose One" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <ComboBox fx:id="profileTitle" prefWidth="150.0" promptText="Choose One" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Label text="Title:" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets right="10.0" />
