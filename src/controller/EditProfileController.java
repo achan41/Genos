@@ -26,6 +26,7 @@ public class EditProfileController {
     @FXML TextField profileContact;
     @FXML ComboBox<Title> profileTitle;
     @FXML Button profileSubmit;
+    @FXML Button profileCancel;
     private User user;
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
@@ -64,6 +65,18 @@ public class EditProfileController {
             stage.setScene(scene);
             stage.show();
         }
+    }
+
+    @FXML
+    protected void handleCancel(ActionEvent event) throws java.io.IOException {
+        Stage stage = (Stage) profileCancel.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+        controller.setUser(user);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
     /**
