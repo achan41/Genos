@@ -1,18 +1,21 @@
 package controller;
 
-import fxapp.MainFXApplication;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.Title;
 import model.User;
 import model.UserDatabase;
-
+import model.UserProfile;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.control.ComboBox;
+import model.Title;
 /**
  * Created by Allen on 10/2/2016.
  */
@@ -22,12 +25,13 @@ public class EditProfileController {
     @FXML TextField profileEmail;
     @FXML TextField profileContact;
     @FXML ComboBox<Title> title;
-    private Stage profileStage;
-    private MainFXApplication mainApp;
+    @FXML Button profileSubmit;
+    private User user;
+    private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
 
     /**
-     * called automatically in order to populate accountTypeBox with account types
+     * called automatically in order to populate the titleBox with Titles
      */
     @FXML
     private void initialize() {
@@ -36,52 +40,41 @@ public class EditProfileController {
     }
 
     /**
-     * setup the main fx application link
-     *
-     * @param mainFXApplication a link to the MainFXApplication
+     * sets user from login screen
+     * @param user user
      */
-    public void setMainApp(MainFXApplication mainFXApplication) {
-        mainApp = mainFXApplication;
+    public void setUser(User user) throws NullPointerException {
+        this.user = user;
+        try {
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
     }
 
-    /**
-     * * sets current stage of this display
-     * @param stage stage for this display
-     */
-    public void setProfileStage(Stage stage) { profileStage = stage; }
-
     @FXML
-    private void handleSubmit(ActionEvent event) {
-        if (isValidProfile()) {
-            User person1 = mainApp.getUser();
-            mainApp.getUser().getProfile().setName(profileName.getText());
-            mainApp.getUser().getProfile().setEmail(profileEmail.getText());
-            mainApp.getUser().getProfile().setAddress(profileAddress.getText());
-            mainApp.getUser().getProfile().setNumber(profileContact.getText());
-            mainApp.getUser().getProfile().setTitle(title.getValue());
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            User person = mainApp.getUser();
-            database.editUser(person1.getName(), person);
-            Stage stage = profileStage;
-            alert.initOwner(stage);
-            alert.setTitle("Success!");
-            alert.setHeaderText("Successfully created profile.");
-            alert.showAndWait();
-            profileStage.close();
+    protected void handleSubmit(ActionEvent event) throws java.io.IOException {
+        if (isValidProfileEdit()) {
+            Stage stage = (Stage) profileSubmit.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            controller.setUser(new User(user, userProfile));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
     /**
-     * Checks if profile is valid
-     * @return true if valid profile
+     * checks if valid ediit profile changes
+     * @return true if valid profile edit
      */
-    @FXML
-    private boolean isValidProfile() {
+    private boolean isValidProfileEdit() {
         String errorMessage = "";
-        //get text from registration form
         String name = profileName.getText();
         String email = profileEmail.getText();
-        String address = profileAddress.getText();
+        String addr = profileAddress.getText();
         String contact = profileContact.getText();
         if (name == null || name.length() == 0 || name.contains("/")) {
             errorMessage += "Please enter a valid name!\n";
@@ -89,7 +82,7 @@ public class EditProfileController {
         if (email == null || email.length() == 0 || email.contains("/") || !email.contains("@")) {
             errorMessage += "Please enter a valid email!\n";
         }
-        if (address == null || address.length() == 0 || address.contains("/")) {
+        if (addr == null || addr.length() == 0 || addr.contains("/")) {
             errorMessage += "Please enter a valid address!\n";
         }
         if (contact == null || contact.length() == 0 || contact.contains("/")) {
@@ -98,17 +91,40 @@ public class EditProfileController {
         if (title.getValue() == null) {
             errorMessage += "You have selected an invalid title.\n";
         }
-        if (errorMessage.length() == 0) {
-            return true;
-        } else {
-            //send alert warning of registration error
+        if (errorMessage.length() > 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(profileStage);
-            alert.setTitle("Invalid Profile");
-            alert.setHeaderText("Please check your profile information!");
+            alert.setTitle("Invalid Profile Change");
+            alert.initOwner(profileName.getScene().getWindow());
             alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;
         }
+        try {
+            userProfile = new UserProfile(name, email, addr, contact);
+            User newUser = new User(user, userProfile);
+            if (database.editUser(user.getUsername(), newUser)) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Edit Profile Success");
+                alert.initOwner(profileName.getScene().getWindow());
+                alert.setContentText("The user profile has been updated successfully.");
+                alert.showAndWait();
+                return true;
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Edit Profile Error");
+                alert.initOwner(profileName.getScene().getWindow());
+                alert.setContentText("The user profile could not be edited.");
+                alert.showAndWait();
+            }
+        }
+        catch (NullPointerException e) {
+            // creates alert window notifying of user not existing in database
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Profile Change");
+            alert.initOwner(profileName.getScene().getWindow());
+            alert.setContentText("You have left some fields blank.");
+            alert.showAndWait();
+        }
+        return false;
     }
 }

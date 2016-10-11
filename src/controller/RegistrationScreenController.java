@@ -1,23 +1,17 @@
 package controller;
 
-import  fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.AccountType;
 import model.User;
 import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-
 import java.io.IOException;
 
 /**
@@ -28,9 +22,8 @@ public class RegistrationScreenController {
     @FXML TextField registrationUsername;
     @FXML PasswordField registrationPassword;
     @FXML ComboBox<AccountType> accountTypeBox;
+    @FXML Button cancelButton;
     private UserDatabase database = new UserDatabase();
-    private MainFXApplication mainApp;
-    private Stage registrationStage;
 
     /**
      * called automatically in order to populate accountTypeBox with account types
@@ -42,27 +35,15 @@ public class RegistrationScreenController {
     }
 
     /**
-     * setup the main fx application link
-     *
-     * @param mainFXApplication a link to the MainFXApplication
-     */
-    public void setMainApp(MainFXApplication mainFXApplication) {
-        mainApp = mainFXApplication;
-    }
-
-    /**
-     * sets current stage of this display
-     * @param stage stage for this display
-     */
-    public void setRegistrationStage(Stage stage) { registrationStage = stage;}
-
-    /**
      * closes window upon cancelling registration
      * @param event
      */
     @FXML
-    protected void handleCancelRegistration(ActionEvent event) {
-        registrationStage.close();
+    protected void handleCancelRegistration(ActionEvent event) throws IOException {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
+        stage.setScene(new Scene(root, 400, 275));
+        stage.show();
     }
 
     /**
@@ -70,15 +51,11 @@ public class RegistrationScreenController {
      * @param event when the button is clicked
      */
     @FXML
-    protected void handleRegistration(ActionEvent event) {
+    protected void handleRegistration(ActionEvent event) throws IOException {
         if (isValidUser()) {
-            User insert = new User(registrationUsername.getText(), registrationName.getText(),
-                    registrationPassword.getText(), accountTypeBox.getValue());
-            database.addUser(insert);
-            mainApp.setUser(insert);
-            mainApp.setProfileMode(true);
-
-            registrationStage.close();
+            database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
+                    registrationPassword.getText(), accountTypeBox.getValue()));
+            handleCancelRegistration(event);
         }
     }
 
@@ -115,7 +92,6 @@ public class RegistrationScreenController {
         } else {
             //send alert warning of registration error
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.initOwner(registrationStage);
             alert.setTitle("Invalid Registration");
             alert.setHeaderText("Please check your registration");
             alert.setContentText(errorMessage);
