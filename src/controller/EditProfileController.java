@@ -24,7 +24,7 @@ public class EditProfileController {
     @FXML TextField profileAddress;
     @FXML TextField profileEmail;
     @FXML TextField profileContact;
-    @FXML ComboBox<Title> title;
+    @FXML ComboBox<Title> profileTitle;
     @FXML Button profileSubmit;
     private User user;
     private UserProfile userProfile;
@@ -36,7 +36,7 @@ public class EditProfileController {
     @FXML
     private void initialize() {
         ObservableList<Title> list = FXCollections.observableArrayList(Title.values());
-        title.setItems(list);
+        profileTitle.setItems(list);
     }
 
     /**
@@ -76,6 +76,7 @@ public class EditProfileController {
         String email = profileEmail.getText();
         String addr = profileAddress.getText();
         String contact = profileContact.getText();
+        Title title = profileTitle
         if (name == null || name.length() == 0 || name.contains("/")) {
             errorMessage += "Please enter a valid name!\n";
         }
@@ -88,12 +89,13 @@ public class EditProfileController {
         if (contact == null || contact.length() == 0 || contact.contains("/")) {
             errorMessage += "Please enter a valid contact number!\n";
         }
-        if (title.getValue() == null) {
+        if (profileTitle.getValue() == null) {
             errorMessage += "You have selected an invalid title.\n";
         }
         if (errorMessage.length() > 0) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Profile Change");
+            alert.setHeaderText("Please check your profile information!");
             alert.initOwner(profileName.getScene().getWindow());
             alert.setContentText(errorMessage);
             alert.showAndWait();
@@ -113,7 +115,7 @@ public class EditProfileController {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Edit Profile Error");
                 alert.initOwner(profileName.getScene().getWindow());
-                alert.setContentText("The user profile could not be edited.");
+                alert.setContentText("The user profile could not be saved to database.");
                 alert.showAndWait();
             }
         }
