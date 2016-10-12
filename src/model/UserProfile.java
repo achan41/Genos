@@ -29,6 +29,14 @@ public class UserProfile {
         this.number.set(number);
     }
 
+    /**
+     * user profile constructor with all the data
+     * @param name user's name in profile
+     * @param email user's email in profile
+     * @param address user's address in profile
+     * @param number user's phone number in profile
+     * @param title user's title
+     */
     public UserProfile(String name, String email, String address, String number, Title title) {
         this.name.set(name);
         this.email.set(email);

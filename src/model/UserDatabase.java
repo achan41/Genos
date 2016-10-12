@@ -27,14 +27,8 @@ public class UserDatabase {
                     // create new database file at database file path
                     databaseFile.createNewFile();
                     //write initial data in database
-                    /**
-                     FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                     BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                     databaseWriter.flush();
-                     databaseWriter.close();
-                     **/
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new IOException(e);
                 }
             }
             // read database file to userdatabase

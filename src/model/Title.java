@@ -4,10 +4,10 @@ package model;
  * Created by Allen on 10/3/2016.
  */
 public enum Title {
-    Mister ("Mister", "Mr."),
-    Missus ("Missus", "Mrs."),
-    Miss ("Miss", "Ms."),
-    Doctor ("Doctor","Dr.");
+    Mr ("Mister", "Mr."),
+    Mrs ("Missus", "Mrs."),
+    Ms ("Miss", "Ms."),
+    Dr ("Doctor","Dr.");
 
     private final String name;
     private final String charRep;
