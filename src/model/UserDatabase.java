@@ -207,7 +207,6 @@ public class UserDatabase {
             for (Map.Entry<String, User> entry : database.entrySet()) {
                 databaseWriter.write(entry.getValue().toString() + "\n");
             }
-            databaseWriter.flush();
             databaseWriter.close();
         } catch (Exception e) {
             e.printStackTrace();
@@ -234,7 +233,6 @@ public class UserDatabase {
                 for (Map.Entry<String, User> entry : database.entrySet()) {
                     databaseWriter.write(entry.getValue().toString() + "\n");
                 }
-                databaseWriter.flush();
                 databaseWriter.close();
             } catch (Exception e) {
                 e.printStackTrace();
