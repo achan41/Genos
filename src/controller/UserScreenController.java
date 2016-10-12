@@ -34,7 +34,12 @@ public class UserScreenController {
     public void setUser(User user) throws NullPointerException {
         this.user = user;
         try {
-            if (user.getUsername() != null || user.getUsername() != "") {
+            if (user.getName() != null && user.getProfile().getTitle() != null) {
+                welcomeMessage.setText("Welcome, " + user.getProfile().getTitle().toString()
+                        + " " + user.getUsername() + "!");
+            } else if (user.getName() != null) {
+                welcomeMessage.setText("Welcome, " + user.getName() + "!");
+            } else if (user.getUsername() != null) {
                 welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
             }
             emailLabel.setText("Email: " + user.getProfile().getEmail());

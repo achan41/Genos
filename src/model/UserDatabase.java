@@ -47,8 +47,10 @@ public class UserDatabase {
                 String[] userData = databaseLine.split("/");
                 // create user based on data from line
                 User tempUser = new User(userData[0], userData[1], userData[2], AccountType.valueOf(userData[3]));
+                UserProfile profile = new UserProfile(userData[2], userData[4], userData[5], userData[6]);
+                User newUser = new User(tempUser, profile);
                 // add user to database
-                database.put(tempUser.getUsername(), tempUser);
+                database.put(tempUser.getUsername(), newUser);
             }
             bufferReader.close();
             // catch possible IOException or NullPointerException

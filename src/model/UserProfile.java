@@ -29,6 +29,14 @@ public class UserProfile {
         this.number.set(number);
     }
 
+    public UserProfile(String name, String email, String address, String number, Title title) {
+        this.name.set(name);
+        this.email.set(email);
+        this.address.set(address);
+        this.number.set(number);
+        this.title.set(title);
+    }
+
     /**
      * returns user's real name
      * @return user's name

@@ -1,2 +1,1 @@
-johnson/John/johnjohn/Worker/Edit your profile/Edit your profile/Edit your profile
-user/name/pass/Admin/Johnson@john.cpm/iorj23r/4040
+user/name/pass/Manager/Johnson@john.com/1234 John Drive/404
