@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.util.HashMap;
 
 /**
  * Created by Taiga on 9/21/2016.
@@ -15,7 +16,7 @@ public class User {
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
     private final ObjectProperty<AccountType> accountType = new SimpleObjectProperty<>();
-    private UserProfile profile;
+    private final ObjectProperty<UserProfile> userProfile = new SimpleObjectProperty<>();
 
     /**
      * creates User with 2 parameters
@@ -37,8 +38,25 @@ public class User {
         this.username.set(username);
         this.password.set(password);
         this.name.set(name);
-        this.profile = new UserProfile(name);
+        this.userProfile.set(new UserProfile(name));
         this.accountType.set(accountType);
+    }
+
+    /**
+     * creates user using a User class and userProfile
+     * @param user user
+     * @param userProfile user profile
+     */
+    public User(User user, UserProfile userProfile) {
+        this.username.set(user.getUsername());
+        this.password.set(user.getPassword());
+        this.name.set(user.getName());
+        this.accountType.set(user.getAccountType());
+        if (userProfile == null) {
+            this.userProfile.set(new UserProfile(user.getName()));
+        } else {
+            this.userProfile.set(userProfile);
+        }
     }
 
     /**
@@ -75,7 +93,7 @@ public class User {
      * returns profile of user
      * @return UserProfile profile
      */
-    public UserProfile getProfile() { return profile; }
+    public UserProfile getProfile() { return userProfile.get(); }
 
     /**
      * sets user's name to be new name
@@ -115,7 +133,12 @@ public class User {
      */
     @Override
     public String toString() {
-        return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString() + "/" + profile.getEmail() + "/" + profile.getAddress() + "/" + profile.getNumber();
+        if (userProfile != null) {
+            return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString()
+                    + "/" + userProfile.getValue().toString();
+        } else {
+            return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString();
+        }
     }
 
 }

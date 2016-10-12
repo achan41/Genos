@@ -4,23 +4,18 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
-        <Label alignment="CENTER" layoutX="155.0" layoutY="177.0" style="&#10;" text="Drag components from Library here…" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
-          <font>
-            <Font size="18.0" />
-          </font>
-        </Label>
-            <Button layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
+            <Button fx:id="logoutButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
             <Label fx:id="welcomeMessage" layoutX="27.0" layoutY="14.0" text="Welcome" />
             <Button fx:id="editProfileButton" layoutX="519.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleEditProfile" text="Edit Profile" />
             <Label fx:id="emailLabel" layoutX="63.0" layoutY="62.0" text="Email" />
             <Label fx:id="addressLabel" layoutX="56.0" layoutY="109.0" text="Address" />
             <Label fx:id="contactLabel" layoutX="57.0" layoutY="152.0" text="Contact" />
+          <Button layoutX="96.0" layoutY="336.0" mnemonicParsing="false" text="Submit a Report" />
       </children>
     </AnchorPane>
   </children>
