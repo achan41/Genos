@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton, editProfileButton;
+    @FXML Button logoutButton, editProfileButton, submitReportButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
     private User user;
     private UserDatabase database = new UserDatabase();
@@ -76,4 +76,17 @@ public class UserScreenController {
         stage.show();
     }
 
+    /**
+     * handles submit a report
+     * @param event
+     */
+    @FXML
+    protected void handleSubmitReport(ActionEvent event) throws IOException {
+        Stage stage = (Stage) submitReportButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }
