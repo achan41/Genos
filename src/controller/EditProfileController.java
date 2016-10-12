@@ -113,33 +113,35 @@ public class EditProfileController {
             alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;
-        }
-        try {
-            userProfile = new UserProfile(name, email, addr, contact);
-            User newUser = new User(user, userProfile);
-            if (database.editUser(user.getUsername(), newUser)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Edit Profile Success");
-                alert.initOwner(profileName.getScene().getWindow());
-                alert.setContentText("The user profile has been updated successfully.");
-                alert.showAndWait();
-                return true;
-            } else {
+        } else {
+            try {
+                userProfile = new UserProfile(name, email, addr, contact);
+                User newUser = new User(user, userProfile);
+                if (database.editUser(user.getUsername(), newUser)) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Edit Profile Success");
+                    alert.initOwner(profileName.getScene().getWindow());
+                    alert.setContentText("The user profile has been updated successfully.");
+                    alert.showAndWait();
+                    return true;
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Edit Profile Error");
+                    alert.initOwner(profileName.getScene().getWindow());
+                    alert.setContentText("The user profile could not be saved to database.");
+                    alert.showAndWait();
+                    return false;
+                }
+            } catch (NullPointerException e) {
+                // creates alert window notifying of user not existing in database
                 Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Edit Profile Error");
+                alert.setTitle("Invalid Profile Change");
                 alert.initOwner(profileName.getScene().getWindow());
-                alert.setContentText("The user profile could not be saved to database.");
+                alert.setContentText("You have left some fields blank.");
                 alert.showAndWait();
+                return false;
             }
         }
-        catch (NullPointerException e) {
-            // creates alert window notifying of user not existing in database
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Profile Change");
-            alert.initOwner(profileName.getScene().getWindow());
-            alert.setContentText("You have left some fields blank.");
-            alert.showAndWait();
-        }
-        return false;
+
     }
 }
