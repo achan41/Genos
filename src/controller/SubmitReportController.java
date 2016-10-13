@@ -21,7 +21,8 @@ import model.WaterType;
 public class SubmitReportController {
     @FXML ComboBox<WaterType> waterTypeComboBox;
     @FXML ComboBox<WaterCondition> waterConditionComboBox;
-    // @FXML TextField location;
+    @FXML TextField location;
+    @FXML TextField time;
     @FXML Button cancelButton;
     private User user;
 
@@ -33,7 +34,6 @@ public class SubmitReportController {
     private void initialize() {
         ObservableList<WaterType> typeList = FXCollections.observableArrayList(WaterType.values());
         waterTypeComboBox.setItems(typeList);
-
         ObservableList<WaterCondition> conditionList = FXCollections.observableArrayList(WaterCondition.values());
         waterConditionComboBox.setItems(conditionList);
     }
@@ -44,10 +44,6 @@ public class SubmitReportController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
-        try {
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -59,7 +55,6 @@ public class SubmitReportController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
-
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

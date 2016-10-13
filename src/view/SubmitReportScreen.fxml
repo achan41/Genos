@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SubmitReportController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SubmitReportController">
    <children>
       <Text layoutX="211.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Water Source Report" textAlignment="CENTER">
          <font>
@@ -16,18 +16,16 @@
          </font>
       </Text>
       <Text layoutX="57.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" />
-      <DatePicker layoutX="203.0" layoutY="67.0" />
+      <DatePicker fx:id="date" layoutX="203.0" layoutY="67.0" promptText="Choose a Date" />
       <Text layoutX="56.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time :" />
-      <TextField layoutX="203.0" layoutY="103.0" promptText="enter time" />
-      <Text layoutX="56.0" layoutY="158.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reporter Name :" />
-      <TextField layoutX="203.0" layoutY="140.0" promptText="enter name" />
-      <Text layoutX="56.0" layoutY="196.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location of Water :" />
-      <TextField layoutX="203.0" layoutY="178.0" promptText="enter location" />
-      <Text layoutX="56.0" layoutY="235.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of Water :" />
-      <ComboBox fx:id="waterTypeComboBox" layoutX="203.0" layoutY="217.0" prefWidth="150.0" promptText="choose a type" />
-      <Text layoutX="57.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Condition of Water :" />
-      <ComboBox fx:id="waterConditionComboBox" layoutX="203.0" layoutY="254.0" prefWidth="150.0" promptText="choose one" />
-      <Button layoutX="56.0" layoutY="322.0" mnemonicParsing="false" text="Submit" />
-      <Button fx:id="cancelButton" layoutX="482.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+      <TextField fx:id="time" layoutX="203.0" layoutY="103.0" promptText="Enter Time" />
+      <Text layoutX="55.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location of Water :" />
+      <TextField fx:id="location" layoutX="203.0" layoutY="137.0" promptText="Choose Location" />
+      <Text layoutX="55.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of Water :" />
+      <ComboBox fx:id="waterTypeComboBox" layoutX="202.0" layoutY="175.0" prefWidth="150.0" promptText="choose a type" />
+      <Text layoutX="56.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Condition of Water :" />
+      <ComboBox fx:id="waterConditionComboBox" layoutX="202.0" layoutY="212.0" prefWidth="150.0" promptText="choose one" />
+      <Button fx:id="cancelButton" layoutX="56.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+      <Button fx:id="submitButton" layoutX="482.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSubmit" text="Submit" />
    </children>
 </Pane>

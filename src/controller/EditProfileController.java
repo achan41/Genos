@@ -46,10 +46,6 @@ public class EditProfileController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
-        try {
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
 
     }
 
