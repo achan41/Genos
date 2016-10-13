@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -21,8 +22,8 @@ import model.WaterType;
 public class SubmitReportController {
     @FXML ComboBox<WaterType> waterTypeComboBox;
     @FXML ComboBox<WaterCondition> waterConditionComboBox;
-    @FXML TextField location;
-    @FXML TextField time;
+    @FXML TextField reportLocation;
+    @FXML TextField reportTime;
     @FXML Button cancelButton;
     private User user;
 
@@ -58,5 +59,55 @@ public class SubmitReportController {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    /**
+     * reads user water report input, adds report to report list
+     * @param event when the button is pressed
+     * @throws java.io.IOException unable to access database
+     */
+    @FXML
+    protected void handleSubmit(ActionEvent event) throws java.io.IOException {
+        if (isValidSubmit()) {
+
+            handleCancel(event);
+        }
+    }
+
+    /**
+     * checks if water report is valid
+     * @return true if valid water report submit
+     */
+    @FXML
+    private boolean isValidSubmit() {
+        String errorMessage = "";
+        //get text from registration form
+        String time = reportTime.getText();
+        String location = reportLocation.getText();
+        WaterCondition condition = waterConditionComboBox.getValue();
+        WaterType type = waterTypeComboBox.getValue();
+        if (time == null || time.length() == 0 || time.contains("/")) {
+            errorMessage += "Please enter a valid time!\n";
+        }
+        if (location == null || location.length() == 0 || location.contains("/")) {
+            errorMessage += "Please enter a valid location!\n";
+        }
+        if (waterConditionComboBox.getValue() == null) {
+            errorMessage += "Please enter a water condition!\n";
+        }
+        if (waterTypeComboBox.getValue() == null) {
+            errorMessage += "Please select a water type.\n";
+        }
+        if (errorMessage.length() == 0) {
+            return true;
+        } else {
+            //send alert warning of registration error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Water Report Submission");
+            alert.setHeaderText("Please check your water report");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            return false;
+        }
     }
 }

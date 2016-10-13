@@ -18,9 +18,9 @@
       <Text layoutX="57.0" layoutY="85.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date :" />
       <DatePicker fx:id="date" layoutX="203.0" layoutY="67.0" promptText="Choose a Date" />
       <Text layoutX="56.0" layoutY="121.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time :" />
-      <TextField fx:id="time" layoutX="203.0" layoutY="103.0" promptText="Enter Time" />
+      <TextField fx:id="reportTime" layoutX="203.0" layoutY="103.0" promptText="Enter Time" />
       <Text layoutX="55.0" layoutY="154.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Location of Water :" />
-      <TextField fx:id="location" layoutX="203.0" layoutY="137.0" promptText="Choose Location" />
+      <TextField fx:id="reportLocation" layoutX="203.0" layoutY="137.0" promptText="Choose Location" />
       <Text layoutX="55.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Type of Water :" />
       <ComboBox fx:id="waterTypeComboBox" layoutX="202.0" layoutY="175.0" prefWidth="150.0" promptText="choose a type" />
       <Text layoutX="56.0" layoutY="230.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Condition of Water :" />
