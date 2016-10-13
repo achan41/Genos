@@ -63,6 +63,8 @@ public class SubmitReportController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
+        EditProfileController controller = fxmlLoader.<EditProfileController>getController();
+        controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
