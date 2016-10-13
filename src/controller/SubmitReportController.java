@@ -27,6 +27,7 @@ public class SubmitReportController {
     @FXML TextField reportTime;
     @FXML Button cancelButton;
     private WaterReport report;
+    ObservableList<String> reports;
     private User user;
 
     /**
@@ -47,6 +48,10 @@ public class SubmitReportController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
+    }
+
+    public void setReportsList(ObservableList<String> reports) {
+        this.reports = reports;
     }
 
     /**
@@ -71,12 +76,13 @@ public class SubmitReportController {
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
+            reports.add(report.toString());
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             Parent root = fxmlLoader.load();
             UserScreenController controller = fxmlLoader.<UserScreenController>getController();
             controller.setUser(user);
-            controller.addReport(report);
+            controller.setReportsList(reports);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();

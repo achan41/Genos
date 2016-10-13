@@ -59,12 +59,12 @@ public class UserScreenController {
     }
 
     /**
-     * adds report to listview
-     * @param report to be added
+     * sets reports from observablelist
+     * @param reports to be added
      */
     @FXML
-    public void addReport(WaterReport report) {
-        reports.add(report.toString());
+    public void setReportsList(ObservableList<String> reports) {
+        this.reports = reports;
         reportListView.setItems(reports);
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
         selectionModel.select(reportsTab);
@@ -110,6 +110,7 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
         controller.setUser(user);
+        controller.setReportsList(reports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
