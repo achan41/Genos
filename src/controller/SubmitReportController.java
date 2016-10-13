@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import model.User;
 import model.WaterCondition;
 import model.WaterType;
+import model.WaterReport;
 
 /**
  * Created by dionisiatara on 10/11/16.
@@ -25,6 +26,7 @@ public class SubmitReportController {
     @FXML TextField reportLocation;
     @FXML TextField reportTime;
     @FXML Button cancelButton;
+    private WaterReport report;
     private User user;
 
     /**
@@ -69,8 +71,15 @@ public class SubmitReportController {
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
-
-            handleCancel(event);
+            Stage stage = (Stage) reportTime.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            controller.setUser(user);
+            controller.addReport(report);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
         }
     }
 
@@ -99,6 +108,7 @@ public class SubmitReportController {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
+            report = new WaterReport(time, condition, type);
             return true;
         } else {
             //send alert warning of registration error

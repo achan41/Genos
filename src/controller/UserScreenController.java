@@ -1,15 +1,17 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.User;
 import model.UserDatabase;
+import model.WaterReport;
 
 import java.io.IOException;
 
@@ -20,8 +22,13 @@ public class UserScreenController {
     @FXML private Label welcomeMessage;
     @FXML Button logoutButton, editProfileButton, submitReportButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
+    @FXML ListView<String> reportListView = new ListView<String>();
+    @FXML TabPane tabPane;
+    @FXML Tab reportsTab, profileTab;
+    ObservableList<String> reports = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
+
 
     @FXML
     private void initialize() {
@@ -49,7 +56,18 @@ public class UserScreenController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * adds report to listview
+     * @param report to be added
+     */
+    @FXML
+    public void addReport(WaterReport report) {
+        reports.add(report.toString());
+        reportListView.setItems(reports);
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+        selectionModel.select(reportsTab);
     }
 
     /**
@@ -87,9 +105,11 @@ public class UserScreenController {
      */
     @FXML
     protected void handleSubmitReport(ActionEvent event) throws IOException {
-        Stage stage = (Stage) submitReportButton.getScene().getWindow();
+        Stage stage = (Stage) editProfileButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
         Parent root = fxmlLoader.load();
+        SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
+        controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
