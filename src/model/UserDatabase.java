@@ -196,19 +196,12 @@ public class UserDatabase {
      *
      * @param user user
      */
-    public void addUser(User user) {
-        database.put(user.getUsername(), user);
+    public void addUser(User user) throws java.io.IOException {
         try {
-            // create file writer to write user to database
-            FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-            BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-            // iterate through user data and append to one line, using the User.toString method
-            for (Map.Entry<String, User> entry : database.entrySet()) {
-                databaseWriter.write(entry.getValue().toString() + "\n");
-            }
-            databaseWriter.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            database.put(user.getUsername(), user);
+            saveDatabase();
+        } catch (IOException e) {
+            throw new IOException("Error writing to database" + e.getMessage());
         }
     }
 
@@ -220,25 +213,28 @@ public class UserDatabase {
      * @return whether or not the user was able to be replaced
      */
 
-    public boolean editUser(String oldUsername, User newUser) {
+    public boolean editUser(String oldUsername, User newUser) throws IOException {
         try {
             database.remove(oldUsername);
             database.put(oldUsername, newUser);
-            try {
-                // create file writer to write user to database
-                FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                // iterate through user data and append to one line, using the User.toString method
-                for (Map.Entry<String, User> entry : database.entrySet()) {
-                    databaseWriter.write(entry.getValue().toString() + "\n");
-                }
-                databaseWriter.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            saveDatabase();
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             return false;
+        }
+    }
+
+    private void saveDatabase() throws IOException {
+        try {
+            FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+            BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+            // iterate through user data and append to one line, using the User.toString method
+            for (Map.Entry<String, User> entry : database.entrySet()) {
+                databaseWriter.write(entry.getValue().toString() + "\n");
+            }
+            databaseWriter.close();
+        } catch (IOException e) {
+            throw new IOException("Error writing to database" + e.getMessage());
         }
     }
 

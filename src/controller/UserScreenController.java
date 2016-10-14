@@ -25,7 +25,7 @@ public class UserScreenController {
     @FXML ListView<String> reportListView = new ListView<String>();
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
-    ObservableList<String> reports = FXCollections.observableArrayList();
+    private ObservableList<String> reports = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
 
@@ -41,10 +41,12 @@ public class UserScreenController {
     public void setUser(User user) throws NullPointerException {
         this.user = user;
         try {
-            if (user.getName() != null && user.getProfile().getTitle() != null) {
+            if (user.getProfile().getName() != null && user.getProfile().getTitle() != null) {
                 welcomeMessage.setText("Welcome, " + user.getProfile().getTitle().toString()
                         + " " + user.getUsername() + "!");
-            } else if (user.getName() != null) {
+            } else if (user.getProfile().getName() != null) {
+                welcomeMessage.setText("Welcome, " + user.getProfile().getName() + "!");
+            }  else if (user.getName() != null) {
                 welcomeMessage.setText("Welcome, " + user.getName() + "!");
             } else if (user.getUsername() != null) {
                 welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
@@ -52,7 +54,8 @@ public class UserScreenController {
             emailLabel.setText("Email: " + user.getProfile().getEmail());
             addressLabel.setText("Address: " + user.getProfile().getAddress());
             contactLabel.setText("Contact: " + user.getProfile().getNumber());
-
+            SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+            selectionModel.select(profileTab);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -94,6 +97,7 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         EditProfileController controller = fxmlLoader.<EditProfileController>getController();
         controller.setUser(user);
+        controller.setReportsList(reports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

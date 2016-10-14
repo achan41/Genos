@@ -27,7 +27,7 @@ public class SubmitReportController {
     @FXML TextField reportTime;
     @FXML Button cancelButton;
     private WaterReport report;
-    ObservableList<String> reports;
+    private ObservableList<String> reports;
     private User user;
 
     /**
