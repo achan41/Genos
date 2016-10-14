@@ -4,10 +4,10 @@ package model;
  * Created by Allen on 10/3/2016.
  */
 public enum Title {
-    Mr ("Mister", "Mr."),
-    Mrs ("Missus", "Mrs."),
-    Ms ("Miss", "Ms."),
-    Dr ("Doctor","Dr.");
+    Mr ("Mister", "Mr"),
+    Mrs ("Missus", "Mrs"),
+    Ms ("Miss", "Ms"),
+    Dr ("Doctor","Dr");
 
     private final String name;
     private final String charRep;
@@ -38,5 +38,5 @@ public enum Title {
      * returns the shortened char rep
      * @return char rep string
      */
-    public String toString() {return name;}
+    public String toString() {return charRep;}
 }
