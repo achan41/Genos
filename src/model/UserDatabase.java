@@ -205,6 +205,10 @@ public class UserDatabase {
         }
     }
 
+    /**
+     * saves databse to file
+     * @throws IOException cannot access file
+     */
     private void saveDatabase() throws IOException {
         try {
             FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());

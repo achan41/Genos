@@ -22,6 +22,13 @@ public class UserProfile {
         this.setNumber("Edit your profile");
     }
 
+    /**
+     * constructor with classic parameters but no title
+     * @param name user's name in profile
+     * @param email user's email in profile
+     * @param address user's address in profiile
+     * @param number user's contact number in profile
+     */
     public UserProfile(String name, String email, String address, String number) {
         this.name.set(name);
         this.email.set(email);

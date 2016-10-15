@@ -58,6 +58,11 @@ public class EditProfileController {
         this.reports = reports;
     }
 
+    /**
+     * handles edit profile submission
+     * @param event event
+     * @throws java.io.IOException cann't access userdatabase
+     */
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidProfileEdit()) {
