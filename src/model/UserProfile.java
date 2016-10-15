@@ -125,7 +125,7 @@ public class UserProfile {
      */
     @Override
     public String toString() {
-        return email.get() + "/" + address.get() + "/" + number.get();
+        return email.get() + "/" + address.get() + "/" + number.get() + "/" + title.get().toString();
     }
 }
 

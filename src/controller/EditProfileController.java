@@ -124,10 +124,11 @@ public class EditProfileController {
             return false;
         } else {
             try {
-                userProfile = new UserProfile(name, email, addr, contact);
-                User newUser = new User(user, userProfile);
+                userProfile = new UserProfile(name, email, addr, contact, title);
+                user = new User(user, userProfile);
+                user.setName(name);
                 try {
-                    if (database.editUser(user.getUsername(), newUser)) {
+                    if (database.editUser(user.getUsername(), user)) {
                         sendAlert("INFORMATION", "Edit Profile Success", "The user profile has been updated " +
                                 "successfully.");
                         return true;
