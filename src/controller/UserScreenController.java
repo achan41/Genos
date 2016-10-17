@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton, editProfileButton, submitReportButton;
+    @FXML Button logoutButton, editProfileButton, submitReportButton, viewMapButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
     @FXML ListView<String> reportListView = new ListView<String>();
     @FXML TabPane tabPane;
@@ -115,6 +115,22 @@ public class UserScreenController {
         SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
         controller.setUser(user);
         controller.setReportsList(reports);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Handles viewing the map
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    protected void handleViewMap(ActionEvent event) throws IOException {
+        Stage stage = (Stage) viewMapButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        MapController controller = fxmlLoader.<MapController>getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
