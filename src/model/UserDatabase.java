@@ -1,6 +1,5 @@
 package model;
 
-import model.User;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -27,14 +26,8 @@ public class UserDatabase {
                     // create new database file at database file path
                     databaseFile.createNewFile();
                     //write initial data in database
-                    /**
-                     FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                     BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                     databaseWriter.flush();
-                     databaseWriter.close();
-                     **/
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    throw new IOException(e);
                 }
             }
             // read database file to userdatabase
@@ -47,8 +40,10 @@ public class UserDatabase {
                 String[] userData = databaseLine.split("/");
                 // create user based on data from line
                 User tempUser = new User(userData[0], userData[1], userData[2], AccountType.valueOf(userData[3]));
+                UserProfile profile = new UserProfile(userData[1], userData[4], userData[5], userData[6]);
+                User newUser = new User(tempUser, profile);
                 // add user to database
-                database.put(tempUser.getUsername(), tempUser);
+                database.put(tempUser.getUsername(), newUser);
             }
             bufferReader.close();
             // catch possible IOException or NullPointerException
@@ -96,25 +91,6 @@ public class UserDatabase {
         try {
             return database.containsValue(user);
         } catch (NullPointerException e) {
-            return false;
-        }
-    }
-
-    /**
-     * checks to see if login (user/pass) is valid
-     *
-     * @param username user's username
-     * @param password user's password
-     * @return boolean value whether login was valid
-     */
-    public boolean login(String username, String password) throws NullPointerException {
-        User tempUser = database.get(username);
-        if (tempUser == null) {
-            throw new NullPointerException("This user does not exist");
-        }
-        if (tempUser.getPassword().equals(password)) {
-            return true;
-        } else {
             return false;
         }
     }
@@ -201,20 +177,12 @@ public class UserDatabase {
      *
      * @param user user
      */
-    public void addUser(User user) {
-        database.put(user.getUsername(), user);
+    public void addUser(User user) throws java.io.IOException {
         try {
-            // create file writer to write user to database
-            FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-            BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-            // iterate through user data and append to one line, using the User.toString method
-            for (Map.Entry<String, User> entry : database.entrySet()) {
-                databaseWriter.write(entry.getValue().toString() + "\n");
-            }
-            databaseWriter.flush();
-            databaseWriter.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+            database.put(user.getUsername(), user);
+            saveDatabase();
+        } catch (IOException e) {
+            throw new IOException("Error writing to database" + e.getMessage());
         }
     }
 
@@ -226,26 +194,32 @@ public class UserDatabase {
      * @return whether or not the user was able to be replaced
      */
 
-    public boolean editUser(String oldUsername, User newUser) {
+    public boolean editUser(String oldUsername, User newUser) throws IOException {
         try {
             database.remove(oldUsername);
             database.put(oldUsername, newUser);
-            try {
-                // create file writer to write user to database
-                FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-                BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
-                // iterate through user data and append to one line, using the User.toString method
-                for (Map.Entry<String, User> entry : database.entrySet()) {
-                    databaseWriter.write(entry.getValue().toString() + "\n");
-                }
-                databaseWriter.flush();
-                databaseWriter.close();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            saveDatabase();
             return true;
-        } catch (Exception e) {
+        } catch (IOException e) {
             return false;
+        }
+    }
+
+    /**
+     * saves databse to file
+     * @throws IOException cannot access file
+     */
+    private void saveDatabase() throws IOException {
+        try {
+            FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
+            BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+            // iterate through user data and append to one line, using the User.toString method
+            for (Map.Entry<String, User> entry : database.entrySet()) {
+                databaseWriter.write(entry.getValue().toString() + "\n");
+            }
+            databaseWriter.close();
+        } catch (IOException e) {
+            throw new IOException("Error writing to database" + e.getMessage());
         }
     }
 

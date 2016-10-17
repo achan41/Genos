@@ -1,21 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
             <Button fx:id="logoutButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
+            <Button fx:id="viewMapButton" layoutX="230.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleViewMap" text="View Map" />
             <Label fx:id="welcomeMessage" layoutX="27.0" layoutY="14.0" text="Welcome" />
-            <Button fx:id="editProfileButton" layoutX="519.0" layoutY="45.0" mnemonicParsing="false" onAction="#handleEditProfile" text="Edit Profile" />
-            <Label fx:id="emailLabel" layoutX="63.0" layoutY="62.0" text="Email" />
-            <Label fx:id="addressLabel" layoutX="56.0" layoutY="109.0" text="Address" />
-            <Label fx:id="contactLabel" layoutX="57.0" layoutY="152.0" text="Contact" />
-          <Button layoutX="96.0" layoutY="336.0" mnemonicParsing="false" text="Submit a Report" />
+          <Button fx:id="submitReportButton" layoutX="98.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitReport" text="Submit a Report" />
+            <TabPane fx:id="tabPane" layoutX="27.0" layoutY="37.0" prefHeight="290.0" prefWidth="541.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="profileTab" text="My Profile">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="562.0">
+                           <children>
+                              <Label fx:id="emailLabel" layoutX="37.0" layoutY="23.0" text="Email" />
+                              <Label fx:id="addressLabel" layoutX="30.0" layoutY="52.0" text="Address" />
+                              <Label fx:id="contactLabel" layoutX="30.0" layoutY="84.0" text="Contact" />
+                              <Button fx:id="editProfileButton" layoutX="454.0" layoutY="19.0" mnemonicParsing="false" onAction="#handleEditProfile" text="Edit Profile" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="reportsTab" text="Water Reports">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ListView fx:id="reportListView" prefHeight="260.0" prefWidth="541.0" />
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
       </children>
     </AnchorPane>
   </children>

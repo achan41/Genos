@@ -22,11 +22,34 @@ public class UserProfile {
         this.setNumber("Edit your profile");
     }
 
+    /**
+     * constructor with classic parameters but no title
+     * @param name user's name in profile
+     * @param email user's email in profile
+     * @param address user's address in profiile
+     * @param number user's contact number in profile
+     */
     public UserProfile(String name, String email, String address, String number) {
         this.name.set(name);
         this.email.set(email);
         this.address.set(address);
         this.number.set(number);
+    }
+
+    /**
+     * user profile constructor with all the data
+     * @param name user's name in profile
+     * @param email user's email in profile
+     * @param address user's address in profile
+     * @param number user's phone number in profile
+     * @param title user's title
+     */
+    public UserProfile(String name, String email, String address, String number, Title title) {
+        this.name.set(name);
+        this.email.set(email);
+        this.address.set(address);
+        this.number.set(number);
+        this.title.set(title);
     }
 
     /**
@@ -109,7 +132,7 @@ public class UserProfile {
      */
     @Override
     public String toString() {
-        return email.get() + "/" + address.get() + "/" + number.get();
+        return email.get() + "/" + address.get() + "/" + number.get() + "/" + title.get().toString();
     }
 }
 

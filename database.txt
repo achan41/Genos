@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 new/new/temp/Worker/Enter your email/Enter your address/Enter your number
 tori/tori/pass/Worker/new@gatech.edu/Still Nowhere/5555555556
 user/name/pass/Admin/Enter your email/Enter your address/Enter your number
@@ -6,3 +7,6 @@ user/name/pass/Admin/Enter your email/Enter your address/Enter your number
 johnson/John/johnjohn/Worker/Edit your profile/Edit your profile/Edit your profile
 user/name/pass/Admin///
 >>>>>>> 87ceb0d0208e657a5e6bdfa945637510e098260c
+=======
+user/John/pass/Manager/john@johnson.com/John Deere Drive/678/Mr
+>>>>>>> b534cf4724c263ccb434cd440e44a25f5f692ad4

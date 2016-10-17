@@ -1,15 +1,17 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.User;
 import model.UserDatabase;
+import model.WaterReport;
 
 import java.io.IOException;
 
@@ -18,10 +20,15 @@ import java.io.IOException;
  */
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton, editProfileButton;
+    @FXML Button logoutButton, editProfileButton, submitReportButton, viewMapButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
+    @FXML ListView<String> reportListView = new ListView<String>();
+    @FXML TabPane tabPane;
+    @FXML Tab reportsTab, profileTab;
+    private ObservableList<String> reports = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
+
 
     @FXML
     private void initialize() {
@@ -34,17 +41,36 @@ public class UserScreenController {
     public void setUser(User user) throws NullPointerException {
         this.user = user;
         try {
-            if (user.getUsername() != null || user.getUsername() != "") {
+            if (user.getProfile().getName() != null && user.getProfile().getTitle() != null && user.getName() != null) {
+                welcomeMessage.setText("Welcome, " + user.getProfile().getTitle().toString()
+                        + ". " + user.getName() + "!");
+            } else if (user.getProfile().getName() != null) {
+                welcomeMessage.setText("Welcome, " + user.getProfile().getName() + "!");
+            }  else if (user.getName() != null) {
+                welcomeMessage.setText("Welcome, " + user.getName() + "!");
+            } else if (user.getUsername() != null) {
                 welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
             }
             emailLabel.setText("Email: " + user.getProfile().getEmail());
             addressLabel.setText("Address: " + user.getProfile().getAddress());
             contactLabel.setText("Contact: " + user.getProfile().getNumber());
-
+            SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+            selectionModel.select(profileTab);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+    }
 
+    /**
+     * sets reports from observablelist
+     * @param reports to be added
+     */
+    @FXML
+    public void setReportsList(ObservableList<String> reports) {
+        this.reports = reports;
+        reportListView.setItems(reports);
+        SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
+        selectionModel.select(reportsTab);
     }
 
     /**
@@ -71,9 +97,42 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         EditProfileController controller = fxmlLoader.<EditProfileController>getController();
         controller.setUser(user);
+        controller.setReportsList(reports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
+    /**
+     * handles submit a report
+     * @param event
+     */
+    @FXML
+    protected void handleSubmitReport(ActionEvent event) throws IOException {
+        Stage stage = (Stage) editProfileButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
+        controller.setUser(user);
+        controller.setReportsList(reports);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Handles viewing the map
+     * @param event
+     * @throws IOException
+     */
+    @FXML
+    protected void handleViewMap(ActionEvent event) throws IOException {
+        Stage stage = (Stage) viewMapButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        MapController controller = fxmlLoader.<MapController>getController();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 }

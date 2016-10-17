@@ -1,23 +1,23 @@
 package model;
 
 /**
- * Created by Allen on 10/3/2016.
+ * Created by dionisiatara on 10/11/16.
  */
-public enum Title {
-    Mr ("Mister", "Mr"),
-    Mrs ("Missus", "Mrs"),
-    Ms ("Miss", "Ms"),
-    Dr ("Doctor","Dr");
+public enum WaterCondition {
+    Waste ("Waste", "WST"),
+    TreatableClear ("Treatable-Clear", "TCL"),
+    TreatatableMuddy ("Treatable-Muddy", "TMD"),
+    Potable ("Potable", "PTB");
 
     private final String name;
     private final String charRep;
 
     /**
-     * Counstructor for AccountType enumeration
+     * Counstructor for WaterCondition enumeration
      * @param cName
      * @param cRep
      */
-    Title(String cName, String cRep) {
+    WaterCondition(String cName, String cRep) {
         name = cName;
         charRep = cRep;
     }
@@ -38,5 +38,5 @@ public enum Title {
      * returns the shortened char rep
      * @return char rep string
      */
-    public String toString() {return charRep;}
+    public String toString() {return name;}
 }

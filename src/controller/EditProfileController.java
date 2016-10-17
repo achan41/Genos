@@ -5,17 +5,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.User;
 import model.UserDatabase;
 import model.UserProfile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
 import model.Title;
+
+import java.io.IOException;
+
 /**
  * Created by Allen on 10/2/2016.
  */
@@ -30,6 +30,7 @@ public class EditProfileController {
     private User user;
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
+    private ObservableList<String> reports = FXCollections.observableArrayList();
 
     /**
      * called automatically in order to populate the titleBox with Titles
@@ -46,33 +47,46 @@ public class EditProfileController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
-        try {
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-        }
-
     }
 
+    /**
+     * sets reports from observablelist
+     * @param reports to be added
+     */
+    @FXML
+    public void setReportsList(ObservableList<String> reports) {
+        this.reports = reports;
+    }
+
+    /**
+     * handles edit profile submission
+     * @param event event
+     * @throws java.io.IOException cann't access userdatabase
+     */
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidProfileEdit()) {
-            Stage stage = (Stage) profileSubmit.getScene().getWindow();
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
-            Parent root = fxmlLoader.load();
-            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-            controller.setUser(new User(user, userProfile));
-            Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.show();
+            swapToUserScreen(new User(user, userProfile));
         }
     }
 
     @FXML
     protected void handleCancel(ActionEvent event) throws java.io.IOException {
+        swapToUserScreen(user);
+    }
+
+    /**
+     * swap to user screen on stage
+     * @param user user to pass
+     * @throws IOException error accessing database
+     */
+    @FXML
+    private void swapToUserScreen(User user) throws IOException {
         Stage stage = (Stage) profileCancel.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+        controller.setReportsList(reports);
         controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -113,33 +127,37 @@ public class EditProfileController {
             alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;
-        }
-        try {
-            userProfile = new UserProfile(name, email, addr, contact);
-            User newUser = new User(user, userProfile);
-            if (database.editUser(user.getUsername(), newUser)) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Edit Profile Success");
-                alert.initOwner(profileName.getScene().getWindow());
-                alert.setContentText("The user profile has been updated successfully.");
-                alert.showAndWait();
-                return true;
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Edit Profile Error");
-                alert.initOwner(profileName.getScene().getWindow());
-                alert.setContentText("The user profile could not be saved to database.");
-                alert.showAndWait();
+        } else {
+            try {
+                userProfile = new UserProfile(name, email, addr, contact, title);
+                user = new User(user, userProfile);
+                user.setName(name);
+                try {
+                    if (database.editUser(user.getUsername(), user)) {
+                        sendAlert("INFORMATION", "Edit Profile Success", "The user profile has been updated " +
+                                "successfully.");
+                        return true;
+                    } else {
+                        sendAlert("ERROR", "Edit Profile Error", "The user profile could not be saved to database.");
+                        return false;
+                    }
+                } catch (IOException e) {
+                    sendAlert("ERROR", "Saving to Database", "The changes could not be saved to database.");
+                    return false;
+                }
+            } catch (NullPointerException e) {
+                // creates alert window notifying of user not existing in database
+                sendAlert("ERROR", "Invalid Profile Change", "You have left some fields blank.");
+                return false;
             }
         }
-        catch (NullPointerException e) {
-            // creates alert window notifying of user not existing in database
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Profile Change");
-            alert.initOwner(profileName.getScene().getWindow());
-            alert.setContentText("You have left some fields blank.");
-            alert.showAndWait();
-        }
-        return false;
+    }
+
+    private void sendAlert(String type, String title, String text) {
+        Alert alert = new Alert(Alert.AlertType.valueOf(type));
+        alert.setTitle(title);
+        alert.initOwner(profileName.getScene().getWindow());
+        alert.setContentText(text);
+        alert.showAndWait();
     }
 }

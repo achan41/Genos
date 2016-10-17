@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.lynden.gmapsfx.GoogleMapView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Button?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="controller.MapController">
+    <Button fx:id="exitMapViewButton" layoutX="0" layoutY="0" mnemonicParsing="false" onAction="#handleMapExit" text="Exit" />
+    <top>
+        <MenuBar BorderPane.alignment="CENTER">
+            <menus>
+                <Menu mnemonicParsing="false" text="Return to app">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#handleMapExit" text="Exit map view" />
+                    </items>
+                </Menu>
+            </menus>
+        </MenuBar>
+    </top>
+    <center>
+        <GoogleMapView fx:id="mapView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+    </center>
+</BorderPane>
