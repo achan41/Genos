@@ -11,19 +11,24 @@ import javafx.beans.property.StringProperty;
  */
 public class WaterReport {
     private final StringProperty time = new SimpleStringProperty();
-    // private final StringProperty location = new SimpleStringProperty(); TENTATIVE
+    private final StringProperty location = new SimpleStringProperty();
+    private  Location locationObject;
     private final ObjectProperty<WaterCondition> condition = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterType> type = new SimpleObjectProperty<>();
 
     /**
-     * temporary constructor for water condition and type
+     * initializes report time, water condition and type, and location object
      * @param condition water's condition
      * @param type water's type
      */
-    public WaterReport(String time, WaterCondition condition, WaterType type) {
+    public WaterReport(String time, String location, WaterCondition condition, WaterType type) {
         this.time.set(time);
+        this.location.set(location);
         this.condition.set(condition);
         this.type.set(type);
+        locationObject = new Location(
+                "Water Type: " + type
+                + "Water Condition " + condition, location);
     }
 
     /**
@@ -33,14 +38,26 @@ public class WaterReport {
     public String getTime() {return time.get();}
 
     /**
-     * returns time of report
-     * @return time of report
+     * returns location of report
+     * @return location of report
+     */
+    public String getLocation() {return location.get();}
+
+    /**
+     * returns location object of report
+     * @return location object of report
+     */
+    public Location getLocationObject() {return locationObject;}
+
+    /**
+     * returns water condition of report
+     * @return water condition of report
      */
     public WaterCondition getCondition() {return condition.get();}
 
     /**
-     * returns time of report
-     * @return time of report
+     * returns water type of report
+     * @return water type of report
      */
     public WaterType getType() {return type.get();}
 
@@ -49,6 +66,12 @@ public class WaterReport {
      * @param time
      */
     public void setTime(String time) {this.time.set(time);}
+
+    /**
+     * change location of report
+     * @param location
+     */
+    public void setLocation(String location) {this.location.set(location);}
 
     /**
      * change water condition in report
@@ -68,6 +91,6 @@ public class WaterReport {
      */
     @Override
     public String toString() {
-        return time.get() + "/" + condition.get().toString() + "/" + type.get().toString();
+        return time.get() + " / " + location.get() + " / " + condition.get().toString() + " / " + type.get().toString();
     }
 }

@@ -4,6 +4,7 @@ import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import model.Location;
 import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,10 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import netscape.javascript.JSObject;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.ArrayList;
 
 /**
  * Created by Kevin on 10/17/2016.
@@ -34,12 +37,18 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     private MainFXApplication mainFXApplication;
 
+    private SubmitReportController sourceReportController;
+
+    private ArrayList<Location> sourceLocations;
+
     @FXML
     Button exitMapViewButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
+        sourceReportController = new SubmitReportController();
+        sourceLocations = sourceReportController.getLocations();
     }
 
     public void mapInitialized() {
@@ -58,11 +67,35 @@ public class MapController implements Initializable, MapComponentInitializedList
                 .mapType(MapTypeIdEnum.TERRAIN);
 
         map = mapView.createMap(options);
+
+        for (Location l : sourceLocations) {
+            MarkerOptions markerOptions = new MarkerOptions();
+            LatLong loc = new LatLong(l.getLat(), l.getLong());
+
+            markerOptions.position(loc)
+                    .visible(Boolean.TRUE)
+                    .title(l.getName());
+
+            Marker marker = new Marker(markerOptions);
+
+            map.addUIEventHandler(marker,
+                    UIEventType.click,
+                    (JSObject obj) -> {
+                        InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
+                        infoWindowOptions.content(l.getDescription());
+
+                        InfoWindow window = new InfoWindow(infoWindowOptions);
+                        window.open(map, marker);
+                    });
+
+            map.addMarker(marker);
+        }
+
     }
 
     /**
-     * Handles viewing the map
-     * @param event
+     * Handles exiting the map
+     * @param event exit the map
      * @throws IOException
      */
     @FXML

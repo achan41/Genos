@@ -16,6 +16,9 @@ import model.User;
 import model.WaterCondition;
 import model.WaterType;
 import model.WaterReport;
+import model.Location;
+
+import java.util.ArrayList;
 
 /**
  * Created by dionisiatara on 10/11/16.
@@ -29,6 +32,7 @@ public class SubmitReportController {
     private WaterReport report;
     private ObservableList<String> reports;
     private User user;
+    private final ArrayList<Location> locations = new ArrayList<Location>();
 
     /**
      * called automatically in order to populate the waterTypeComboBox with water types
@@ -44,19 +48,29 @@ public class SubmitReportController {
 
     /**
      * sets user from login screen
-     * @param user user
+     * @param user current user
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
     }
 
+    /**
+     * sets report list displayed on userscreen report tab
+     * @param reports reports sumbitted so far
+     */
     public void setReportsList(ObservableList<String> reports) {
         this.reports = reports;
     }
 
     /**
+     */
+    public ArrayList<Location> getLocations() {
+        return locations;
+    }
+
+    /**
      * handles cancel request
-     * @param event
+     * @param event cancel report submission
      */
     @FXML
     protected void handleCancel(ActionEvent event) throws java.io.IOException {
@@ -116,7 +130,8 @@ public class SubmitReportController {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
-            report = new WaterReport(time, condition, type);
+            report = new WaterReport(time, location, condition, type);
+            locations.add(report.getLocationObject());
             return true;
         } else {
             //send alert warning of registration error
