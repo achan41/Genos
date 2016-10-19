@@ -129,8 +129,9 @@ public class UserScreenController {
     protected void handleViewMap(ActionEvent event) throws IOException {
         Stage stage = (Stage) viewMapButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
-        MapController controller = fxmlLoader.getController();
-        //controller.setUser(user);
+        MapController controller = fxmlLoader.<MapController>getController();
+        controller.setUser(user);
+        controller.setReportsList(reports);
         Parent root = fxmlLoader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);

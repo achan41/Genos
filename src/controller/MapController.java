@@ -5,6 +5,8 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import model.Location;
+import javafx.collections.ObservableList;
+import model.User;
 import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +46,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     private ArrayList<Location> sourceLocations;
 
     private User user;
-
+    private ObservableList<String> reports;
     @FXML
     Button exitMapViewButton;
 
@@ -54,6 +56,24 @@ public class MapController implements Initializable, MapComponentInitializedList
         //sourceReportController = new SubmitReportController();
         //sourceLocations = sourceReportController.getLocations();
     }
+    
+    /**
+     * sets user from login screen
+     * @param user current user
+     */
+    public void setUser(User user) throws NullPointerException {
+        this.user = user;
+    }
+
+    /**
+     * sets reports from observablelist
+     * @param reports to be added
+     */
+    @FXML
+    public void setReportsList(ObservableList<String> reports) {
+        this.reports = reports;
+    }
+    
 
     public void mapInitialized() {
         MapOptions options = new MapOptions();
@@ -101,8 +121,6 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     }
 
-    public void setUser(User user) throws NullPointerException {this.user = user;}
-
     /**
      * Handles exiting the map
      * @param event exit the map
@@ -114,7 +132,8 @@ public class MapController implements Initializable, MapComponentInitializedList
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-        //controller.setUser(user);
+        controller.setUser(user);
+        controller.setReportsList(reports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
