@@ -80,6 +80,7 @@ public class SubmitReportController {
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
         controller.setUser(user);
+        controller.setReports(reports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
