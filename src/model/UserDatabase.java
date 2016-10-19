@@ -41,11 +41,11 @@ public class UserDatabase {
                 // create user based on data from line
                 User tempUser = new User(userData[0], userData[1], userData[2], AccountType.valueOf(userData[3]));
                 User newUser;
-                if (userData.length == 7) {
+                if (userData.length >= 4) {
                     UserProfile profile = new UserProfile(userData[1], userData[4], userData[5], userData[6]);
                     newUser = new User(tempUser, profile);
                 } else {
-                    newUser = new User(tempUser, new UserProfile("","","",""));
+                    newUser = new User(tempUser, new UserProfile(userData[1]));
                 }
 
                 // add user to database
