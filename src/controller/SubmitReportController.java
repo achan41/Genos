@@ -141,7 +141,7 @@ public class SubmitReportController {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
-            report = new WaterReport(localDate, time, location, condition, type);
+            report = new WaterReport(reports.size() + 1, localDate, time, location, condition, type);
             locations.add(report.getLocationObject());
             //System.out.println("In report controller " + locations.size());
             return true;

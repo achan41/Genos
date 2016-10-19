@@ -1,10 +1,7 @@
 package model;
 
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.*;
 
 import java.time.LocalDate;
 
@@ -18,13 +15,16 @@ public class WaterReport {
     private final ObjectProperty<WaterCondition> condition = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterType> type = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
+    private final IntegerProperty reportNum = new SimpleIntegerProperty();
 
     /**
      * initializes report time, water condition and type, and location object
      * @param condition water's condition
      * @param type water's type
      */
-    public WaterReport(LocalDate date, String time, String location, WaterCondition condition, WaterType type) {
+    public WaterReport(int reportNum, LocalDate date, String time, String location, WaterCondition condition,
+                       WaterType type) {
+        this.reportNum.setValue(reportNum);
         this.date.set(date);
         this.time.set(time);
         this.location.set(location);
@@ -40,6 +40,12 @@ public class WaterReport {
      * @return time of report
      */
     public String getTime() {return time.get();}
+
+    /**
+     * returns location of report
+     * @return location of report
+     */
+    public int getReportNum() {return reportNum.getValue();}
 
     /**
      * returns location of report
@@ -90,12 +96,22 @@ public class WaterReport {
     public void setType(WaterType type) {this.type.set(type);}
 
     /**
+     * change water type in report
+     * @param num new report number
+     */
+    public void setReportNum(int num) {this.reportNum.setValue(num);}
+
+    /**
      * returns the string concatenation of the water report data
      * @return
      */
     @Override
     public String toString() {
-        return date.get() + " / " + time.get() + " / " + location.get() + " / " + condition.get().toString()
-                + " / " + type.get().toString();
+        return reportNum.get() + " / "
+                + date.get() + " / "
+                + time.get() + " / "
+                + location.get() + " / "
+                + condition.get().toString() + " / "
+                + type.get().toString();
     }
 }
