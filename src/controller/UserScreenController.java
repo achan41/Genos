@@ -54,8 +54,7 @@ public class UserScreenController {
             emailLabel.setText("Email: " + user.getProfile().getEmail());
             addressLabel.setText("Address: " + user.getProfile().getAddress());
             contactLabel.setText("Contact: " + user.getProfile().getNumber());
-            SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
-            selectionModel.select(profileTab);
+            changeTab(profileTab);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -69,8 +68,17 @@ public class UserScreenController {
     public void setReportsList(ObservableList<String> reports) {
         this.reports = reports;
         reportListView.setItems(reports);
+        changeTab(reportsTab);
+    }
+
+    /**
+     * change tab of user screen tabpane
+     * @param tab tab to make active
+     */
+    @FXML
+    private void changeTab(Tab tab) {
         SingleSelectionModel<Tab> selectionModel = tabPane.getSelectionModel();
-        selectionModel.select(reportsTab);
+        selectionModel.select(tab);
     }
 
     /**

@@ -37,10 +37,6 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     private GoogleMap map;
 
-    private Window mainStage;
-
-    private MainFXApplication mainFXApplication;
-
     //private SubmitReportController sourceReportController = new SubmitReportController();
 
     private ArrayList<Location> sourceLocations;
