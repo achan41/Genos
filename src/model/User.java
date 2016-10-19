@@ -36,7 +36,6 @@ public class User {
         this.username.set(username);
         this.password.set(password);
         this.name.set(name);
-        this.userProfile.set(new UserProfile(name));
         this.accountType.set(accountType);
     }
 
@@ -131,7 +130,7 @@ public class User {
      */
     @Override
     public String toString() {
-        if (userProfile != null) {
+        if (userProfile.getValue() != null) {
             return username.get() + "/" + name.get() + "/" + password.get() + "/" + accountType.get().toString()
                     + "/" + userProfile.getValue().toString();
         } else {
