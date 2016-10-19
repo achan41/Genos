@@ -23,6 +23,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
 
+import model.User;
+
 /**
  * Created by Kevin on 10/17/2016.
  */
@@ -40,6 +42,8 @@ public class MapController implements Initializable, MapComponentInitializedList
     private SubmitReportController sourceReportController = new SubmitReportController();
 
     private ArrayList<Location> sourceLocations = sourceReportController.getLocations();
+
+    private User user;
 
     @FXML
     Button exitMapViewButton;
@@ -67,7 +71,7 @@ public class MapController implements Initializable, MapComponentInitializedList
                 .mapType(MapTypeIdEnum.TERRAIN);
 
         map = mapView.createMap(options);
-        System.out.println(sourceLocations.size());
+        //System.out.println(sourceLocations.size());
 
         for (Location l : sourceLocations) {
             MarkerOptions markerOptions = new MarkerOptions();
@@ -94,6 +98,8 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     }
 
+    public void setUser(User user) throws NullPointerException {this.user = user;}
+
     /**
      * Handles exiting the map
      * @param event exit the map
@@ -104,6 +110,8 @@ public class MapController implements Initializable, MapComponentInitializedList
         Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
+        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+        //controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

@@ -80,7 +80,7 @@ public class SubmitReportController {
         Parent root = fxmlLoader.load();
         FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("../view/EditProfile.fxml"));
         EditProfileController profileController = profileLoader.getController();
-        profileController.setUser(user);
+        //profileController.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -134,7 +134,7 @@ public class SubmitReportController {
         if (errorMessage.length() == 0) {
             report = new WaterReport(time, location, condition, type);
             locations.add(report.getLocationObject());
-            System.out.println("In report controller " + locations.size());
+            //System.out.println("In report controller " + locations.size());
             return true;
         } else {
             //send alert warning of registration error
