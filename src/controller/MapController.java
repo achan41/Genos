@@ -39,9 +39,9 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     private MainFXApplication mainFXApplication;
 
-    private SubmitReportController sourceReportController = new SubmitReportController();
+    //private SubmitReportController sourceReportController = new SubmitReportController();
 
-    private ArrayList<Location> sourceLocations = sourceReportController.getLocations();
+    private ArrayList<Location> sourceLocations;
 
     private User user;
 
@@ -71,7 +71,10 @@ public class MapController implements Initializable, MapComponentInitializedList
                 .mapType(MapTypeIdEnum.TERRAIN);
 
         map = mapView.createMap(options);
-        //System.out.println(sourceLocations.size());
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
+        SubmitReportController sourceReportController = fxmlLoader.getController();
+        sourceLocations = sourceReportController.getLocations();
 
         for (Location l : sourceLocations) {
             MarkerOptions markerOptions = new MarkerOptions();
