@@ -5,6 +5,7 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import model.Location;
+import model.User;
 import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     private ArrayList<Location> sourceLocations = sourceReportController.getLocations();
 
     private User user;
-
+    private ObservableList<String> reports;
     @FXML
     Button exitMapViewButton;
 
@@ -54,6 +55,10 @@ public class MapController implements Initializable, MapComponentInitializedList
         //sourceReportController = new SubmitReportController();
         //sourceLocations = sourceReportController.getLocations();
     }
+    
+    public void setUser(User user) throws NullPointerException {this.user = user;}
+    
+    
 
     public void mapInitialized() {
         MapOptions options = new MapOptions();
@@ -111,7 +116,8 @@ public class MapController implements Initializable, MapComponentInitializedList
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-        //controller.setUser(user);
+        controller.setUser(user);
+        controller.setReportsList(reports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
