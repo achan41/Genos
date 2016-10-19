@@ -1,6 +1,1 @@
-new/new/temp/Worker/Enter your email/Enter your address/Enter your number
-tori/tori/pass/Worker/new@gatech.edu/Still Nowhere/5555555556
-user/name/pass/Admin/Enter your email/Enter your address/Enter your number
-johnson/John/johnjohn/Worker/Edit your profile/Edit your profile/Edit your profile
-user/name/pass/Admin///
-user/John/pass/Manager/john@johnson.com/John Deere Drive/678/Mr
+user/john/pass/Admin/john@johnson.com/123 John Deere Drive/404/Mr
