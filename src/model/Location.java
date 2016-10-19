@@ -22,7 +22,8 @@ public class Location {
     }
 
     private void setLatLong() {
-
+        latitude = 34;
+        longitude = -88;
     }
 
     /**

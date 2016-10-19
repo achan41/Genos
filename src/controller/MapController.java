@@ -37,9 +37,9 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     private MainFXApplication mainFXApplication;
 
-    private SubmitReportController sourceReportController;
+    private SubmitReportController sourceReportController = new SubmitReportController();
 
-    private ArrayList<Location> sourceLocations;
+    private ArrayList<Location> sourceLocations = sourceReportController.getLocations();
 
     @FXML
     Button exitMapViewButton;
@@ -47,8 +47,8 @@ public class MapController implements Initializable, MapComponentInitializedList
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
-        sourceReportController = new SubmitReportController();
-        sourceLocations = sourceReportController.getLocations();
+        //sourceReportController = new SubmitReportController();
+        //sourceLocations = sourceReportController.getLocations();
     }
 
     public void mapInitialized() {
@@ -67,6 +67,7 @@ public class MapController implements Initializable, MapComponentInitializedList
                 .mapType(MapTypeIdEnum.TERRAIN);
 
         map = mapView.createMap(options);
+        System.out.println(sourceLocations.size());
 
         for (Location l : sourceLocations) {
             MarkerOptions markerOptions = new MarkerOptions();
@@ -103,7 +104,6 @@ public class MapController implements Initializable, MapComponentInitializedList
         Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
-        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

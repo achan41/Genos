@@ -44,6 +44,7 @@ public class SubmitReportController {
         waterTypeComboBox.setItems(typeList);
         ObservableList<WaterCondition> conditionList = FXCollections.observableArrayList(WaterCondition.values());
         waterConditionComboBox.setItems(conditionList);
+        //System.out.println("new locations array");
     }
 
     /**
@@ -77,8 +78,9 @@ public class SubmitReportController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
-        EditProfileController controller = fxmlLoader.<EditProfileController>getController();
-        controller.setUser(user);
+        FXMLLoader profileLoader = new FXMLLoader(getClass().getResource("../view/EditProfile.fxml"));
+        EditProfileController profileController = profileLoader.getController();
+        profileController.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -132,6 +134,7 @@ public class SubmitReportController {
         if (errorMessage.length() == 0) {
             report = new WaterReport(time, location, condition, type);
             locations.add(report.getLocationObject());
+            System.out.println("In report controller " + locations.size());
             return true;
         } else {
             //send alert warning of registration error
