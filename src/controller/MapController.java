@@ -118,8 +118,6 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     }
 
-    public void setUser(User user) throws NullPointerException {this.user = user;}
-
     /**
      * Handles exiting the map
      * @param event exit the map
