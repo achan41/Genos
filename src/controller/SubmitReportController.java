@@ -7,10 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterCondition;
@@ -18,6 +15,7 @@ import model.WaterType;
 import model.WaterReport;
 import model.Location;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -29,6 +27,7 @@ public class SubmitReportController {
     @FXML TextField reportLocation;
     @FXML TextField reportTime;
     @FXML Button cancelButton;
+    @FXML DatePicker date;
     private WaterReport report;
     private ObservableList<String> reports;
     private User user;
@@ -81,8 +80,8 @@ public class SubmitReportController {
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
 
         // Passes on user and report data to user scene, order determines which tab will be active last
-        controller.setReportsList(reports);
         controller.setUser(user);
+        controller.setReportsList(reports);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -125,6 +124,10 @@ public class SubmitReportController {
         String location = reportLocation.getText();
         WaterCondition condition = waterConditionComboBox.getValue();
         WaterType type = waterTypeComboBox.getValue();
+        LocalDate localDate = date.getValue();
+        if (localDate == null) {
+            errorMessage += "Please select a valid date!\n";
+        }
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
@@ -138,7 +141,7 @@ public class SubmitReportController {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
-            report = new WaterReport(time, location, condition, type);
+            report = new WaterReport(localDate, time, location, condition, type);
             locations.add(report.getLocationObject());
             //System.out.println("In report controller " + locations.size());
             return true;

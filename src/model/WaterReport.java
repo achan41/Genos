@@ -6,22 +6,26 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.time.LocalDate;
+
 /**
  * Created by Taiga on 10/12/2016.
  */
 public class WaterReport {
     private final StringProperty time = new SimpleStringProperty();
     private final StringProperty location = new SimpleStringProperty();
-    private  Location locationObject;
+    private Location locationObject;
     private final ObjectProperty<WaterCondition> condition = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterType> type = new SimpleObjectProperty<>();
+    private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
 
     /**
      * initializes report time, water condition and type, and location object
      * @param condition water's condition
      * @param type water's type
      */
-    public WaterReport(String time, String location, WaterCondition condition, WaterType type) {
+    public WaterReport(LocalDate date, String time, String location, WaterCondition condition, WaterType type) {
+        this.date.set(date);
         this.time.set(time);
         this.location.set(location);
         this.condition.set(condition);
@@ -91,6 +95,7 @@ public class WaterReport {
      */
     @Override
     public String toString() {
-        return time.get() + " / " + location.get() + " / " + condition.get().toString() + " / " + type.get().toString();
+        return date.get() + " / " + time.get() + " / " + location.get() + " / " + condition.get().toString()
+                + " / " + type.get().toString();
     }
 }

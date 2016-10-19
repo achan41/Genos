@@ -132,7 +132,12 @@ public class UserProfile {
      */
     @Override
     public String toString() {
-        return email.get() + "/" + address.get() + "/" + number.get() + "/" + title.get().toString();
+        if (title.get() != null) {
+            return email.get() + "/" + address.get() + "/" + number.get() + "/" + title.get().toString();
+        } else {
+            return email.get() + "/" + address.get() + "/" + number.get();
+        }
+
     }
 }
 

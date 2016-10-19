@@ -13,6 +13,11 @@ public class WelcomeScreenController {
     @FXML private Button loginButton, registerButton;
 
 
+    /**
+     * handles login screen button press
+     * @param e button press event
+     * @throws IOException unable to access initial login data (esp. while accessing user database)
+     */
     @FXML
     protected void handleLoginScreenButtonAction(ActionEvent e) throws IOException {
         Stage stage = (Stage) loginButton.getScene().getWindow();

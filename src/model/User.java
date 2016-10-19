@@ -37,6 +37,7 @@ public class User {
         this.password.set(password);
         this.name.set(name);
         this.accountType.set(accountType);
+        this.userProfile.set(new UserProfile(name));
     }
 
     /**
