@@ -5,6 +5,7 @@ import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
 import model.Location;
+import javafx.collections.ObservableList;
 import model.User;
 import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
@@ -56,8 +57,22 @@ public class MapController implements Initializable, MapComponentInitializedList
         //sourceLocations = sourceReportController.getLocations();
     }
     
-    public void setUser(User user) throws NullPointerException {this.user = user;}
-    
+    /**
+     * sets user from login screen
+     * @param user current user
+     */
+    public void setUser(User user) throws NullPointerException {
+        this.user = user;
+    }
+
+    /**
+     * sets reports from observablelist
+     * @param reports to be added
+     */
+    @FXML
+    public void setReportsList(ObservableList<String> reports) {
+        this.reports = reports;
+    }
     
 
     public void mapInitialized() {
