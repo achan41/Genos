@@ -15,8 +15,8 @@ public enum AccountType {
 
     /**
      * Counstructor for AccountType enumeration
-     * @param cName
-     * @param cRep
+     * @param cName the full name of type
+     * @param cRep the abbreviation of type name
      */
     AccountType(String cName, String cRep) {
         name = cName;

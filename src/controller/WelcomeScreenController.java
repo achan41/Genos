@@ -30,7 +30,7 @@ public class WelcomeScreenController {
 
     /**
      * opens registration screen upon button press
-     * @param event
+     * @param event select register
      */
     @FXML
     protected void launchRegisterScreen(ActionEvent event) throws IOException {

@@ -26,7 +26,7 @@ public class LoginScreenController {
 
     /**
      * closes window upon cancelling registration
-     * @param event
+     * @param event cancel login
      */
     @FXML
     protected void handleCancelLogin(ActionEvent event) throws IOException {
@@ -39,7 +39,7 @@ public class LoginScreenController {
 
     /**
      * handles login event
-     * @param event
+     * @param event select login
      */
     @FXML
     protected void handleLogin(ActionEvent event) throws IOException {

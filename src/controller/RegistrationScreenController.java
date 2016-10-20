@@ -36,7 +36,7 @@ public class RegistrationScreenController {
 
     /**
      * closes window upon cancelling registration
-     * @param event
+     * @param event cancel registration
      */
     @FXML
     protected void handleCancelRegistration(ActionEvent event) throws IOException {

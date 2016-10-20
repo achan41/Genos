@@ -1,5 +1,13 @@
 package model;
 
+import com.google.maps.GeocodingApi;
+import com.google.maps.GeoApiContext;
+import com.google.maps.GeocodingApiRequest;
+import com.google.maps.model.GeocodingResult;
+import com.google.maps.model.LatLng;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by twalker61 on 10/18/16.
  */
@@ -21,8 +29,25 @@ public class Location {
         setLatLong();
     }
 
+    /**
+     * Calls Google API to obtain longitude and latitude from address string name
+     */
     private void setLatLong() {
-
+        GeoApiContext context = new GeoApiContext();
+        context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
+                    .setConnectTimeout(60L, TimeUnit.SECONDS)
+                    .setReadTimeout(60L, TimeUnit.SECONDS)
+                    .setWriteTimeout(60L, TimeUnit.SECONDS);
+        GeocodingApiRequest request = GeocodingApi.geocode(context, name);
+        try {
+            GeocodingResult result = request.await()[0];
+            LatLng loc = result.geometry.location;
+            latitude = loc.lat;
+            longitude = loc.lng;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**

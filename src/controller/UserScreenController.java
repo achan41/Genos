@@ -11,9 +11,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.User;
 import model.UserDatabase;
+import model.Location;
 import model.WaterReport;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Taiga on 10/1/2016.
@@ -28,6 +30,7 @@ public class UserScreenController {
     private ObservableList<String> reports = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
+    private ArrayList<Location> locations = new ArrayList<Location>();
 
 
     @FXML
@@ -72,6 +75,21 @@ public class UserScreenController {
     }
 
     /**
+     * Changes tab displayed to main screen tab
+     */
+    public void setToMainTab() {
+        changeTab(profileTab);
+    }
+
+    /**
+     * sets/updates location list
+     * @param locations the list of locations currently submitted
+     */
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
+    }
+
+    /**
      * change tab of user screen tabpane
      * @param tab tab to make active
      */
@@ -82,8 +100,8 @@ public class UserScreenController {
     }
 
     /**
-     * handles logout request
-     * @param event
+     * handles logout request - return to welcome screen
+     * @param event logout
      */
     @FXML
     protected void handleLogout(ActionEvent event) throws IOException {
@@ -95,8 +113,8 @@ public class UserScreenController {
     }
 
     /**
-     * handles edit profile
-     * @param event
+     * handles edit profile - switch to edit profile screen
+     * @param event edit profile selected
      */
     @FXML
     protected void handleEditProfile(ActionEvent event) throws IOException {
@@ -106,14 +124,15 @@ public class UserScreenController {
         EditProfileController controller = fxmlLoader.<EditProfileController>getController();
         controller.setUser(user);
         controller.setReportsList(reports);
+        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     /**
-     * handles submit a report
-     * @param event
+     * handles submit a report - switch to report submission screen
+     * @param event submit report selected
      */
     @FXML
     protected void handleSubmitReport(ActionEvent event) throws IOException {
@@ -123,14 +142,15 @@ public class UserScreenController {
         SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
         controller.setUser(user);
         controller.setReportsList(reports);
+        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     /**
-     * Handles viewing the map
-     * @param event
+     * Handles viewing the map - switch to map scene
+     * @param event View Map selected
      * @throws IOException
      */
     @FXML
@@ -141,6 +161,7 @@ public class UserScreenController {
         MapController controller = fxmlLoader.<MapController>getController();
         controller.setUser(user);
         controller.setReportsList(reports);
+        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

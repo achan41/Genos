@@ -14,8 +14,8 @@ public enum WaterCondition {
 
     /**
      * Counstructor for WaterCondition enumeration
-     * @param cName
-     * @param cRep
+     * @param cName the full name of water condition
+     * @param cRep the abbreviation for full name
      */
     WaterCondition(String cName, String cRep) {
         name = cName;

@@ -13,8 +13,10 @@ import model.UserProfile;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Title;
+import model.Location;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Allen on 10/2/2016.
@@ -31,6 +33,7 @@ public class EditProfileController {
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
     private ObservableList<String> reports = FXCollections.observableArrayList();
+    private ArrayList<Location> locations;
 
     /**
      * called automatically in order to populate the titleBox with Titles
@@ -59,8 +62,16 @@ public class EditProfileController {
     }
 
     /**
-     * handles edit profile submission
-     * @param event event
+     * set location list
+     * @param locations list of currently submitted locations
+     */
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
+    }
+
+    /**
+     * handles edit profile submission, return to user screen
+     * @param event submit profile
      * @throws java.io.IOException cann't access userdatabase
      */
     @FXML
@@ -70,6 +81,11 @@ public class EditProfileController {
         }
     }
 
+    /**
+     * handles cancel button response, return to user screen
+     * @param event cancel submission
+     * @throws java.io.IOException
+     */
     @FXML
     protected void handleCancel(ActionEvent event) throws java.io.IOException {
         swapToUserScreen(user);
@@ -88,13 +104,14 @@ public class EditProfileController {
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
         controller.setReportsList(reports);
         controller.setUser(user);
+        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
     /**
-     * checks if valid ediit profile changes
+     * checks if valid edit profile changes
      * @return true if valid profile edit
      */
     private boolean isValidProfileEdit() {
@@ -153,6 +170,12 @@ public class EditProfileController {
         }
     }
 
+    /**
+     * Sends alert of invalid submission
+     * @param type type of alert
+     * @param title alert title
+     * @param text alert message
+     */
     private void sendAlert(String type, String title, String text) {
         Alert alert = new Alert(Alert.AlertType.valueOf(type));
         alert.setTitle(title);

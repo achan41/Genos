@@ -7,7 +7,6 @@ import com.lynden.gmapsfx.javascript.object.*;
 import model.Location;
 import javafx.collections.ObservableList;
 import model.User;
-import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,9 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import netscape.javascript.JSObject;
 
 import java.io.IOException;
@@ -37,20 +34,16 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     private GoogleMap map;
 
-    //private SubmitReportController sourceReportController = new SubmitReportController();
-
-    private ArrayList<Location> sourceLocations;
-
     private User user;
     private ObservableList<String> reports;
+    private ArrayList<Location> sourceLocations;
+
     @FXML
     Button exitMapViewButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         mapView.addMapInializedListener(this);
-        //sourceReportController = new SubmitReportController();
-        //sourceLocations = sourceReportController.getLocations();
     }
     
     /**
@@ -69,8 +62,18 @@ public class MapController implements Initializable, MapComponentInitializedList
     public void setReportsList(ObservableList<String> reports) {
         this.reports = reports;
     }
-    
 
+    /**
+     * sets location list
+     * @param locations list of locations submitted so far
+     */
+    public void setLocations(ArrayList<Location> locations) {
+        sourceLocations = locations;
+    }
+
+    /**
+     * Set map properties, display map, obtain locations of reports, and display report markers on map
+     */
     public void mapInitialized() {
         MapOptions options = new MapOptions();
 
@@ -88,10 +91,6 @@ public class MapController implements Initializable, MapComponentInitializedList
 
         map = mapView.createMap(options);
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
-        SubmitReportController sourceReportController = fxmlLoader.getController();
-        sourceLocations = sourceReportController.getLocations();
-
         for (Location l : sourceLocations) {
             MarkerOptions markerOptions = new MarkerOptions();
             LatLong loc = new LatLong(l.getLat(), l.getLong());
@@ -106,7 +105,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                     UIEventType.click,
                     (JSObject obj) -> {
                         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                        infoWindowOptions.content(l.getDescription());
+                        infoWindowOptions.content("<h3>" + l.getName() + "</h3>"
+                                + "\n" + l.getDescription());
 
                         InfoWindow window = new InfoWindow(infoWindowOptions);
                         window.open(map, marker);
@@ -130,6 +130,8 @@ public class MapController implements Initializable, MapComponentInitializedList
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
         controller.setUser(user);
         controller.setReportsList(reports);
+        controller.setToMainTab();
+        controller.setLocations(sourceLocations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

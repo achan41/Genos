@@ -31,7 +31,7 @@ public class SubmitReportController {
     private WaterReport report;
     private ObservableList<String> reports;
     private User user;
-    private final ArrayList<Location> locations = new ArrayList<Location>();
+    private ArrayList<Location> locations;
 
     /**
      * called automatically in order to populate the waterTypeComboBox with water types
@@ -43,7 +43,6 @@ public class SubmitReportController {
         waterTypeComboBox.setItems(typeList);
         ObservableList<WaterCondition> conditionList = FXCollections.observableArrayList(WaterCondition.values());
         waterConditionComboBox.setItems(conditionList);
-        //System.out.println("new locations array");
     }
 
     /**
@@ -62,14 +61,12 @@ public class SubmitReportController {
         this.reports = reports;
     }
 
-    /**
-     */
-    public ArrayList<Location> getLocations() {
-        return locations;
+    public void setLocations(ArrayList<Location> locations) {
+        this.locations = locations;
     }
 
     /**
-     * handles cancel request
+     * handles cancel request, returns to user screen
      * @param event cancel report submission
      */
     @FXML
@@ -82,6 +79,7 @@ public class SubmitReportController {
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
         controller.setReportsList(reports);
+        controller.setLocations(locations);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -97,6 +95,7 @@ public class SubmitReportController {
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
             reports.add(report.toString());
+            locations.add(report.getLocationObject());
 
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
@@ -105,6 +104,7 @@ public class SubmitReportController {
 
             controller.setUser(user);
             controller.setReportsList(reports);
+            controller.setLocations(locations);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -142,7 +142,6 @@ public class SubmitReportController {
         }
         if (errorMessage.length() == 0) {
             report = new WaterReport(reports.size() + 1, localDate, time, location, condition, type);
-            locations.add(report.getLocationObject());
             //System.out.println("In report controller " + locations.size());
             return true;
         } else {

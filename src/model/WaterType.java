@@ -15,9 +15,9 @@ public enum WaterType {
     private final String charRep;
 
     /**
-     * Counstructor for AccountType enumeration
-     * @param cName
-     * @param cRep
+     * Counstructor for WaterType enumeration
+     * @param cName the full name for water type
+     * @param cRep the abbreviation for the full name
      */
     WaterType(String cName, String cRep) {
         name = cName;

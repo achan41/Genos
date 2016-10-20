@@ -13,9 +13,9 @@ public enum Title {
     private final String charRep;
 
     /**
-     * Counstructor for AccountType enumeration
-     * @param cName
-     * @param cRep
+     * Counstructor for Title enumeration
+     * @param cName The full name of the title
+     * @param cRep The abbreviation of title name
      */
     Title(String cName, String cRep) {
         name = cName;

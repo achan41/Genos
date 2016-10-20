@@ -31,8 +31,8 @@ public class WaterReport {
         this.condition.set(condition);
         this.type.set(type);
         locationObject = new Location(
-                "Water Type: " + type
-                + "Water Condition " + condition, location);
+                "Type: " + type
+                + " | Condition: " + condition, location);
     }
 
     /**
@@ -73,25 +73,28 @@ public class WaterReport {
 
     /**
      * change time of report
-     * @param time
+     * @param time new time of report
      */
     public void setTime(String time) {this.time.set(time);}
 
     /**
      * change location of report
-     * @param location
+     * @param location new location of report
      */
-    public void setLocation(String location) {this.location.set(location);}
+    public void setLocation(String location) {
+        this.location.set(location);
+        //way to update location object
+    }
 
     /**
      * change water condition in report
-     * @param condition of water
+     * @param condition new condition of water
      */
     public void setCondition(WaterCondition condition) {this.condition.set(condition);}
 
     /**
      * change water type in report
-     * @param type of water
+     * @param type new type of water
      */
     public void setType(WaterType type) {this.type.set(type);}
 
