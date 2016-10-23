@@ -6,6 +6,7 @@ import com.google.maps.GeocodingApi;
 import com.google.maps.GeocodingApiRequest;
 import com.google.maps.model.GeocodingResult;
 import com.google.maps.model.LatLng;
+import com.lynden.gmapsfx.javascript.object.LatLong;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -17,6 +18,7 @@ public class Location {
     private double latitude;
     private final String description;
     private final String name;
+    private LatLong latLong;
 
     /**
      * initialize location, set description and name, set latitude/longitude
@@ -27,6 +29,28 @@ public class Location {
         description = desc;
         name = n;
         setLatLong();
+    }
+
+    /**
+     * initializes location using only latitude and longitude coordniates
+     * @param name name of location
+     * @param description name of description
+     * @param latLong latLong of location
+     */
+    public Location(String name, String description, LatLong latLong) {
+        this.name = name;
+        this.description = description;
+        longitude = latLong.getLongitude();
+        latitude = latLong.getLatitude();
+        this.latLong = latLong;
+    }
+
+    /**
+     * sets new latitude and longitude coordinates
+     * @param latLong new latLong of location
+     */
+    public void setLatLong(LatLong latLong) {
+        this.latLong = latLong;
     }
 
     /**

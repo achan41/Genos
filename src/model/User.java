@@ -10,11 +10,11 @@ import javafx.beans.property.StringProperty;
  */
 public class User {
 
-    private final StringProperty name = new SimpleStringProperty();
+    private StringProperty name = new SimpleStringProperty();
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
-    private final ObjectProperty<AccountType> accountType = new SimpleObjectProperty<>();
-    private final ObjectProperty<UserProfile> userProfile = new SimpleObjectProperty<>();
+    private ObjectProperty<AccountType> accountType = new SimpleObjectProperty<>();
+    private ObjectProperty<UserProfile> userProfile = new SimpleObjectProperty<>();
 
     /**
      * creates User with 2 parameters

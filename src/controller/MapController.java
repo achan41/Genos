@@ -4,6 +4,8 @@ import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import model.Location;
 import javafx.collections.ObservableList;
 import model.User;
@@ -30,9 +32,9 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     @FXML
     private GoogleMapView mapView;
-
     private GoogleMap map;
 
+    private boolean chooseLoc = false;
     private User user;
     private ObservableList<String> reports;
     private ArrayList<Location> sourceLocations;
@@ -60,6 +62,14 @@ public class MapController implements Initializable, MapComponentInitializedList
     @FXML
     public void setReportsList(ObservableList<String> reports) {
         this.reports = reports;
+    }
+
+    /**
+     * sets whether or not loc should be chosen
+     * @param chooseLoc whether or not loc should be chosen
+     */
+    public void setChooseLoc(boolean chooseLoc) {
+        this.chooseLoc = chooseLoc;
     }
 
     /**
@@ -118,7 +128,33 @@ public class MapController implements Initializable, MapComponentInitializedList
 
             map.addMarker(marker);
         }
+        if (chooseLoc) {
+            map.addUIEventHandler(map, UIEventType.click, (JSObject obj) -> {
+                LatLong latLong = new LatLong((JSObject) obj.getMember("latLng"));
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Location Confirmation");
+                alert.setContentText("Are you sure you want to choose this location?");
+                alert.showAndWait().ifPresent((response -> {
+                    if (response == ButtonType.OK) {
+                        try {
+                            Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
+                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
+                            Parent root = fxmlLoader.load();
+                            SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
+                            controller.setUser(user);
+                            controller.setReportsList(reports);
+                            controller.setLocations(sourceLocations);
+                            controller.setCurrentLocation(latLong);
+                            Scene scene = new Scene(root);
+                            stage.setScene(scene);
+                            stage.show();
+                        } catch (IOException e) {
+                        }
+                    }
+                }));
 
+            });
+        }
     }
 
     /**

@@ -9,8 +9,7 @@ import java.time.LocalDate;
  */
 public class WaterReport {
     private final StringProperty time = new SimpleStringProperty();
-    private final StringProperty location = new SimpleStringProperty();
-    private Location locationObject;
+    private Location location;
     private final ObjectProperty<WaterCondition> condition = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterType> type = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
@@ -21,17 +20,14 @@ public class WaterReport {
      * @param condition water's condition
      * @param type water's type
      */
-    public WaterReport(int reportNum, LocalDate date, String time, String location, WaterCondition condition,
+    public WaterReport(int reportNum, LocalDate date, String time, Location location, WaterCondition condition,
                        WaterType type) {
         this.reportNum.setValue(reportNum);
         this.date.set(date);
         this.time.set(time);
-        this.location.set(location);
+        this.location = location;
         this.condition.set(condition);
         this.type.set(type);
-        locationObject = new Location(
-                "Type: " + type
-                + " | Condition: " + condition, location);
     }
 
     /**
@@ -50,13 +46,13 @@ public class WaterReport {
      * returns location of report
      * @return location of report
      */
-    public String getLocation() {return location.get();}
+    public Location getLocation() {return location;}
 
     /**
      * returns location object of report
      * @return location object of report
      */
-    public Location getLocationObject() {return locationObject;}
+    public Location getLocationObject() {return location;}
 
     /**
      * returns water condition of report
@@ -80,9 +76,8 @@ public class WaterReport {
      * change location of report
      * @param location new location of report
      */
-    public void setLocation(String location) {
-        this.location.set(location);
-        //way to update location object
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
     /**
@@ -112,7 +107,7 @@ public class WaterReport {
         return reportNum.get() + " / "
                 + date.get() + " / "
                 + time.get() + " / "
-                + location.get() + " / "
+                + "#" + location.getLat() + "#" + location.getLong() + " / "
                 + condition.get().toString() + " / "
                 + type.get().toString();
     }

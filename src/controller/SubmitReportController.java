@@ -1,5 +1,6 @@
 package controller;
 
+import com.lynden.gmapsfx.javascript.object.LatLong;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterCondition;
@@ -24,14 +26,15 @@ import java.util.ArrayList;
 public class SubmitReportController {
     @FXML ComboBox<WaterType> waterTypeComboBox;
     @FXML ComboBox<WaterCondition> waterConditionComboBox;
-    @FXML TextField reportLocation;
-    @FXML TextField reportTime;
+    @FXML TextField reportName, reportTime, reportDescription;
     @FXML Button cancelButton;
     @FXML DatePicker date;
+    @FXML Text locationText;
     private WaterReport report;
     private ObservableList<String> reports;
     private User user;
     private ArrayList<Location> locations;
+    private LatLong latLong;
 
     /**
      * called automatically in order to populate the waterTypeComboBox with water types
@@ -61,14 +64,24 @@ public class SubmitReportController {
         this.reports = reports;
     }
 
+    /**
+     * sets location array
+     * @param locations locations to set as array
+     */
     public void setLocations(ArrayList<Location> locations) {
         this.locations = locations;
     }
 
     /**
-     * handles handle choose location for report
-     * @param event map controller activated
+     * sets water report location to be chosen location
+     * @param latLong latitude/longitude to set current report to
      */
+
+    public void setCurrentLocation(LatLong latLong) {
+        this.latLong = latLong;
+    }
+
+
     @FXML
     protected void handleChooseLocation(ActionEvent event) throws java.io.IOException {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -80,7 +93,7 @@ public class SubmitReportController {
         controller.setUser(user);
         controller.setReportsList(reports);
         controller.setLocations(locations);
-
+        controller.setChooseLoc(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -141,18 +154,23 @@ public class SubmitReportController {
     private boolean isValidSubmit() {
         String errorMessage = "";
         //get text from registration form
+        String name = reportName.getText();
+        String description = reportDescription.getText();
         String time = reportTime.getText();
-        String location = reportLocation.getText();
         WaterCondition condition = waterConditionComboBox.getValue();
         WaterType type = waterTypeComboBox.getValue();
         LocalDate localDate = date.getValue();
+        Location location = new Location(name, description, latLong);
+        if (name == null) {
+            errorMessage += "Please enter a valid name!\n";
+        }
         if (localDate == null) {
             errorMessage += "Please select a valid date!\n";
         }
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (location == null || location.length() == 0 || location.contains("/")) {
+        if (location == null) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (waterConditionComboBox.getValue() == null) {
@@ -161,8 +179,13 @@ public class SubmitReportController {
         if (waterTypeComboBox.getValue() == null) {
             errorMessage += "Please select a water type.\n";
         }
+        if (description == null) {
+            errorMessage += "Please enter a valid description!\n";
+        }
         if (errorMessage.length() == 0) {
+            locations.add(location);
             report = new WaterReport(reports.size() + 1, localDate, time, location, condition, type);
+            locationText.setText(location.getLat() + "* " + location.getLong() + "*");
             //System.out.println("In report controller " + locations.size());
             return true;
         } else {
