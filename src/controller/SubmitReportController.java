@@ -66,6 +66,27 @@ public class SubmitReportController {
     }
 
     /**
+     * handles handle choose location for report
+     * @param event map controller activated
+     */
+    @FXML
+    protected void handleChooseLocation(ActionEvent event) throws java.io.IOException {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        MapController controller = fxmlLoader.<MapController>getController();
+
+        // Passes on user and report data to user scene, order determines which tab will be active last
+        controller.setUser(user);
+        controller.setReportsList(reports);
+        controller.setLocations(locations);
+
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
      * handles cancel request, returns to user screen
      * @param event cancel report submission
      */

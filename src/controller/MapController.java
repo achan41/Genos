@@ -16,7 +16,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -90,6 +89,11 @@ public class MapController implements Initializable, MapComponentInitializedList
                 .mapType(MapTypeIdEnum.TERRAIN);
 
         map = mapView.createMap(options);
+
+        MarkerOptions markOps1 = new MarkerOptions();
+        markOps1.position(center);
+        Marker centerMarker = new Marker(markOps1);
+        map.addMarker(centerMarker);
 
         for (Location l : sourceLocations) {
             MarkerOptions markerOptions = new MarkerOptions();
