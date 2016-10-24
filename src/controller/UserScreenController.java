@@ -155,6 +155,24 @@ public class UserScreenController {
     }
 
     /**
+     * handles submit a quality report - switches to submit quality repotr screen
+     * @param event submit report selected
+     */
+    @FXML
+    protected void handleSubmitQuality(ActionEvent event) throws IOException {
+        Stage stage = (Stage) editProfileButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
+        controller.setUser(user);
+        controller.setReportsList(reports);
+        controller.setLocations(locations);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
      * Handles viewing the map - switch to map scene
      * @param event View Map selected
      * @throws IOException

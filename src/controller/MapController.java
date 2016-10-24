@@ -36,6 +36,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     private GoogleMap map;
 
     private boolean chooseLoc = false;
+    private String reportType;
     private User user;
     private WaterReport report;
     private ObservableList<WaterReport> reports;
@@ -85,6 +86,10 @@ public class MapController implements Initializable, MapComponentInitializedList
         sourceLocations = locations;
     }
 
+    public void setReportType(String reportType) {
+        this.reportType = reportType;
+    }
+
     /**
      * Set map properties, display map, obtain locations of reports, and display report markers on map
      */
@@ -120,15 +125,25 @@ public class MapController implements Initializable, MapComponentInitializedList
                     UIEventType.click,
                     (JSObject obj) -> {
                         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                        infoWindowOptions.content(
-                                "<h3>" + l.getName() + "</h3>" + "\n"
-                                + l.getDescription() + "<br />"
-                                + l.getLatLongString() + "<br />"
-                                + report.getCondition() + " " + report.getType() + "<br />"
-                                + report.getDate() + " " + report.getTime()
+                        if (report.getCondition() != null) {
+                            infoWindowOptions.content(
+                                    "<h4>" + report.getReportNum() + ". " + report.getReporterName() + "</h4>"
+                                            + l.getLatLongString() + "<br />"
+                                            + report.getDate() + " " + report.getTime() + "<br />"
+                                            + report.getCondition() + " " + report.getType() + "<br />"
 
-                        );
+                            );
+                        } else {
+                            infoWindowOptions.content(
+                                    "<h4>" + report.getReportNum() + ". " + report.getReporterName() + "</h4>"
+                                            + l.getLatLongString() + "<br />"
+                                            + report.getDate() + " " + report.getTime() + "<br />"
+                                            + report.getOverallCondition() + "<br />"
+                                            + "Virus PPM: " + report.getVirusPPM() + "<br />"
+                                            + "Contaminant PPM: " + report.getContamPPM() + "<br />"
 
+                            );
+                        }
                         InfoWindow window = new InfoWindow(infoWindowOptions);
                         window.open(map, marker);
                     });
@@ -148,17 +163,31 @@ public class MapController implements Initializable, MapComponentInitializedList
                         try {
                             //go back to submit report screen and preserve location selected
                             Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
-                            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
-                            Parent root = fxmlLoader.load();
-                            SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
-                            controller.setUser(user);
-                            controller.setReportsList(reports);
-                            controller.setReport(report);
-                            controller.setLocations(sourceLocations);
-                            controller.setCurrentLocation(latLong);
-                            Scene scene = new Scene(root);
-                            stage.setScene(scene);
-                            stage.show();
+                            if (reportType.equals("quality")) {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
+                                Parent root = fxmlLoader.load();
+                                SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
+                                controller.setUser(user);
+                                controller.setReportsList(reports);
+                                controller.setReport(report);
+                                controller.setLocations(sourceLocations);
+                                controller.setCurrentLocation(latLong);
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+                            } else {
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
+                                Parent root = fxmlLoader.load();
+                                SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
+                                controller.setUser(user);
+                                controller.setReportsList(reports);
+                                controller.setReport(report);
+                                controller.setLocations(sourceLocations);
+                                controller.setCurrentLocation(latLong);
+                                Scene scene = new Scene(root);
+                                stage.setScene(scene);
+                                stage.show();
+                            }
                         } catch (IOException e) {
                             //catch io exception for fxmlLoader
                         }

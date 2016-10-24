@@ -9,25 +9,42 @@ import java.time.LocalDate;
  */
 public class WaterReport {
     private final StringProperty time = new SimpleStringProperty();
+    private final StringProperty name = new SimpleStringProperty();
     private Location location;
     private final ObjectProperty<WaterCondition> condition = new SimpleObjectProperty<>();
     private final ObjectProperty<WaterType> type = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
     private final IntegerProperty reportNum = new SimpleIntegerProperty();
+    private final ObjectProperty<OverallCondition> overallCondition = new SimpleObjectProperty<>();
+    private String virusPPM;
+    private String contaminantPPM;
 
     /**
      * initializes report time, water condition and type, and location object
      * @param condition water's condition
      * @param type water's type
      */
-    public WaterReport(int reportNum, LocalDate date, String time, Location location, WaterCondition condition,
+    public WaterReport(int reportNum, String name, LocalDate date, String time, Location location, WaterCondition condition,
                        WaterType type) {
+        this.name.set(name);
         this.reportNum.setValue(reportNum);
         this.date.set(date);
         this.time.set(time);
         this.location = location;
         this.condition.set(condition);
         this.type.set(type);
+    }
+
+    public WaterReport(int reportNum, String reporterName, LocalDate date, String time, Location location,
+                       OverallCondition overallCondition, String virusPPM, String contamPPM) {
+        this.reportNum.set(reportNum);
+        this.name.set(reporterName);
+        this.date.set(date);
+        this.time.set(time);
+        this.location = location;
+        this.overallCondition.set(overallCondition);
+        this.virusPPM = virusPPM;
+        this.contaminantPPM = contamPPM;
     }
 
     /**
@@ -41,6 +58,12 @@ public class WaterReport {
      * @return location of report
      */
     public int getReportNum() {return reportNum.getValue();}
+
+    /**
+     * returns name of reporter
+     * @return name of reporter of water report
+     */
+    public String getReporterName() {return name.get();}
 
     /**
      * returns time of report
@@ -67,10 +90,26 @@ public class WaterReport {
     public WaterCondition getCondition() {return condition.get();}
 
     /**
+     * returns overall condition
+     * @return overall condition of report
+     */
+    public OverallCondition getOverallCondition() {
+        return overallCondition.get();
+    }
+
+    /**
      * returns water type of report
      * @return water type of report
      */
     public WaterType getType() {return type.get();}
+
+    public double getVirusPPM() {
+        return Double.parseDouble(virusPPM);
+    }
+
+    public double getContamPPM() {
+        return Double.parseDouble(contaminantPPM);
+    }
 
     /**
      * change time of report
@@ -110,12 +149,21 @@ public class WaterReport {
      */
     @Override
     public String toString() {
-        return reportNum.get() + " / "
-                + date.get() + " / "
-                + time.get() + " / "
-                + location.getLatLongString() + "* / "
-                + condition.get().toString() + " / "
-                + type.get().toString() + "/"
-                + location.getDescription();
+        if (virusPPM == null) {
+            return reportNum.get() + " / "
+                    + date.get() + " / "
+                    + time.get() + " / "
+                    + location.getLatLongString() + "* / "
+                    + condition.get().toString() + " / "
+                    + type.get().toString();
+        } else {
+            return reportNum.get() + " / "
+                    + date.get() + " / "
+                    + time.get() + " / "
+                    + location.getLatLongString() + "* / "
+                    + overallCondition.get().toString() + " / "
+                    + virusPPM + "/"
+                    + contaminantPPM;
+        }
     }
 }

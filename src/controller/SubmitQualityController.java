@@ -11,24 +11,19 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.User;
-import model.WaterCondition;
-import model.WaterType;
-import model.WaterReport;
-import model.Location;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
- * Created by dionisiatara on 10/11/16.
+ * Created by taiga on 10/24/2016.
  */
-public class SubmitReportController {
-    @FXML ComboBox<WaterType> waterTypeComboBox;
-    @FXML ComboBox<WaterCondition> waterConditionComboBox;
-    @FXML TextField reportName, reportTime, reportDescription;
-    @FXML Button cancelButton;
+public class SubmitQualityController {
+    @FXML ComboBox<OverallCondition> overallComboBox;
+    @FXML TextField reporterName, virusPPMField, contamPPMField, reportTime;
     @FXML DatePicker date;
+    @FXML Button cancelButton, submitButton;
     @FXML Text locationText;
     private WaterReport report;
     private ObservableList<WaterReport> reports;
@@ -42,10 +37,8 @@ public class SubmitReportController {
      */
     @FXML
     private void initialize() {
-        ObservableList<WaterType> typeList = FXCollections.observableArrayList(WaterType.values());
-        waterTypeComboBox.setItems(typeList);
-        ObservableList<WaterCondition> conditionList = FXCollections.observableArrayList(WaterCondition.values());
-        waterConditionComboBox.setItems(conditionList);
+        ObservableList<OverallCondition> overallList = FXCollections.observableArrayList(OverallCondition.values());
+        overallComboBox.setItems(overallList);
     }
 
     /**
@@ -54,7 +47,7 @@ public class SubmitReportController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
-        reportName.setText(user.getName());
+        reporterName.setText(user.getName());
     }
 
     /**
@@ -64,10 +57,8 @@ public class SubmitReportController {
     public void setReport(WaterReport report) {
         date.setValue(report.getDate());
         reportTime.setText(report.getTime());
-        reportName.setText(report.getLocation().getName());
-        reportDescription.setText(report.getLocation().getDescription());
-        waterConditionComboBox.setValue(report.getCondition());
-        waterTypeComboBox.setValue(report.getType());
+        reporterName.setText(report.getLocation().getName());
+        overallComboBox.setValue(report.getOverallCondition());
     }
 
     /**
@@ -107,7 +98,11 @@ public class SubmitReportController {
         locationText.setText(locText);
     }
 
-
+    /**
+     * handles choosing of location
+     * @param event
+     * @throws java.io.IOException
+     */
     @FXML
     protected void handleChooseLocation(ActionEvent event) throws java.io.IOException {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -119,23 +114,22 @@ public class SubmitReportController {
         controller.setUser(user);
         controller.setReportsList(reports);
         Location tempLocation = new Location("", "", false);
-        if (reportName.getText() != null) {
-            tempLocation.setName(reportName.getText());
-        }
-        if (reportDescription.getText() != null) {
-            tempLocation.setDescription(reportDescription.getText());
+        if (reporterName.getText() != null) {
+            tempLocation.setName(reporterName.getText());
         }
         WaterReport report = new WaterReport(
                 reports.size() + 1,
-                reportName.getText(),
+                reporterName.getText(),
                 date.getValue(),
                 reportTime.getText(),
                 tempLocation,
-                waterConditionComboBox.getValue(),
-                waterTypeComboBox.getValue());
+                overallComboBox.getValue(),
+                virusPPMField.getText(),
+                contamPPMField.getText());
         controller.setReport(report);
         controller.setLocations(locations);
         controller.setChooseLoc(true);
+        controller.setReportType("quality");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -196,13 +190,13 @@ public class SubmitReportController {
     private boolean isValidSubmit() {
         String errorMessage = "";
         //get text from registration form
-        String name = reportName.getText();
-        String description = reportDescription.getText();
+        String name = reporterName.getText();
         String time = reportTime.getText();
-        WaterCondition condition = waterConditionComboBox.getValue();
-        WaterType type = waterTypeComboBox.getValue();
+        OverallCondition condition = overallComboBox.getValue();
         LocalDate localDate = date.getValue();
-        Location location = new Location(name, description, latLong);
+        String virusPPM = virusPPMField.getText();
+        String contamPPM = contamPPMField.getText();
+        Location location = new Location(name, "", latLong);
         if (name == null) {
             errorMessage += "Please enter your name!\n";
         }
@@ -215,21 +209,12 @@ public class SubmitReportController {
         if (location == null) {
             errorMessage += "Please enter a valid location!\n";
         }
-        if (waterConditionComboBox.getValue() == null) {
-            errorMessage += "Please enter a water condition!\n";
-        }
-        if (waterTypeComboBox.getValue() == null) {
+        if (overallComboBox.getValue() == null) {
             errorMessage += "Please select a water type.\n";
-        }
-        if (description == null) {
-            errorMessage += "Please enter a valid description!\n";
-        } else if (description == "") {
-            location.setDescription("No Description");
         }
         if (errorMessage.length() == 0) {
             locations.add(location);
-            report = new WaterReport(reports.size() + 1, name, localDate, time, location, condition, type);
-            locationText.setText(location.getLatLongString());
+            report = new WaterReport(reports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
             //System.out.println("In report controller " + locations.size());
             return true;
         } else {
