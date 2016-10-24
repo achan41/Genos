@@ -38,7 +38,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     private boolean chooseLoc = false;
     private User user;
     private WaterReport report;
-    private ObservableList<String> reports;
+    private ObservableList<WaterReport> reports;
     private ArrayList<Location> sourceLocations;
 
     @FXML
@@ -62,7 +62,7 @@ public class MapController implements Initializable, MapComponentInitializedList
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<String> reports) {
+    public void setReportsList(ObservableList<WaterReport> reports) {
         this.reports = reports;
     }
 
@@ -105,8 +105,9 @@ public class MapController implements Initializable, MapComponentInitializedList
 
         map = mapView.createMap(options);
 
-        for (Location l : sourceLocations) {
+        for (WaterReport report : reports) {
             MarkerOptions markerOptions = new MarkerOptions();
+            Location l = report.getLocation();
             LatLong loc = new LatLong(l.getLat(), l.getLong());
 
             markerOptions.position(loc)
@@ -122,7 +123,10 @@ public class MapController implements Initializable, MapComponentInitializedList
                         infoWindowOptions.content(
                                 "<h3>" + l.getName() + "</h3>" + "\n"
                                 + l.getDescription() + "<br />"
-                                + l.getLatLongString()
+                                + l.getLatLongString() + "<br />"
+                                + report.getCondition() + " " + report.getType() + "<br />"
+                                + report.getDate() + " " + report.getTime()
+
                         );
 
                         InfoWindow window = new InfoWindow(infoWindowOptions);

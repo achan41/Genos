@@ -31,7 +31,7 @@ public class SubmitReportController {
     @FXML DatePicker date;
     @FXML Text locationText;
     private WaterReport report;
-    private ObservableList<String> reports;
+    private ObservableList<WaterReport> reports;
     private User user;
     private ArrayList<Location> locations;
     private LatLong latLong;
@@ -69,7 +69,7 @@ public class SubmitReportController {
      * sets report list displayed on userscreen report tab
      * @param reports reports sumbitted so far
      */
-    public void setReportsList(ObservableList<String> reports) {
+    public void setReportsList(ObservableList<WaterReport> reports) {
         this.reports = reports;
     }
 
@@ -164,7 +164,7 @@ public class SubmitReportController {
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
-            reports.add(report.toString());
+            reports.add(report);
             locations.add(report.getLocationObject());
 
             Stage stage = (Stage) reportTime.getScene().getWindow();

@@ -29,7 +29,8 @@ public class UserScreenController {
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
     @FXML Text reportsCategories;
-    private ObservableList<String> reports = FXCollections.observableArrayList();
+    private ObservableList<WaterReport> reports = FXCollections.observableArrayList();
+    private ObservableList<String> reportStrings = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
     private ArrayList<Location> locations = new ArrayList<Location>();
@@ -70,9 +71,12 @@ public class UserScreenController {
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<String> reports) {
+    public void setReportsList(ObservableList<WaterReport> reports) {
         this.reports = reports;
-        reportListView.setItems(reports);
+        for (WaterReport report : reports) {
+            reportStrings.add(report.toString());
+        }
+        reportListView.setItems(reportStrings);
         changeTab(reportsTab);
     }
 

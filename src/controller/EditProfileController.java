@@ -7,13 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.User;
-import model.UserDatabase;
-import model.UserProfile;
+import model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import model.Title;
-import model.Location;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class EditProfileController {
     private User user;
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
-    private ObservableList<String> reports = FXCollections.observableArrayList();
+    private ObservableList<WaterReport> reports = FXCollections.observableArrayList();
     private ArrayList<Location> locations;
 
     /**
@@ -57,7 +53,7 @@ public class EditProfileController {
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<String> reports) {
+    public void setReportsList(ObservableList<WaterReport> reports) {
         this.reports = reports;
     }
 
