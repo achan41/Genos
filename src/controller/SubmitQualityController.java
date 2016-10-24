@@ -25,8 +25,8 @@ public class SubmitQualityController {
     @FXML DatePicker date;
     @FXML Button cancelButton, submitButton;
     @FXML Text locationText;
-    private WaterReport report;
-    private ObservableList<WaterReport> reports;
+    private WaterSourceReport report;
+    private ObservableList<WaterSourceReport> reports;
     private User user;
     private ArrayList<Location> locations;
     private LatLong latLong;
@@ -54,7 +54,7 @@ public class SubmitQualityController {
      * sets submit fields to water report's data
      * @param report report to pull data from
      */
-    public void setReport(WaterReport report) {
+    public void setReport(WaterSourceReport report) {
         date.setValue(report.getDate());
         reportTime.setText(report.getTime());
         reporterName.setText(report.getLocation().getName());
@@ -65,7 +65,7 @@ public class SubmitQualityController {
      * sets report list displayed on userscreen report tab
      * @param reports reports sumbitted so far
      */
-    public void setReportsList(ObservableList<WaterReport> reports) {
+    public void setReportsList(ObservableList<WaterSourceReport> reports) {
         this.reports = reports;
     }
 
@@ -117,7 +117,7 @@ public class SubmitQualityController {
         if (reporterName.getText() != null) {
             tempLocation.setName(reporterName.getText());
         }
-        WaterReport report = new WaterReport(
+        WaterSourceReport report = new WaterSourceReport(
                 reports.size() + 1,
                 reporterName.getText(),
                 date.getValue(),
@@ -214,7 +214,7 @@ public class SubmitQualityController {
         }
         if (errorMessage.length() == 0) {
             locations.add(location);
-            report = new WaterReport(reports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
+            report = new WaterSourceReport(reports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
             //System.out.println("In report controller " + locations.size());
             return true;
         } else {

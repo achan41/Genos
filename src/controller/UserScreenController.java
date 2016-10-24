@@ -26,7 +26,7 @@ public class UserScreenController {
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
     @FXML Text reportsCategories;
-    private ObservableList<WaterReport> reports = FXCollections.observableArrayList();
+    private ObservableList<WaterSourceReport> reports = FXCollections.observableArrayList();
     private ObservableList<String> reportStrings = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
@@ -68,9 +68,9 @@ public class UserScreenController {
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<WaterReport> reports) {
+    public void setReportsList(ObservableList<WaterSourceReport> reports) {
         this.reports = reports;
-        for (WaterReport report : reports) {
+        for (WaterSourceReport report : reports) {
             reportStrings.add(report.toString());
         }
         reportListView.setItems(reportStrings);

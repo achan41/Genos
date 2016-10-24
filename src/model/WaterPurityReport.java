@@ -1,18 +1,17 @@
 package model;
 
-
 import javafx.beans.property.*;
+
 import java.time.LocalDate;
 
 /**
- * Created by Taiga on 10/12/2016.
+ * Created by twalker61 on 10/24/16.
  */
-public class WaterReport {
+public class WaterPurityReport {
+
     private final StringProperty time = new SimpleStringProperty();
     private final StringProperty name = new SimpleStringProperty();
     private Location location;
-    private final ObjectProperty<WaterCondition> condition = new SimpleObjectProperty<>();
-    private final ObjectProperty<WaterType> type = new SimpleObjectProperty<>();
     private final ObjectProperty<LocalDate> date = new SimpleObjectProperty<>();
     private final IntegerProperty reportNum = new SimpleIntegerProperty();
     private final ObjectProperty<OverallCondition> overallCondition = new SimpleObjectProperty<>();
@@ -21,22 +20,12 @@ public class WaterReport {
 
     /**
      * initializes report time, water condition and type, and location object
-     * @param condition water's condition
-     * @param type water's type
+     * @param
      */
-    public WaterReport(int reportNum, String name, LocalDate date, String time, Location location, WaterCondition condition,
-                       WaterType type) {
-        this.name.set(name);
-        this.reportNum.setValue(reportNum);
-        this.date.set(date);
-        this.time.set(time);
-        this.location = location;
-        this.condition.set(condition);
-        this.type.set(type);
-    }
 
-    public WaterReport(int reportNum, String reporterName, LocalDate date, String time, Location location,
-                       OverallCondition overallCondition, String virusPPM, String contamPPM) {
+
+    public WaterPurityReport(int reportNum, String reporterName, LocalDate date, String time, Location location,
+                             OverallCondition overallCondition, String virusPPM, String contamPPM) {
         this.reportNum.set(reportNum);
         this.name.set(reporterName);
         this.date.set(date);
@@ -84,12 +73,6 @@ public class WaterReport {
     public Location getLocationObject() {return location;}
 
     /**
-     * returns water condition of report
-     * @return water condition of report
-     */
-    public WaterCondition getCondition() {return condition.get();}
-
-    /**
      * returns overall condition
      * @return overall condition of report
      */
@@ -101,7 +84,6 @@ public class WaterReport {
      * returns water type of report
      * @return water type of report
      */
-    public WaterType getType() {return type.get();}
 
     public double getVirusPPM() {
         return Double.parseDouble(virusPPM);
@@ -125,17 +107,11 @@ public class WaterReport {
         this.location = location;
     }
 
-    /**
-     * change water condition in report
-     * @param condition new condition of water
-     */
-    public void setCondition(WaterCondition condition) {this.condition.set(condition);}
+    public void setOverallCondition(OverallCondition condition) {this.overallCondition.set(condition);}
 
-    /**
-     * change water type in report
-     * @param type new type of water
-     */
-    public void setType(WaterType type) {this.type.set(type);}
+    public void setVirusPPM(String ppm) {virusPPM = ppm;}
+
+    public void setContaminantPPM(String ppm) {contaminantPPM = ppm;}
 
     /**
      * change water type in report
@@ -149,21 +125,12 @@ public class WaterReport {
      */
     @Override
     public String toString() {
-        if (virusPPM == null) {
-            return reportNum.get() + " / "
-                    + date.get() + " / "
-                    + time.get() + " / "
-                    + location.getLatLongString() + "* / "
-                    + condition.get().toString() + " / "
-                    + type.get().toString();
-        } else {
-            return reportNum.get() + " / "
-                    + date.get() + " / "
-                    + time.get() + " / "
-                    + location.getLatLongString() + "* / "
-                    + overallCondition.get().toString() + " / "
-                    + virusPPM + "/"
-                    + contaminantPPM;
-        }
+        return reportNum.get() + " / "
+                + date.get() + " / "
+                + time.get() + " / "
+                + location.getLatLongString() + "* / "
+                + overallCondition.get().toString() + " / "
+                + virusPPM + "/"
+                + contaminantPPM;
     }
 }

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 import model.User;
 import model.WaterCondition;
 import model.WaterType;
-import model.WaterReport;
+import model.WaterSourceReport;
 import model.Location;
 
 import java.time.LocalDate;
@@ -30,8 +30,8 @@ public class SubmitReportController {
     @FXML Button cancelButton;
     @FXML DatePicker date;
     @FXML Text locationText;
-    private WaterReport report;
-    private ObservableList<WaterReport> reports;
+    private WaterSourceReport report;
+    private ObservableList<WaterSourceReport> reports;
     private User user;
     private ArrayList<Location> locations;
     private LatLong latLong;
@@ -61,7 +61,7 @@ public class SubmitReportController {
      * sets submit fields to water report's data
      * @param report report to pull data from
      */
-    public void setReport(WaterReport report) {
+    public void setReport(WaterSourceReport report) {
         date.setValue(report.getDate());
         reportTime.setText(report.getTime());
         reportName.setText(report.getLocation().getName());
@@ -74,7 +74,7 @@ public class SubmitReportController {
      * sets report list displayed on userscreen report tab
      * @param reports reports sumbitted so far
      */
-    public void setReportsList(ObservableList<WaterReport> reports) {
+    public void setReportsList(ObservableList<WaterSourceReport> reports) {
         this.reports = reports;
     }
 
@@ -125,7 +125,7 @@ public class SubmitReportController {
         if (reportDescription.getText() != null) {
             tempLocation.setDescription(reportDescription.getText());
         }
-        WaterReport report = new WaterReport(
+        WaterSourceReport report = new WaterSourceReport(
                 reports.size() + 1,
                 reportName.getText(),
                 date.getValue(),
@@ -228,7 +228,7 @@ public class SubmitReportController {
         }
         if (errorMessage.length() == 0) {
             locations.add(location);
-            report = new WaterReport(reports.size() + 1, name, localDate, time, location, condition, type);
+            report = new WaterSourceReport(reports.size() + 1, name, localDate, time, location, condition, type);
             locationText.setText(location.getLatLongString());
             //System.out.println("In report controller " + locations.size());
             return true;

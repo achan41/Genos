@@ -28,7 +28,7 @@ public class EditProfileController {
     private User user;
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
-    private ObservableList<WaterReport> reports = FXCollections.observableArrayList();
+    private ObservableList<WaterSourceReport> reports = FXCollections.observableArrayList();
     private ArrayList<Location> locations;
 
     /**
@@ -53,7 +53,7 @@ public class EditProfileController {
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<WaterReport> reports) {
+    public void setReportsList(ObservableList<WaterSourceReport> reports) {
         this.reports = reports;
     }
 

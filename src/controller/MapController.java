@@ -17,14 +17,12 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import model.WaterReport;
+import model.WaterSourceReport;
 import netscape.javascript.JSObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.ArrayList;
-
-import model.User;
 
 /**
  * Created by Kevin on 10/17/2016.
@@ -38,8 +36,8 @@ public class MapController implements Initializable, MapComponentInitializedList
     private boolean chooseLoc = false;
     private String reportType;
     private User user;
-    private WaterReport report;
-    private ObservableList<WaterReport> reports;
+    private WaterSourceReport report;
+    private ObservableList<WaterSourceReport> reports;
     private ArrayList<Location> sourceLocations;
 
     @FXML
@@ -63,12 +61,12 @@ public class MapController implements Initializable, MapComponentInitializedList
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<WaterReport> reports) {
+    public void setReportsList(ObservableList<WaterSourceReport> reports) {
         this.reports = reports;
     }
 
     @FXML
-    public void setReport(WaterReport report) {this.report = report;}
+    public void setReport(WaterSourceReport report) {this.report = report;}
 
     /**
      * sets whether or not loc should be chosen
@@ -110,7 +108,7 @@ public class MapController implements Initializable, MapComponentInitializedList
 
         map = mapView.createMap(options);
 
-        for (WaterReport report : reports) {
+        for (WaterSourceReport report : reports) {
             MarkerOptions markerOptions = new MarkerOptions();
             Location l = report.getLocation();
             LatLong loc = new LatLong(l.getLat(), l.getLong());
