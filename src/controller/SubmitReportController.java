@@ -230,7 +230,6 @@ public class SubmitReportController {
             locations.add(location);
             report = new WaterSourceReport(reports.size() + 1, name, localDate, time, location, condition, type);
             locationText.setText(location.getLatLongString());
-            //System.out.println("In report controller " + locations.size());
             return true;
         } else {
             //send alert warning of registration error

@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SubmitReportController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SubmitReportController">
    <children>
       <Text layoutX="211.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Water Source Report" textAlignment="CENTER">
          <font>
@@ -26,11 +26,12 @@
       <ComboBox fx:id="waterConditionComboBox" layoutX="218.0" layoutY="246.0" prefWidth="150.0" promptText="choose one" />
       <Button fx:id="cancelButton" layoutX="56.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
       <Button fx:id="submitButton" layoutX="482.0" layoutY="322.0" mnemonicParsing="false" onAction="#handleSubmit" text="Submit" />
-      <Button layoutX="377.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleChooseLocation" prefHeight="25.0" prefWidth="66.0" text="Choose" />
+      <Button layoutX="399.0" layoutY="171.0" mnemonicParsing="false" onAction="#handleChooseLocation" prefHeight="26.0" prefWidth="129.0" text="Choose Location" />
       <Text fx:id="" layoutX="97.0" layoutY="83.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name :" />
       <TextField fx:id="reportName" layoutX="217.0" layoutY="66.0" promptText="Enter Name" />
       <Text layoutX="97.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time :" />
       <TextField fx:id="reportTime" layoutX="217.0" layoutY="138.0" promptText="Enter Time" />
-      <Text fx:id="locationText" layoutX="217.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Location" wrappingWidth="148.50781559944153" />
+      <TextField fx:id="textLocation" layoutX="220.0" layoutY="171.0" prefHeight="26.0" prefWidth="163.0" promptText="Enter Location" />
+      <!--<Text fx:id="locationText" layoutX="217.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Choose Location" wrappingWidth="148.50781559944153" />-->
    </children>
 </Pane>
