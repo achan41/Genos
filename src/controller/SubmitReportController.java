@@ -56,6 +56,15 @@ public class SubmitReportController {
         this.user = user;
     }
 
+    public void setReport(WaterReport report) {
+        date.setValue(report.getDate());
+        reportTime.setText(report.getTime());
+        reportName.setText(report.getLocation().getName());
+        reportDescription.setText(report.getLocation().getDescription());
+        waterConditionComboBox.setValue(report.getCondition());
+        waterTypeComboBox.setValue(report.getType());
+    }
+
     /**
      * sets report list displayed on userscreen report tab
      * @param reports reports sumbitted so far
@@ -78,7 +87,19 @@ public class SubmitReportController {
      */
 
     public void setCurrentLocation(LatLong latLong) {
+        String locText = "";
         this.latLong = latLong;
+        if (latLong.getLatitude() > 0) {
+            locText += latLong.getLatitude() + "*N ";
+        } else {
+            locText += latLong.getLatitude() + "*S ";
+        }
+        if (latLong.getLongitude() > 0) {
+            locText += latLong.getLongitude() + "*E";
+        } else {
+            locText += latLong.getLongitude() + "*W";
+        }
+        locationText.setText(locText);
     }
 
 
@@ -92,6 +113,21 @@ public class SubmitReportController {
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
         controller.setReportsList(reports);
+        Location tempLocation = new Location("", "", false);
+        if (reportName.getText() != null) {
+            tempLocation.setName(reportName.getText());
+        }
+        if (reportDescription.getText() != null) {
+            tempLocation.setDescription(reportDescription.getText());
+        }
+        WaterReport report = new WaterReport(
+                reports.size() + 1,
+                date.getValue(),
+                reportTime.getText(),
+                tempLocation,
+                waterConditionComboBox.getValue(),
+                waterTypeComboBox.getValue());
+        controller.setReport(report);
         controller.setLocations(locations);
         controller.setChooseLoc(true);
         Scene scene = new Scene(root);
@@ -181,6 +217,8 @@ public class SubmitReportController {
         }
         if (description == null) {
             errorMessage += "Please enter a valid description!\n";
+        } else if (description == "") {
+            location.setDescription("No Description");
         }
         if (errorMessage.length() == 0) {
             locations.add(location);

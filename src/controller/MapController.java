@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.WaterReport;
 import netscape.javascript.JSObject;
 import java.io.IOException;
 import java.net.URL;
@@ -36,6 +37,7 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     private boolean chooseLoc = false;
     private User user;
+    private WaterReport report;
     private ObservableList<String> reports;
     private ArrayList<Location> sourceLocations;
 
@@ -63,6 +65,9 @@ public class MapController implements Initializable, MapComponentInitializedList
     public void setReportsList(ObservableList<String> reports) {
         this.reports = reports;
     }
+
+    @FXML
+    public void setReport(WaterReport report) {this.report = report;}
 
     /**
      * sets whether or not loc should be chosen
@@ -100,11 +105,6 @@ public class MapController implements Initializable, MapComponentInitializedList
 
         map = mapView.createMap(options);
 
-        MarkerOptions markOps1 = new MarkerOptions();
-        markOps1.position(center);
-        Marker centerMarker = new Marker(markOps1);
-        map.addMarker(centerMarker);
-
         for (Location l : sourceLocations) {
             MarkerOptions markerOptions = new MarkerOptions();
             LatLong loc = new LatLong(l.getLat(), l.getLong());
@@ -119,8 +119,9 @@ public class MapController implements Initializable, MapComponentInitializedList
                     UIEventType.click,
                     (JSObject obj) -> {
                         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
-                        infoWindowOptions.content("<h3>" + l.getName() + "</h3>"
-                                + "\n" + l.getDescription());
+                        infoWindowOptions.content(
+                                "<h3>" + l.getName() + "</h3>" + "\n"
+                                + l.getDescription());
 
                         InfoWindow window = new InfoWindow(infoWindowOptions);
                         window.open(map, marker);
@@ -143,6 +144,7 @@ public class MapController implements Initializable, MapComponentInitializedList
                             SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
                             controller.setUser(user);
                             controller.setReportsList(reports);
+                            controller.setReport(report);
                             controller.setLocations(sourceLocations);
                             controller.setCurrentLocation(latLong);
                             Scene scene = new Scene(root);

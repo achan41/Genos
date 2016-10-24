@@ -16,8 +16,8 @@ public class Location {
 
     private double longitude;
     private double latitude;
-    private final String description;
-    private final String name;
+    private String description;
+    private String name;
     private LatLong latLong;
 
     /**
@@ -25,10 +25,12 @@ public class Location {
      * @param desc water type and water condition of location
      * @param n name of location
      */
-    public Location(String desc, String n) {
+    public Location(String desc, String n, boolean setLatLong) {
         description = desc;
         name = n;
-        setLatLong();
+        if (setLatLong) {
+            setLatLong();
+        }
     }
 
     /**
@@ -104,5 +106,21 @@ public class Location {
      */
     public double getLong() {
         return longitude;
+    }
+
+    /**
+     * changes name of description
+     * @param name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * changes description of location
+     * @param description
+     */
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

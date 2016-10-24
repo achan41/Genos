@@ -43,6 +43,12 @@ public class WaterReport {
     public int getReportNum() {return reportNum.getValue();}
 
     /**
+     * returns time of report
+     * @return time of report
+     */
+    public LocalDate getDate() {return date.get();}
+
+    /**
      * returns location of report
      * @return location of report
      */
@@ -107,7 +113,7 @@ public class WaterReport {
         return reportNum.get() + " / "
                 + date.get() + " / "
                 + time.get() + " / "
-                + "#" + location.getLat() + "#" + location.getLong() + " / "
+                + Math.floor(location.getLat()*100) / 100 + "* " + Math.floor(location.getLong()*100) / 100 + "* / "
                 + condition.get().toString() + " / "
                 + type.get().toString();
     }
