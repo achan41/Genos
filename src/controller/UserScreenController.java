@@ -10,10 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.User;
-import model.UserDatabase;
-import model.Location;
-import model.WaterReport;
+import model.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -160,16 +157,25 @@ public class UserScreenController {
      */
     @FXML
     protected void handleSubmitQuality(ActionEvent event) throws IOException {
-        Stage stage = (Stage) editProfileButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
-        Parent root = fxmlLoader.load();
-        SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
-        controller.setUser(user);
-        controller.setReportsList(reports);
-        controller.setLocations(locations);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (user.getAccountType() != AccountType.Worker || user.getAccountType() != AccountType.Manager) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Account Type");
+            alert.setHeaderText("Please check your account type");
+            alert.setContentText("You do not have the valid privileges to access the quality report submission screen.");
+            alert.showAndWait();
+        } else {
+            Stage stage = (Stage) editProfileButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
+            controller.setUser(user);
+            controller.setReportsList(reports);
+            controller.setLocations(locations);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+
     }
 
     /**
