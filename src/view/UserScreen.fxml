@@ -36,7 +36,7 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <ListView fx:id="reportListView" layoutY="19.0" prefHeight="241.0" prefWidth="541.0" />
-                              <Text layoutX="14.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="# | Calender Date | Time | Location | Water Type | Condition" wrappingWidth="422.8033447265625" />
+                              <Text fx:id="reportsCategories" layoutX="14.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="# | Calender Date | Time | Location | Water Type | Condition | Description" wrappingWidth="422.8033447265625" />
                            </children>
                         </AnchorPane>
                   </content>

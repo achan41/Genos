@@ -121,7 +121,9 @@ public class MapController implements Initializable, MapComponentInitializedList
                         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
                         infoWindowOptions.content(
                                 "<h3>" + l.getName() + "</h3>" + "\n"
-                                + l.getDescription());
+                                + l.getDescription() + "<br />"
+                                + l.getLatLongString()
+                        );
 
                         InfoWindow window = new InfoWindow(infoWindowOptions);
                         window.open(map, marker);
@@ -129,15 +131,18 @@ public class MapController implements Initializable, MapComponentInitializedList
 
             map.addMarker(marker);
         }
+        //if at map screen in order to choose a location as opposed to simply viewing it
         if (chooseLoc) {
             map.addUIEventHandler(map, UIEventType.click, (JSObject obj) -> {
                 LatLong latLong = new LatLong((JSObject) obj.getMember("latLng"));
+                //alert user to confirm location selection
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Location Confirmation");
                 alert.setContentText("Are you sure you want to choose this location?");
                 alert.showAndWait().ifPresent((response -> {
                     if (response == ButtonType.OK) {
                         try {
+                            //go back to submit report screen and preserve location selected
                             Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
                             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
                             Parent root = fxmlLoader.load();
@@ -151,6 +156,7 @@ public class MapController implements Initializable, MapComponentInitializedList
                             stage.setScene(scene);
                             stage.show();
                         } catch (IOException e) {
+                            //catch io exception for fxmlLoader
                         }
                     }
                 }));

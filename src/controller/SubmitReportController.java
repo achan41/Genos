@@ -223,7 +223,7 @@ public class SubmitReportController {
         if (errorMessage.length() == 0) {
             locations.add(location);
             report = new WaterReport(reports.size() + 1, localDate, time, location, condition, type);
-            locationText.setText(location.getLat() + "* " + location.getLong() + "*");
+            locationText.setText(location.getLatLongString());
             //System.out.println("In report controller " + locations.size());
             return true;
         } else {

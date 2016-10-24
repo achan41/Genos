@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.User;
 import model.UserDatabase;
@@ -27,6 +28,7 @@ public class UserScreenController {
     @FXML ListView<String> reportListView = new ListView<String>();
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
+    @FXML Text reportsCategories;
     private ObservableList<String> reports = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();

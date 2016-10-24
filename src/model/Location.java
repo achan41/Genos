@@ -108,6 +108,21 @@ public class Location {
         return longitude;
     }
 
+    public String getLatLongString() {
+        String locText = "";
+        if (latLong.getLatitude() > 0) {
+            locText += Math.floor(latLong.getLatitude()*100)/100 + "*N ";
+        } else {
+            locText += Math.floor(latLong.getLatitude()*100)/100 + "*S ";
+        }
+        if (latLong.getLongitude() > 0) {
+            locText += Math.floor(latLong.getLongitude()*100)/100 + "*E";
+        } else {
+            locText += Math.floor(latLong.getLongitude()*100)/100 + "*W";
+        }
+        return locText;
+    }
+
     /**
      * changes name of description
      * @param name

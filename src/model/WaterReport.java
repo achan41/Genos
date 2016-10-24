@@ -113,8 +113,9 @@ public class WaterReport {
         return reportNum.get() + " / "
                 + date.get() + " / "
                 + time.get() + " / "
-                + Math.floor(location.getLat()*100) / 100 + "* " + Math.floor(location.getLong()*100) / 100 + "* / "
+                + location.getLatLongString() + "* / "
                 + condition.get().toString() + " / "
-                + type.get().toString();
+                + type.get().toString() + "/"
+                + location.getDescription();
     }
 }
