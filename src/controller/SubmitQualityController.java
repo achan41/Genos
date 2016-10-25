@@ -24,7 +24,7 @@ public class SubmitQualityController {
     @FXML TextField reporterName, virusPPMField, contamPPMField, reportTime;
     @FXML DatePicker date;
     @FXML Button cancelButton, submitButton;
-    @FXML String textLocation;
+    @FXML TextField textLocation;
     //@FXML Text locationText;
     private WaterQualityReport report;
     private ObservableList<WaterSourceReport> sourceReports;
@@ -58,7 +58,7 @@ public class SubmitQualityController {
     public void setReport(WaterQualityReport report) {
         date.setValue(report.getDate());
         reportTime.setText(report.getTime());
-        reporterName.setText(report.getLocation().getName());
+        reporterName.setText(report.getReporterName());
         overallComboBox.setValue(report.getOverallCondition());
     }
 
@@ -96,7 +96,7 @@ public class SubmitQualityController {
         } else {
             locText += latLong.getLongitude() + "*W";
         }
-        //locationText.setText(locText);
+        textLocation.setText(locText);
     }
 
     /**
@@ -196,7 +196,7 @@ public class SubmitQualityController {
         LocalDate localDate = date.getValue();
         String virusPPM = virusPPMField.getText();
         String contamPPM = contamPPMField.getText();
-        Location location = new Location(name, "", latLong);
+
         if (name == null) {
             errorMessage += "Please enter your name!\n";
         }
@@ -206,14 +206,20 @@ public class SubmitQualityController {
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (location == null) {
+        if (latLong == null && textLocation.getText() == null) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (overallComboBox.getValue() == null) {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
-            report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
+            if (latLong == null) {
+                report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, textLocation.getText(), condition, virusPPM, contamPPM);
+            } else {
+                Location location = new Location(name, "", latLong);
+                report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
+                textLocation.setText(location.getLatLongString());
+            }
             return true;
         } else {
             //send alert warning of registration error

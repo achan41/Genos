@@ -25,10 +25,12 @@ public class Location {
      * @param desc water type and water condition of location
      * @param n name of location
      */
-    public Location(String n, String desc) {
+    public Location(String n, String desc, boolean setLatLong) {
         description = desc;
         name = n;
-        setLatLong(name);
+        if (setLatLong) {
+            setLatLong(name);
+        }
     }
 
     /**

@@ -36,6 +36,18 @@ public class WaterQualityReport {
         this.contaminantPPM = contamPPM;
     }
 
+    public WaterQualityReport(int reportNum, String reporterName, LocalDate date, String time, String location,
+                              OverallCondition overallCondition, String virusPPM, String contamPPM) {
+        this.reportNum.set(reportNum);
+        this.name.set(reporterName);
+        this.date.set(date);
+        this.time.set(time);
+        this.location = getLocationObject(location);
+        this.overallCondition.set(overallCondition);
+        this.virusPPM = virusPPM;
+        this.contaminantPPM = contamPPM;
+    }
+
     /**
      * returns time of report
      * @return time of report
@@ -70,7 +82,9 @@ public class WaterQualityReport {
      * returns location object of report
      * @return location object of report
      */
-    public Location getLocationObject() {return location;}
+    private Location getLocationObject(String name) {
+        return new Location(name, "", true);
+    }
 
     /**
      * returns overall condition

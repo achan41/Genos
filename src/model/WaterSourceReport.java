@@ -78,7 +78,7 @@ public class WaterSourceReport {
      * @return location object of report
      */
     private Location getLocationObject(String name, String desc) {
-        return new Location(name, desc);
+        return new Location(name, desc, true);
     }
 
     /**

@@ -61,7 +61,7 @@ public class SubmitSourceController {
     public void setReport(WaterSourceReport report) {
         date.setValue(report.getDate());
         reportTime.setText(report.getTime());
-        reportName.setText(report.getLocation().getName());
+        reportName.setText(report.getReporterName());
         reportDescription.setText(report.getLocation().getDescription());
         waterConditionComboBox.setValue(report.getCondition());
         waterTypeComboBox.setValue(report.getType());
@@ -101,7 +101,7 @@ public class SubmitSourceController {
         } else {
             locText += latLong.getLongitude() + "*W";
         }
-        //locationText.setText(locText);
+        textLocation.setText(locText);
     }
 
 
@@ -132,7 +132,6 @@ public class SubmitSourceController {
                 waterConditionComboBox.getValue(),
                 waterTypeComboBox.getValue());
         controller.setSourceReport(report);
-        //controller.setLocations(locations);
         controller.setChooseLoc(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -226,12 +225,12 @@ public class SubmitSourceController {
         }*/
         if (errorMessage.length() == 0) {
             if (latLong == null) {
-                report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), condition, type);
+                report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), description, condition, type);
             } else {
                 Location location = new Location(name, description, latLong);
                 report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
+                textLocation.setText(location.getLatLongString());
             }
-            //locationText.setText(location.getLatLongString());
             return true;
         } else {
             //send alert warning of registration error
