@@ -36,16 +36,15 @@ public class Location {
 
     /**
      * initializes location using only latitude and longitude coordniates
-     * @param name name of location
      * @param description name of description
      * @param latLong latLong of location
      */
-    public Location(String name, String description, LatLong latLong) {
-        this.name = name;
+    public Location(String description, LatLong latLong) {
         this.description = description;
         longitude = latLong.getLongitude();
         latitude = latLong.getLatitude();
         this.latLong = latLong;
+        setName(new LatLng(latLong.getLatitude(), latLong.getLongitude()));
     }
 
     /**
@@ -71,6 +70,22 @@ public class Location {
             LatLng loc = result.geometry.location;
             latitude = loc.lat;
             longitude = loc.lng;
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void setName(LatLng l) {
+        GeoApiContext context = new GeoApiContext();
+        context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
+                .setConnectTimeout(60L, TimeUnit.SECONDS)
+                .setReadTimeout(60L, TimeUnit.SECONDS)
+                .setWriteTimeout(60L, TimeUnit.SECONDS);
+        GeocodingApiRequest request = GeocodingApi.reverseGeocode(context, l);
+        try {
+            GeocodingResult result = request.await()[0];
+            name = result.formattedAddress;
         }
         catch(Exception e) {
             e.printStackTrace();

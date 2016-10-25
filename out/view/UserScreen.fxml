@@ -14,7 +14,7 @@
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
             <Button fx:id="logoutButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
-            <Button fx:id="viewMapButton" layoutX="230.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleViewMap" text="View Map" />
+            <Button fx:id="viewMapButton" layoutX="364.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleViewMap" text="View Map" />
             <Label fx:id="welcomeMessage" layoutX="27.0" layoutY="14.0" text="Welcome" />
           <Button fx:id="submitReportButton" layoutX="98.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitReport" text="Submit a Report" />
             <TabPane fx:id="tabPane" layoutX="27.0" layoutY="37.0" prefHeight="290.0" prefWidth="541.0" tabClosingPolicy="UNAVAILABLE">
@@ -36,13 +36,14 @@
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <ListView fx:id="reportListView" layoutY="19.0" prefHeight="241.0" prefWidth="541.0" />
-                              <Text layoutX="14.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="# | Calender Date | Time | Location | Water Type | Condition" wrappingWidth="422.8033447265625" />
+                              <Text fx:id="reportsCategories" layoutX="14.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" text="# | Calender Date | Time | Location | Water Type | Condition | Description" />
                            </children>
                         </AnchorPane>
                   </content>
                 </Tab>
               </tabs>
             </TabPane>
+            <Button fx:id="submitQualityReport" layoutX="216.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitQuality" text="Submit Quality Report" />
       </children>
     </AnchorPane>
   </children>

@@ -139,7 +139,7 @@ public class WaterQualityReport {
      */
     @Override
     public String toString() {
-        return "Quality: " + reportNum.get() + " / "
+        return "Quality " + reportNum.get() + ":  "
                 + date.get() + " / "
                 + time.get() + " / "
                 + location.getLatLongString() + "* / "

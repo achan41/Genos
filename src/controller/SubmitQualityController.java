@@ -84,7 +84,7 @@ public class SubmitQualityController {
      */
 
     public void setCurrentLocation(LatLong latLong) {
-        String locText = "";
+        /*String locText = "";
         this.latLong = latLong;
         if (latLong.getLatitude() > 0) {
             locText += latLong.getLatitude() + "*N ";
@@ -96,7 +96,9 @@ public class SubmitQualityController {
         } else {
             locText += latLong.getLongitude() + "*W";
         }
-        textLocation.setText(locText);
+        textLocation.setText(locText);*/
+        Location temp = new Location("", latLong);
+        textLocation.setText(temp.getName());
     }
 
     /**
@@ -216,9 +218,9 @@ public class SubmitQualityController {
             if (latLong == null) {
                 report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, textLocation.getText(), condition, virusPPM, contamPPM);
             } else {
-                Location location = new Location(name, "", latLong);
+                Location location = new Location("", latLong);
                 report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
-                textLocation.setText(location.getLatLongString());
+                textLocation.setText(location.getName());
             }
             return true;
         } else {

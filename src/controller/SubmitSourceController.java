@@ -89,7 +89,7 @@ public class SubmitSourceController {
      */
 
     public void setCurrentLocation(LatLong latLong) {
-        String locText = "";
+        /*String locText = "";
         this.latLong = latLong;
         if (latLong.getLatitude() > 0) {
             locText += latLong.getLatitude() + "*N ";
@@ -101,7 +101,9 @@ public class SubmitSourceController {
         } else {
             locText += latLong.getLongitude() + "*W";
         }
-        textLocation.setText(locText);
+        textLocation.setText(locText);*/
+        Location temp = new Location("", latLong);
+        textLocation.setText(temp.getName());
     }
 
 
@@ -227,9 +229,9 @@ public class SubmitSourceController {
             if (latLong == null) {
                 report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), description, condition, type);
             } else {
-                Location location = new Location(name, description, latLong);
+                Location location = new Location(description, latLong);
                 report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
-                textLocation.setText(location.getLatLongString());
+                textLocation.setText(location.getName());
             }
             return true;
         } else {
