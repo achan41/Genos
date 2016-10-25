@@ -7,7 +7,7 @@ import java.time.LocalDate;
 /**
  * Created by twalker61 on 10/24/16.
  */
-public class WaterPurityReport {
+public class WaterQualityReport {
 
     private final StringProperty time = new SimpleStringProperty();
     private final StringProperty name = new SimpleStringProperty();
@@ -24,8 +24,8 @@ public class WaterPurityReport {
      */
 
 
-    public WaterPurityReport(int reportNum, String reporterName, LocalDate date, String time, Location location,
-                             OverallCondition overallCondition, String virusPPM, String contamPPM) {
+    public WaterQualityReport(int reportNum, String reporterName, LocalDate date, String time, Location location,
+                              OverallCondition overallCondition, String virusPPM, String contamPPM) {
         this.reportNum.set(reportNum);
         this.name.set(reporterName);
         this.date.set(date);
@@ -125,7 +125,7 @@ public class WaterPurityReport {
      */
     @Override
     public String toString() {
-        return reportNum.get() + " / "
+        return "Quality: " + reportNum.get() + " / "
                 + date.get() + " / "
                 + time.get() + " / "
                 + location.getLatLongString() + "* / "

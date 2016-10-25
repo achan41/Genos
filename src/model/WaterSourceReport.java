@@ -118,7 +118,7 @@ public class WaterSourceReport {
      */
     @Override
     public String toString() {
-        return reportNum.get() + " / "
+        return "Source: " + reportNum.get() + " / "
                 + date.get() + " / "
                 + time.get() + " / "
                 + location.getLatLongString() + "* / "

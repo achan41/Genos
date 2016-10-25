@@ -11,11 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import model.User;
-import model.WaterCondition;
-import model.WaterType;
-import model.WaterSourceReport;
-import model.Location;
+import model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -23,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by dionisiatara on 10/11/16.
  */
-public class SubmitReportController {
+public class SubmitSourceController {
     @FXML ComboBox<WaterType> waterTypeComboBox;
     @FXML ComboBox<WaterCondition> waterConditionComboBox;
     @FXML TextField reportName, reportTime, reportDescription;
@@ -31,7 +27,8 @@ public class SubmitReportController {
     @FXML DatePicker date;
     @FXML Text locationText;
     private WaterSourceReport report;
-    private ObservableList<WaterSourceReport> reports;
+    private ObservableList<WaterSourceReport> sourceReports;
+    private ObservableList<WaterQualityReport> qualityReports;
     private User user;
     private ArrayList<Location> locations;
     private LatLong latLong;
@@ -74,8 +71,16 @@ public class SubmitReportController {
      * sets report list displayed on userscreen report tab
      * @param reports reports sumbitted so far
      */
-    public void setReportsList(ObservableList<WaterSourceReport> reports) {
-        this.reports = reports;
+    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
+        sourceReports = reports;
+    }
+
+    /**
+     * sets report list displayed on userscreen report tab
+     * @param reports reports sumbitted so far
+     */
+    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
+        qualityReports = reports;
     }
 
     /**
@@ -117,7 +122,8 @@ public class SubmitReportController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        controller.setReportsList(reports);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
         Location tempLocation = new Location("", "", false);
         if (reportName.getText() != null) {
             tempLocation.setName(reportName.getText());
@@ -126,15 +132,15 @@ public class SubmitReportController {
             tempLocation.setDescription(reportDescription.getText());
         }
         WaterSourceReport report = new WaterSourceReport(
-                reports.size() + 1,
+                sourceReports.size() + 1,
                 reportName.getText(),
                 date.getValue(),
                 reportTime.getText(),
                 tempLocation,
                 waterConditionComboBox.getValue(),
                 waterTypeComboBox.getValue());
-        controller.setReport(report);
-        controller.setLocations(locations);
+        controller.setSourceReport(report);
+        //controller.setLocations(locations);
         controller.setChooseLoc(true);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -154,7 +160,8 @@ public class SubmitReportController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        controller.setReportsList(reports);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
         controller.setLocations(locations);
 
         Scene scene = new Scene(root);
@@ -170,7 +177,7 @@ public class SubmitReportController {
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
-            reports.add(report);
+            sourceReports.add(report);
             locations.add(report.getLocationObject());
 
             Stage stage = (Stage) reportTime.getScene().getWindow();
@@ -179,7 +186,8 @@ public class SubmitReportController {
             UserScreenController controller = fxmlLoader.<UserScreenController>getController();
 
             controller.setUser(user);
-            controller.setReportsList(reports);
+            controller.setSourceReportsList(sourceReports);
+            controller.setQualityReportsList(qualityReports);
             controller.setLocations(locations);
 
             Scene scene = new Scene(root);
@@ -228,7 +236,7 @@ public class SubmitReportController {
         }
         if (errorMessage.length() == 0) {
             locations.add(location);
-            report = new WaterSourceReport(reports.size() + 1, name, localDate, time, location, condition, type);
+            report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
             locationText.setText(location.getLatLongString());
             return true;
         } else {

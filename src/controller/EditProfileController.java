@@ -28,7 +28,8 @@ public class EditProfileController {
     private User user;
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
-    private ObservableList<WaterSourceReport> reports = FXCollections.observableArrayList();
+    private ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
+    private ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
     private ArrayList<Location> locations;
 
     /**
@@ -49,12 +50,19 @@ public class EditProfileController {
     }
 
     /**
-     * sets reports from observablelist
-     * @param reports to be added
+     * sets report list displayed on userscreen report tab
+     * @param reports reports sumbitted so far
      */
-    @FXML
-    public void setReportsList(ObservableList<WaterSourceReport> reports) {
-        this.reports = reports;
+    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
+        sourceReports = reports;
+    }
+
+    /**
+     * sets report list displayed on userscreen report tab
+     * @param reports reports sumbitted so far
+     */
+    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
+        qualityReports = reports;
     }
 
     /**
@@ -98,7 +106,8 @@ public class EditProfileController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-        controller.setReportsList(reports);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
         controller.setUser(user);
         controller.setLocations(locations);
         Scene scene = new Scene(root);

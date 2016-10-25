@@ -26,7 +26,8 @@ public class UserScreenController {
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
     @FXML Text reportsCategories;
-    private ObservableList<WaterSourceReport> reports = FXCollections.observableArrayList();
+    private ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
+    private ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
     private ObservableList<String> reportStrings = FXCollections.observableArrayList();
     private User user;
     private UserDatabase database = new UserDatabase();
@@ -68,9 +69,23 @@ public class UserScreenController {
      * @param reports to be added
      */
     @FXML
-    public void setReportsList(ObservableList<WaterSourceReport> reports) {
-        this.reports = reports;
-        for (WaterSourceReport report : reports) {
+    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
+        sourceReports = reports;
+        for (WaterSourceReport report : sourceReports) {
+            reportStrings.add(report.toString());
+        }
+        reportListView.setItems(reportStrings);
+        changeTab(reportsTab);
+    }
+
+    /**
+     * sets reports from observablelist
+     * @param reports to be added
+     */
+    @FXML
+    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
+        qualityReports = reports;
+        for (WaterQualityReport report : qualityReports) {
             reportStrings.add(report.toString());
         }
         reportListView.setItems(reportStrings);
@@ -126,7 +141,8 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         EditProfileController controller = fxmlLoader.<EditProfileController>getController();
         controller.setUser(user);
-        controller.setReportsList(reports);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
         controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -140,11 +156,12 @@ public class UserScreenController {
     @FXML
     protected void handleSubmitReport(ActionEvent event) throws IOException {
         Stage stage = (Stage) editProfileButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitReportScreen.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
         Parent root = fxmlLoader.load();
-        SubmitReportController controller = fxmlLoader.<SubmitReportController>getController();
+        SubmitSourceController controller = fxmlLoader.<SubmitSourceController>getController();
         controller.setUser(user);
-        controller.setReportsList(reports);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
         controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -169,7 +186,8 @@ public class UserScreenController {
             Parent root = fxmlLoader.load();
             SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
             controller.setUser(user);
-            controller.setReportsList(reports);
+            controller.setSourceReportsList(sourceReports);
+            controller.setQualityReportsList(qualityReports);
             controller.setLocations(locations);
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -190,8 +208,9 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         MapController controller = fxmlLoader.<MapController>getController();
         controller.setUser(user);
-        controller.setReportsList(reports);
-        controller.setLocations(locations);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
+        //controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
