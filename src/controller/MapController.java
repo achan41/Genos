@@ -4,7 +4,6 @@ import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
-import com.lynden.gmapsfx.util.MarkerImageFactory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Location;
