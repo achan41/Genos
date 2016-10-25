@@ -41,7 +41,6 @@ public class MapController implements Initializable, MapComponentInitializedList
     private WaterQualityReport qualityReport;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
-    private ArrayList<Location> sourceLocations;
 
     @FXML
     Button exitMapViewButton;
@@ -89,14 +88,6 @@ public class MapController implements Initializable, MapComponentInitializedList
     public void setChooseLoc(boolean chooseLoc) {
         this.chooseLoc = chooseLoc;
     }
-
-    /**
-     * sets location list
-     * @param locations list of locations submitted so far
-     */
-    /*public void setLocations(ArrayList<Location> locations) {
-        sourceLocations = locations;
-    }*/
 
    /* public void setReportType(String reportType) {
         this.reportType = reportType;
@@ -203,7 +194,6 @@ public class MapController implements Initializable, MapComponentInitializedList
                                 controller.setQualityReportsList(qualityReports);
                                 controller.setSourceReportsList(sourceReports);
                                 controller.setReport(qualityReport);
-                                controller.setLocations(sourceLocations);
                                 controller.setCurrentLocation(latLong);
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
@@ -216,7 +206,6 @@ public class MapController implements Initializable, MapComponentInitializedList
                                 controller.setSourceReportsList(sourceReports);
                                 controller.setQualityReportsList(qualityReports);
                                 controller.setReport(sourceReport);
-                                controller.setLocations(sourceLocations);
                                 controller.setCurrentLocation(latLong);
                                 Scene scene = new Scene(root);
                                 stage.setScene(scene);
@@ -247,7 +236,6 @@ public class MapController implements Initializable, MapComponentInitializedList
         controller.setQualityReportsList(qualityReports);
         controller.setSourceReportsList(sourceReports);
         controller.setToMainTab();
-        controller.setLocations(sourceLocations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

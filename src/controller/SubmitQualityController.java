@@ -29,7 +29,6 @@ public class SubmitQualityController {
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
-    private ArrayList<Location> locations;
     private LatLong latLong;
 
     /**
@@ -76,14 +75,6 @@ public class SubmitQualityController {
      */
     public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
         qualityReports = reports;
-    }
-
-    /**
-     * sets location array
-     * @param locations locations to set as array
-     */
-    public void setLocations(ArrayList<Location> locations) {
-        this.locations = locations;
     }
 
     /**
@@ -137,7 +128,6 @@ public class SubmitQualityController {
                 virusPPMField.getText(),
                 contamPPMField.getText());
         controller.setQualityReport(report);
-        //controller.setLocations(locations);
         controller.setChooseLoc(true);
         //controller.setReportType("quality");
         Scene scene = new Scene(root);
@@ -160,7 +150,6 @@ public class SubmitQualityController {
         controller.setUser(user);
         controller.setSourceReportsList(sourceReports);
         controller.setQualityReportsList(qualityReports);
-        controller.setLocations(locations);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -176,7 +165,6 @@ public class SubmitQualityController {
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
             qualityReports.add(report);
-            locations.add(report.getLocationObject());
 
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
@@ -186,7 +174,6 @@ public class SubmitQualityController {
             controller.setUser(user);
             controller.setSourceReportsList(sourceReports);
             controller.setQualityReportsList(qualityReports);
-            controller.setLocations(locations);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -225,9 +212,7 @@ public class SubmitQualityController {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
-            locations.add(location);
             report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
-            //System.out.println("In report controller " + locations.size());
             return true;
         } else {
             //send alert warning of registration error

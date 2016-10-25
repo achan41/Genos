@@ -30,7 +30,6 @@ public class SubmitSourceController {
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
-    private ArrayList<Location> locations;
     private LatLong latLong;
 
     /**
@@ -81,14 +80,6 @@ public class SubmitSourceController {
      */
     public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
         qualityReports = reports;
-    }
-
-    /**
-     * sets location array
-     * @param locations locations to set as array
-     */
-    public void setLocations(ArrayList<Location> locations) {
-        this.locations = locations;
     }
 
     /**
@@ -162,7 +153,6 @@ public class SubmitSourceController {
         controller.setUser(user);
         controller.setSourceReportsList(sourceReports);
         controller.setQualityReportsList(qualityReports);
-        controller.setLocations(locations);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -178,7 +168,6 @@ public class SubmitSourceController {
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
             sourceReports.add(report);
-            locations.add(report.getLocationObject());
 
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
@@ -188,7 +177,6 @@ public class SubmitSourceController {
             controller.setUser(user);
             controller.setSourceReportsList(sourceReports);
             controller.setQualityReportsList(qualityReports);
-            controller.setLocations(locations);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -235,7 +223,6 @@ public class SubmitSourceController {
             location.setDescription("No Description");
         }
         if (errorMessage.length() == 0) {
-            locations.add(location);
             report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
             locationText.setText(location.getLatLongString());
             return true;

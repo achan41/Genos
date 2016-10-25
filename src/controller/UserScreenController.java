@@ -30,9 +30,6 @@ public class UserScreenController {
     private ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
     private ObservableList<String> reportStrings = FXCollections.observableArrayList();
     private User user;
-    private UserDatabase database = new UserDatabase();
-    private ArrayList<Location> locations = new ArrayList<Location>();
-
 
     @FXML
     private void initialize() {
@@ -100,14 +97,6 @@ public class UserScreenController {
     }
 
     /**
-     * sets/updates location list
-     * @param locations the list of locations currently submitted
-     */
-    public void setLocations(ArrayList<Location> locations) {
-        this.locations = locations;
-    }
-
-    /**
      * change tab of user screen tabpane
      * @param tab tab to make active
      */
@@ -143,7 +132,6 @@ public class UserScreenController {
         controller.setUser(user);
         controller.setSourceReportsList(sourceReports);
         controller.setQualityReportsList(qualityReports);
-        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -162,7 +150,6 @@ public class UserScreenController {
         controller.setUser(user);
         controller.setSourceReportsList(sourceReports);
         controller.setQualityReportsList(qualityReports);
-        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -188,7 +175,6 @@ public class UserScreenController {
             controller.setUser(user);
             controller.setSourceReportsList(sourceReports);
             controller.setQualityReportsList(qualityReports);
-            controller.setLocations(locations);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -210,7 +196,6 @@ public class UserScreenController {
         controller.setUser(user);
         controller.setSourceReportsList(sourceReports);
         controller.setQualityReportsList(qualityReports);
-        //controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

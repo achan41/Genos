@@ -30,7 +30,6 @@ public class EditProfileController {
     private UserDatabase database = new UserDatabase();
     private ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
     private ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
-    private ArrayList<Location> locations;
 
     /**
      * called automatically in order to populate the titleBox with Titles
@@ -63,14 +62,6 @@ public class EditProfileController {
      */
     public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
         qualityReports = reports;
-    }
-
-    /**
-     * set location list
-     * @param locations list of currently submitted locations
-     */
-    public void setLocations(ArrayList<Location> locations) {
-        this.locations = locations;
     }
 
     /**
@@ -109,7 +100,6 @@ public class EditProfileController {
         controller.setSourceReportsList(sourceReports);
         controller.setQualityReportsList(qualityReports);
         controller.setUser(user);
-        controller.setLocations(locations);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
