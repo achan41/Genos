@@ -28,6 +28,7 @@ public class Location {
     public Location(String n, String desc, boolean setLatLong) {
         description = desc;
         name = n;
+        //latLong = new LatLong(0,0);
         if (setLatLong) {
             setLatLong(name);
         }
@@ -110,15 +111,15 @@ public class Location {
 
     public String getLatLongString() {
         String locText = "";
-        if (latLong.getLatitude() > 0) {
-            locText += Math.floor(latLong.getLatitude()*100)/100 + "*N ";
+        if (latitude > 0) {
+            locText += Math.floor(latitude*100)/100 + "*N ";
         } else {
-            locText += Math.floor(latLong.getLatitude()*100)/100 + "*S ";
+            locText += Math.floor(latitude*100)/100 + "*S ";
         }
-        if (latLong.getLongitude() > 0) {
-            locText += Math.floor(latLong.getLongitude()*100)/100 + "*E";
+        if (longitude > 0) {
+            locText += Math.floor(longitude*100)/100 + "*E";
         } else {
-            locText += Math.floor(latLong.getLongitude()*100)/100 + "*W";
+            locText += Math.floor(longitude*100)/100 + "*W";
         }
         return locText;
     }
