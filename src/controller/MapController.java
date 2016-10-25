@@ -4,6 +4,7 @@ import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import com.lynden.gmapsfx.util.MarkerImageFactory;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Location;
@@ -151,11 +152,11 @@ public class MapController implements Initializable, MapComponentInitializedList
             LatLong loc = new LatLong(l.getLat(), l.getLong());
 
             markerOptions.position(loc)
+                    .icon("http://maps.google.com/mapfiles/ms/icons/blue-dot.png")
                     .visible(Boolean.TRUE)
                     .title(l.getName());
 
             Marker marker = new Marker(markerOptions);
-
             map.addUIEventHandler(marker,
                     UIEventType.click,
                     (JSObject obj) -> {
