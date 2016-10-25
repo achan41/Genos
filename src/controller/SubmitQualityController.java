@@ -24,7 +24,8 @@ public class SubmitQualityController {
     @FXML TextField reporterName, virusPPMField, contamPPMField, reportTime;
     @FXML DatePicker date;
     @FXML Button cancelButton, submitButton;
-    @FXML Text locationText;
+    @FXML String textLocation;
+    //@FXML Text locationText;
     private WaterQualityReport report;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
@@ -95,7 +96,7 @@ public class SubmitQualityController {
         } else {
             locText += latLong.getLongitude() + "*W";
         }
-        locationText.setText(locText);
+        //locationText.setText(locText);
     }
 
     /**

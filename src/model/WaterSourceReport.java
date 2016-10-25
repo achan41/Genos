@@ -32,6 +32,17 @@ public class WaterSourceReport {
         this.type.set(type);
     }
 
+    public WaterSourceReport(int reportNum, String name, LocalDate date, String time, String location, String desc, WaterCondition condition,
+                             WaterType type) {
+        this.name.set(name);
+        this.reportNum.setValue(reportNum);
+        this.date.set(date);
+        this.time.set(time);
+        this.location = getLocationObject(location, desc);
+        this.condition.set(condition);
+        this.type.set(type);
+    }
+
     /**
      * returns time of report
      * @return time of report
@@ -66,7 +77,9 @@ public class WaterSourceReport {
      * returns location object of report
      * @return location object of report
      */
-    public Location getLocationObject() {return location;}
+    private Location getLocationObject(String name, String desc) {
+        return new Location(name, desc);
+    }
 
     /**
      * returns water condition of report

@@ -25,12 +25,10 @@ public class Location {
      * @param desc water type and water condition of location
      * @param n name of location
      */
-    public Location(String desc, String n, boolean setLatLong) {
+    public Location(String n, String desc) {
         description = desc;
         name = n;
-        if (setLatLong) {
-            setLatLong();
-        }
+        setLatLong(name);
     }
 
     /**
@@ -58,7 +56,7 @@ public class Location {
     /**
      * Calls Google API to obtain longitude and latitude from address string name
      */
-    private void setLatLong() {
+    private void setLatLong(String name) {
         GeoApiContext context = new GeoApiContext();
         context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
                     .setConnectTimeout(60L, TimeUnit.SECONDS)

@@ -25,7 +25,8 @@ public class SubmitSourceController {
     @FXML TextField reportName, reportTime, reportDescription;
     @FXML Button cancelButton;
     @FXML DatePicker date;
-    @FXML Text locationText;
+    @FXML TextField textLocation;
+    //@FXML Text locationText;
     private WaterSourceReport report;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
@@ -100,7 +101,7 @@ public class SubmitSourceController {
         } else {
             locText += latLong.getLongitude() + "*W";
         }
-        locationText.setText(locText);
+        //locationText.setText(locText);
     }
 
 
@@ -192,13 +193,14 @@ public class SubmitSourceController {
     private boolean isValidSubmit() {
         String errorMessage = "";
         //get text from registration form
+
         String name = reportName.getText();
         String description = reportDescription.getText();
         String time = reportTime.getText();
         WaterCondition condition = waterConditionComboBox.getValue();
         WaterType type = waterTypeComboBox.getValue();
         LocalDate localDate = date.getValue();
-        Location location = new Location(name, description, latLong);
+
         if (name == null) {
             errorMessage += "Please enter your name!\n";
         }
@@ -208,7 +210,7 @@ public class SubmitSourceController {
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (location == null) {
+        if (latLong == null && textLocation.getText() == null) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (waterConditionComboBox.getValue() == null) {
@@ -217,14 +219,19 @@ public class SubmitSourceController {
         if (waterTypeComboBox.getValue() == null) {
             errorMessage += "Please select a water type.\n";
         }
-        if (description == null) {
+        else if (description == null) {
             errorMessage += "Please enter a valid description!\n";
-        } else if (description == "") {
+        } /*else if (description == "") {
             location.setDescription("No Description");
-        }
+        }*/
         if (errorMessage.length() == 0) {
-            report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
-            locationText.setText(location.getLatLongString());
+            if (latLong == null) {
+                report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), condition, type);
+            } else {
+                Location location = new Location(name, description, latLong);
+                report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
+            }
+            //locationText.setText(location.getLatLongString());
             return true;
         } else {
             //send alert warning of registration error
