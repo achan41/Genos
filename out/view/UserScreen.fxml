@@ -9,14 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
             <Button fx:id="logoutButton" layoutX="14.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleLogout" text="Logout" />
-            <Button fx:id="viewMapButton" layoutX="364.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleViewMap" text="View Map" />
+            <Button fx:id="viewMapButton" layoutX="435.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleViewMap" prefHeight="26.0" prefWidth="89.0" text="View Map" />
             <Label fx:id="welcomeMessage" layoutX="27.0" layoutY="14.0" text="Welcome" />
-          <Button fx:id="submitReportButton" layoutX="98.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitReport" text="Submit a Report" />
+          <Button fx:id="submitReportButton" layoutX="98.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitReport" text="Submit Source Report" />
             <TabPane fx:id="tabPane" layoutX="27.0" layoutY="37.0" prefHeight="290.0" prefWidth="541.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab fx:id="profileTab" text="My Profile">
@@ -43,7 +43,7 @@
                 </Tab>
               </tabs>
             </TabPane>
-            <Button fx:id="submitQualityReport" layoutX="216.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitQuality" text="Submit Quality Report" />
+            <Button fx:id="submitQualityReport" layoutX="262.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleSubmitQuality" prefHeight="26.0" prefWidth="158.0" text="Submit Quality Report" />
       </children>
     </AnchorPane>
   </children>

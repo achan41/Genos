@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.WaterSourceReport;
 import model.WaterQualityReport;
+import model.AccountType;
 import netscape.javascript.JSObject;
 import java.io.IOException;
 import java.net.URL;
@@ -113,7 +114,7 @@ public class MapController implements Initializable, MapComponentInitializedList
 
         map = mapView.createMap(options);
 
-        if (user.getAccountType().equals("Worker") || user.getAccountType().equals("Manager")) {
+        if (user.getAccountType().equals(AccountType.Worker) || user.getAccountType().equals(AccountType.Manager)) {
             for (WaterQualityReport report : qualityReports) {
                 MarkerOptions markerOptions = new MarkerOptions();
                 Location l = report.getLocation();
@@ -124,7 +125,6 @@ public class MapController implements Initializable, MapComponentInitializedList
                         .title(l.getName());
 
                 Marker marker = new Marker(markerOptions);
-                //Need to change color of this marker
 
                 map.addUIEventHandler(marker,
                         UIEventType.click,

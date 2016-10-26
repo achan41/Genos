@@ -1,2 +1,3 @@
-wolfboy/Jacob/howl/Manager/wolfboy@howl.com/123 Wolf Lane/678/Mr
+tori/tori/pass/Worker/tori@tori.com/Toriland/1234567890/Ms
+wolfboy/Jacob/howl/Manager/wolfboy@howl.com/123 Wolf Lane/678
 user/John/pass/Admin/john@johnson.com/123 John Deere Drive/404

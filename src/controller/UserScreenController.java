@@ -161,7 +161,7 @@ public class UserScreenController {
      */
     @FXML
     protected void handleSubmitQuality(ActionEvent event) throws IOException {
-        if (user.getAccountType() != AccountType.Worker || user.getAccountType() != AccountType.Manager) {
+        if (!user.getAccountType().equals(AccountType.Worker) && !user.getAccountType().equals(AccountType.Manager)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Account Type");
             alert.setHeaderText("Please check your account type");
