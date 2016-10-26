@@ -131,9 +131,10 @@ public class MapController implements Initializable, MapComponentInitializedList
                         (JSObject obj) -> {
                             InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
                             infoWindowOptions.content(
-                                    "<h4>" + report.getReportNum() + ". " + report.getReporterName() + "</h4>"
-                                            + l.getLatLongString() + "<br />"
-                                            + report.getDate() + " " + report.getTime() + "<br />"
+                                    "<h4>Quality Report " + report.getReportNum() + "</h4>"
+                                            + "Submitted by " + report.getReporterName() + "<br/>"
+                                            + l.getName() + "<br />"
+                                            + report.getDate() + "at " + report.getTime() + "<br />"
                                             + report.getOverallCondition() + "<br />"
                                             + "Virus PPM: " + report.getVirusPPM() + "<br />"
                                             + "Contaminant PPM: " + report.getContamPPM() + "<br />"
@@ -161,10 +162,11 @@ public class MapController implements Initializable, MapComponentInitializedList
                     (JSObject obj) -> {
                         InfoWindowOptions infoWindowOptions = new InfoWindowOptions();
                         infoWindowOptions.content(
-                                "<h4>" + report.getReportNum() + ". " + report.getReporterName() + "</h4>"
-                                        + l.getLatLongString() + "<br />"
-                                        + report.getDate() + " " + report.getTime() + "<br />"
-                                        + report.getCondition() + " " + report.getType() + "<br />"
+                                "<h4>Source Report " + report.getReportNum() + "</h4>"
+                                        + "Submitted by " + report.getReporterName() + "<br/>"
+                                        + l.getName() + "<br />"
+                                        + report.getDate() + " at " + report.getTime() + "<br />"
+                                        + report.getType() + ": " + report.getCondition() + "<br />"
                         );
 
                         InfoWindow window = new InfoWindow(infoWindowOptions);
