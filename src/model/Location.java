@@ -19,6 +19,9 @@ public class Location {
     private String description;
     private String name;
     private LatLong latLong;
+    private String city;
+    private String state;
+    private String country;
 
     /**
      * initialize location, set description and name, set latitude/longitude
@@ -70,6 +73,9 @@ public class Location {
             LatLng loc = result.geometry.location;
             latitude = loc.lat;
             longitude = loc.lng;
+            city = result.addressComponents[2].longName;
+            state = result.addressComponents[4].shortName;
+            country = result.addressComponents[5].shortName;
         }
         catch(Exception e) {
             e.printStackTrace();
@@ -86,10 +92,37 @@ public class Location {
         try {
             GeocodingResult result = request.await()[0];
             name = result.formattedAddress;
+            city = result.addressComponents[2].longName;
+            state = result.addressComponents[4].shortName;
+            country = result.addressComponents[5].shortName;
         }
         catch(Exception e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * return city of location
+     * @return city The city location
+     */
+    public String getCity() {
+        return city;
+    }
+
+    /**
+     * return state of location
+     * @return state The state location
+     */
+    public String getState() {
+        return state;
+    }
+
+    /**
+     * return country of location
+     * @return country The country location
+     */
+    public String getCountry() {
+        return country;
     }
 
     /**
