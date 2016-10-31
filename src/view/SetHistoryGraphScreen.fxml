@@ -19,6 +19,6 @@
       <TextField fx:id="graphYear" layoutX="366.0" layoutY="253.0" prefHeight="26.0" prefWidth="88.0" />
       <Label layoutX="126.0" layoutY="79.0" text="Location" />
       <Button fx:id="cancelButton" layoutX="68.0" layoutY="343.0" mnemonicParsing="false" text="Cancel" />
-      <Button fx:id="submitButton" layoutX="380.0" layoutY="343.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="submitButton" layoutX="380.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleSubmitGraph" text="Submit" />
    </children>
 </Pane>

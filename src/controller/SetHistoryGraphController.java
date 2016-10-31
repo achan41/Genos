@@ -2,14 +2,21 @@ package controller;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import model.User;
 import model.WaterQualityReport;
+import model.WaterSourceReport;
 
+import java.io.IOException;
 import java.util.Set;
 import java.util.HashSet;
 
@@ -25,6 +32,7 @@ public class SetHistoryGraphController {
     @FXML Button cancelButton;
     @FXML Button submitButton;
     private ObservableList<WaterQualityReport> qualityReports;
+    private ObservableList<WaterSourceReport> sourceReports;
     private User user;
 
     /**
@@ -57,5 +65,50 @@ public class SetHistoryGraphController {
         qualityReports = reports;
     }
 
+    /**
+     * set current source reports
+     * @param reports
+     */
+    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
+        sourceReports = reports;
+    }
+
+    /**
+     * Submit the data for the history graph and switch to graph screen
+     * @param event submit button selected
+     * @throws IOException
+     */
+    @FXML
+    protected void handleSubmitGraph(ActionEvent event) throws IOException {
+        Stage stage = (Stage) submitButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HistoryGraphScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        HistoryGraphController controller = fxmlLoader.getController();
+        controller.setUser(user);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * Return to User Screen
+     * @param event cancel button selected
+     * @throws IOException
+     */
+    @FXML
+    protected void handleCancelButton(ActionEvent event) throws IOException {
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+        Parent root = fxmlLoader.load();
+        UserScreenController controller = fxmlLoader.getController();
+        controller.setUser(user);
+        controller.setSourceReportsList(sourceReports);
+        controller.setQualityReportsList(qualityReports);
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
 }

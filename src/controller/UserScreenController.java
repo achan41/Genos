@@ -20,7 +20,7 @@ import java.util.ArrayList;
  */
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton, editProfileButton, submitReportButton, viewMapButton;
+    @FXML Button logoutButton, editProfileButton, submitReportButton, viewMapButton, historyGraphButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
     @FXML ListView<String> reportListView = new ListView<String>();
     @FXML TabPane tabPane;
@@ -180,6 +180,32 @@ public class UserScreenController {
             stage.show();
         }
 
+    }
+
+    /**
+     * Switches to history graph creation screen
+     * @param event view history graph button selected
+     */
+    @FXML
+    protected void handleQualityHistory(ActionEvent event) throws IOException {
+        if (!user.getAccountType().equals(AccountType.Worker) && !user.getAccountType().equals(AccountType.Manager)) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Account Type");
+            alert.setHeaderText("Please check your account type");
+            alert.setContentText("You do not have the valid privileges to access the quality report submission screen.");
+            alert.showAndWait();
+        } else {
+            Stage stage = (Stage) historyGraphButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SetHistoryGraphScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            SetHistoryGraphController controller = fxmlLoader.getController();
+            controller.setUser(user);
+            controller.setQualityReportsList(qualityReports);
+            controller.setSourceReportsList(sourceReports);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
     }
 
     /**
