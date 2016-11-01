@@ -1,5 +1,6 @@
 package controller;
 
+import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,13 +27,23 @@ public class UserScreenController {
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
     @FXML Text reportsCategories;
-    private ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
-    private ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
+    private ObservableList<WaterSourceReport> sourceReports;
+    private ObservableList<WaterQualityReport> qualityReports;
     private ObservableList<String> reportStrings = FXCollections.observableArrayList();
     private User user;
+    private MainFXApplication mainApp = new MainFXApplication();
 
     @FXML
     private void initialize() {
+        sourceReports = mainApp.getWaterSourceReports();
+        qualityReports = mainApp.getWaterQualityReports();
+        for (WaterSourceReport report : sourceReports) {
+            reportStrings.add(report.toString());
+        }
+        for (WaterQualityReport report : qualityReports) {
+            reportStrings.add(report.toString());
+        }
+        reportListView.setItems(reportStrings);
     }
 
     /**
@@ -130,8 +141,8 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         EditProfileController controller = fxmlLoader.<EditProfileController>getController();
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -148,8 +159,8 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         SubmitSourceController controller = fxmlLoader.<SubmitSourceController>getController();
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -173,8 +184,8 @@ public class UserScreenController {
             Parent root = fxmlLoader.load();
             SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
             controller.setUser(user);
-            controller.setSourceReportsList(sourceReports);
-            controller.setQualityReportsList(qualityReports);
+            //controller.setSourceReportsList(sourceReports);
+            //controller.setQualityReportsList(qualityReports);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -200,8 +211,8 @@ public class UserScreenController {
             Parent root = fxmlLoader.load();
             SetHistoryGraphController controller = fxmlLoader.<SetHistoryGraphController>getController();
             controller.setUser(user);
-            controller.setQualityReportsList(qualityReports);
-            controller.setSourceReportsList(sourceReports);
+            //controller.setQualityReportsList(qualityReports);
+            //controller.setSourceReportsList(sourceReports);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -220,8 +231,8 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         MapController controller = fxmlLoader.<MapController>getController();
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

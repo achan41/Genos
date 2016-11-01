@@ -1,5 +1,6 @@
 package controller;
 
+import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,8 +29,9 @@ public class EditProfileController {
     private User user;
     private UserProfile userProfile;
     private UserDatabase database = new UserDatabase();
-    private ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
-    private ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
+    private ObservableList<WaterSourceReport> sourceReports;
+    private ObservableList<WaterQualityReport> qualityReports;
+    private MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the titleBox with Titles
@@ -38,6 +40,8 @@ public class EditProfileController {
     private void initialize() {
         ObservableList<Title> list = FXCollections.observableArrayList(Title.values());
         profileTitle.setItems(list);
+        sourceReports = mainApp.getWaterSourceReports();
+        qualityReports = mainApp.getWaterQualityReports();
     }
 
     /**
@@ -97,8 +101,8 @@ public class EditProfileController {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
         controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);

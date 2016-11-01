@@ -1,5 +1,8 @@
 package controller;
 
+import fxapp.MainFXApplication;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,11 +10,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import model.WaterQualityReport;
+import model.WaterSourceReport;
+
 import java.io.IOException;
 
 public class WelcomeScreenController {
     @FXML private Button loginButton, registerButton;
+    private static ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
+    private static ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
+    private MainFXApplication mainApp = new MainFXApplication();
 
+    @FXML
+    private void initialize() {
+        mainApp.setSourceReports(sourceReports);
+        mainApp.setQualityReports(qualityReports);
+    }
 
     /**
      * handles login screen button press

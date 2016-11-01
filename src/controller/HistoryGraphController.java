@@ -1,5 +1,6 @@
 package controller;
 
+import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,6 +31,7 @@ public class HistoryGraphController {
     private ObservableList<WaterQualityReport> qualityReports;
     private ObservableList<WaterSourceReport> sourceReports;
     private User user;
+    private MainFXApplication mainApp = new MainFXApplication();
 
 
     /**
@@ -51,6 +53,8 @@ public class HistoryGraphController {
         months.add("November");
         months.add("December");
         xAxis.setCategories(months);
+        qualityReports = mainApp.getWaterQualityReports();
+        sourceReports = mainApp.getWaterSourceReports();
     }
 
     /**
@@ -89,8 +93,8 @@ public class HistoryGraphController {
         Parent root = fxmlLoader.load();
         SetHistoryGraphController controller = fxmlLoader.getController();
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

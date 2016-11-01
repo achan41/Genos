@@ -1,6 +1,7 @@
 package controller;
 
 import com.lynden.gmapsfx.javascript.object.LatLong;
+import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +33,7 @@ public class SubmitSourceController {
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
     private LatLong latLong;
+    private MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the waterTypeComboBox with water types
@@ -43,6 +45,8 @@ public class SubmitSourceController {
         waterTypeComboBox.setItems(typeList);
         ObservableList<WaterCondition> conditionList = FXCollections.observableArrayList(WaterCondition.values());
         waterConditionComboBox.setItems(conditionList);
+        sourceReports = mainApp.getWaterSourceReports();
+        qualityReports = mainApp.getWaterQualityReports();
     }
 
     /**
@@ -116,8 +120,8 @@ public class SubmitSourceController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+       // controller.setQualityReportsList(qualityReports);
         Location tempLocation = new Location("", "", false);
         if (reportName.getText() != null) {
             tempLocation.setName(reportName.getText());
@@ -153,8 +157,8 @@ public class SubmitSourceController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -170,6 +174,7 @@ public class SubmitSourceController {
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
             sourceReports.add(report);
+            mainApp.setSourceReports(sourceReports);
 
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
@@ -177,8 +182,8 @@ public class SubmitSourceController {
             UserScreenController controller = fxmlLoader.<UserScreenController>getController();
 
             controller.setUser(user);
-            controller.setSourceReportsList(sourceReports);
-            controller.setQualityReportsList(qualityReports);
+            //controller.setSourceReportsList(sourceReports);
+            //controller.setQualityReportsList(qualityReports);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);

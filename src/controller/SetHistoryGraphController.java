@@ -1,5 +1,6 @@
 package controller;
 
+import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,8 +33,8 @@ public class SetHistoryGraphController {
     @FXML Button cancelButton;
     @FXML Button submitButton;
     private ObservableList<WaterQualityReport> qualityReports;
-    private ObservableList<WaterSourceReport> sourceReports;
     private User user;
+    private MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the location list view with available locations
@@ -41,10 +42,11 @@ public class SetHistoryGraphController {
     @FXML
     private void initialize() {
         Set<String> temp = new HashSet<String>();
-        /*for (WaterQualityReport r : qualityReports) {
-            temp.add(r.getLocation().getCity() + r.getLocation().getState()
-                + r.getLocation().getCountry());
-        }*/
+        qualityReports = mainApp.getWaterQualityReports();
+        for (WaterQualityReport r : qualityReports) {
+            temp.add(r.getLocation().getCity() + ", " + r.getLocation().getState()
+                + ", " + r.getLocation().getCountry());
+        }
         ObservableList<String> locations = FXCollections.observableArrayList(temp);
         locationList.setItems(locations);
     }
@@ -66,14 +68,6 @@ public class SetHistoryGraphController {
     }
 
     /**
-     * set current source reports
-     * @param reports
-     */
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
-        sourceReports = reports;
-    }
-
-    /**
      * Submit the data for the history graph and switch to graph screen
      * @param event submit button selected
      * @throws IOException
@@ -85,8 +79,7 @@ public class SetHistoryGraphController {
         Parent root = fxmlLoader.load();
         HistoryGraphController controller = fxmlLoader.getController();
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -104,8 +97,7 @@ public class SetHistoryGraphController {
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.getController();
         controller.setUser(user);
-        controller.setSourceReportsList(sourceReports);
-        controller.setQualityReportsList(qualityReports);
+        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

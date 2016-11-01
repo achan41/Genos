@@ -4,6 +4,7 @@ import com.lynden.gmapsfx.GoogleMapView;
 import com.lynden.gmapsfx.MapComponentInitializedListener;
 import com.lynden.gmapsfx.javascript.event.UIEventType;
 import com.lynden.gmapsfx.javascript.object.*;
+import fxapp.MainFXApplication;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import model.Location;
@@ -42,13 +43,17 @@ public class MapController implements Initializable, MapComponentInitializedList
     private WaterQualityReport qualityReport;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
+    private MainFXApplication mainApp = new MainFXApplication();
 
     @FXML
     Button exitMapViewButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         mapView.addMapInializedListener(this);
+        sourceReports = mainApp.getWaterSourceReports();
+        qualityReports = mainApp.getWaterQualityReports();
     }
     
     /**
@@ -193,8 +198,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                                 Parent root = fxmlLoader.load();
                                 SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
                                 controller.setUser(user);
-                                controller.setQualityReportsList(qualityReports);
-                                controller.setSourceReportsList(sourceReports);
+                                //controller.setQualityReportsList(qualityReports);
+                                //controller.setSourceReportsList(sourceReports);
                                 controller.setReport(qualityReport);
                                 controller.setCurrentLocation(latLong);
                                 Scene scene = new Scene(root);
@@ -205,8 +210,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                                 Parent root = fxmlLoader.load();
                                 SubmitSourceController controller = fxmlLoader.<SubmitSourceController>getController();
                                 controller.setUser(user);
-                                controller.setSourceReportsList(sourceReports);
-                                controller.setQualityReportsList(qualityReports);
+                                //controller.setSourceReportsList(sourceReports);
+                                //controller.setQualityReportsList(qualityReports);
                                 controller.setReport(sourceReport);
                                 controller.setCurrentLocation(latLong);
                                 Scene scene = new Scene(root);
@@ -235,8 +240,8 @@ public class MapController implements Initializable, MapComponentInitializedList
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.<UserScreenController>getController();
         controller.setUser(user);
-        controller.setQualityReportsList(qualityReports);
-        controller.setSourceReportsList(sourceReports);
+        //controller.setQualityReportsList(qualityReports);
+       // controller.setSourceReportsList(sourceReports);
         controller.setToMainTab();
         Scene scene = new Scene(root);
         stage.setScene(scene);

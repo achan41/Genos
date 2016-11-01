@@ -3,15 +3,15 @@ package fxapp;
 
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.WaterQualityReport;
+import model.WaterSourceReport;
+import model.User;
 
 import java.io.IOException;
 
@@ -21,6 +21,9 @@ import java.io.IOException;
 public class MainFXApplication extends Application {
 
     public Stage mainScreen;
+    private static ObservableList<WaterSourceReport> sourceReports;
+    private static ObservableList<WaterQualityReport> qualityReports;
+    private static User user;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -34,7 +37,27 @@ public class MainFXApplication extends Application {
         mainScreen.show();
     }
 
-    public static void main(String[] args) {launch(args);
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    public void setQualityReports(ObservableList<WaterQualityReport> reports) {
+        qualityReports = reports;
+    }
+    public void setSourceReports(ObservableList<WaterSourceReport> reports) {
+        sourceReports = reports;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
+    public ObservableList<WaterQualityReport> getWaterQualityReports() {
+        return qualityReports;
+    }
+    public ObservableList<WaterSourceReport> getWaterSourceReports() {
+        return sourceReports;
+    }
+    public User getUser() {
+        return user;
     }
 
 }
