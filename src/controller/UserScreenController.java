@@ -195,10 +195,10 @@ public class UserScreenController {
             alert.setContentText("You do not have the valid privileges to access the quality report submission screen.");
             alert.showAndWait();
         } else {
-            Stage stage = (Stage) historyGraphButton.getScene().getWindow();
+            Stage stage = (Stage) editProfileButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SetHistoryGraphScreen.fxml"));
             Parent root = fxmlLoader.load();
-            SetHistoryGraphController controller = fxmlLoader.getController();
+            SetHistoryGraphController controller = fxmlLoader.<SetHistoryGraphController>getController();
             controller.setUser(user);
             controller.setQualityReportsList(qualityReports);
             controller.setSourceReportsList(sourceReports);

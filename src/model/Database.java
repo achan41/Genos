@@ -37,7 +37,7 @@ public class Database {
         return true;
     }
 
-    public boolean addWaterPurityReport(WaterPurityReport waterPurityReport) {
+    public boolean addWaterPurityReport(WaterQualityReport waterPurityReport) {
         //TODO
         return true;
     }

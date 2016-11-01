@@ -25,7 +25,7 @@ import java.util.HashSet;
  */
 public class SetHistoryGraphController {
 
-    @FXML ListView locationList;
+    @FXML ListView<String> locationList = new ListView<String>();
     @FXML RadioButton virusButton;
     @FXML RadioButton contamButton;
     @FXML TextField graphYear;
@@ -41,10 +41,10 @@ public class SetHistoryGraphController {
     @FXML
     private void initialize() {
         Set<String> temp = new HashSet<String>();
-        for (WaterQualityReport r : qualityReports) {
+        /*for (WaterQualityReport r : qualityReports) {
             temp.add(r.getLocation().getCity() + r.getLocation().getState()
                 + r.getLocation().getCountry());
-        }
+        }*/
         ObservableList<String> locations = FXCollections.observableArrayList(temp);
         locationList.setItems(locations);
     }

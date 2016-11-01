@@ -8,7 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SetHistoryGraphController">
    <children>
       <Label layoutX="284.0" layoutY="26.0" text="Create History Graph" />
       <RadioButton fx:id="virusButton" layoutX="336.0" layoutY="150.0" mnemonicParsing="false" text="Virus" />
@@ -18,7 +18,7 @@
       <Label layoutX="320.0" layoutY="258.0" text="Year" />
       <TextField fx:id="graphYear" layoutX="366.0" layoutY="253.0" prefHeight="26.0" prefWidth="88.0" />
       <Label layoutX="126.0" layoutY="79.0" text="Location" />
-      <Button fx:id="cancelButton" layoutX="68.0" layoutY="343.0" mnemonicParsing="false" text="Cancel" />
-      <Button fx:id="submitButton" layoutX="380.0" layoutY="343.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="cancelButton" layoutX="68.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
+      <Button fx:id="submitButton" layoutX="380.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleSubmitGraph" text="Submit" />
    </children>
 </Pane>

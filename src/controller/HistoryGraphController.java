@@ -24,7 +24,7 @@ import java.io.IOException;
 public class HistoryGraphController {
 
     @FXML LineChart historyGraph;
-    @FXML CategoryAxis xAxis;
+    @FXML CategoryAxis xAxis = new CategoryAxis();
     @FXML NumberAxis yAxis = new NumberAxis(0, 1000, 100);
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
