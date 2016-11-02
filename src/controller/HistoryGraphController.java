@@ -37,6 +37,8 @@ public class HistoryGraphController {
     private MainFXApplication mainApp = new MainFXApplication();
 
     private int graphYear;
+    private boolean virus = false;
+    private boolean contaminant = false;
 
     /**
      * Called automatically to set the legned for the axes
@@ -62,7 +64,6 @@ public class HistoryGraphController {
         */
         qualityReports = mainApp.getWaterQualityReports();
         sourceReports = mainApp.getWaterSourceReports();
-        setupGraph();
     }
 
     /**
@@ -70,6 +71,14 @@ public class HistoryGraphController {
      */
     public void setYear(int year) {
         graphYear = year;
+    }
+
+    public void setVirus(boolean setting) {
+        virus = true;
+    }
+
+    public void setContam(boolean setting) {
+        contaminant = true;
     }
 
     /**
@@ -119,17 +128,21 @@ public class HistoryGraphController {
      * setting up the graph
      */
     @FXML
-    private void setupGraph() {
+    protected void setupGraph() {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Virus");
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Contamination");
 
         for(int i = 0; i < qualityReports.size(); i++) {
-            //if (graphYear == (qualityReports.get(i).getDate().getYear())) {
-                series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
-                series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
-            //}
+            if (graphYear == (qualityReports.get(i).getDate().getYear())) {
+                if (virus) {
+                    series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+                }
+                if (contaminant) {
+                    series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
+                }
+            }
         }
         /*
         for(int i = 0; i < qualityReports.size(); i++) {

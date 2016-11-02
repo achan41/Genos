@@ -78,7 +78,16 @@ public class SetHistoryGraphController {
             HistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
             //controller.setQualityReportsList(qualityReports);
+
             controller.setYear(Integer.parseInt(graphYear.getText()));
+            if (virusButton.isSelected()) {
+                controller.setVirus(true);
+            }
+            if (contamButton.isSelected()) {
+                controller.setContam(true);
+            }
+
+            controller.setupGraph();
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -98,9 +107,9 @@ public class SetHistoryGraphController {
         if (!virusButton.isSelected() && !contamButton.isSelected()) {
             errorMessage += "Please pick at least one type!\n";
         }
-        /*if (!contamButton.isSelected()) {
-            errorMessage += "Please pick at least one type!\n";
-        }*/
+        if (locationList.isPressed()) {
+            errorMessage += "Please pick a location!\n";
+        }
         if (errorMessage.length() != 0) {
             //send alert warning of registration error
             Alert alert = new Alert(Alert.AlertType.ERROR);
