@@ -73,9 +73,15 @@ public class Location {
             LatLng loc = result.geometry.location;
             latitude = loc.lat;
             longitude = loc.lng;
-            city = result.addressComponents[2].longName;
-            state = result.addressComponents[4].shortName;
-            country = result.addressComponents[5].shortName;
+            if (result.addressComponents.length == 4) {
+                city = result.addressComponents[0].longName;
+                state = result.addressComponents[2].shortName;
+                country = result.addressComponents[3].shortName;
+            } else {
+                city = result.addressComponents[2].longName;
+                state = result.addressComponents[4].shortName;
+                country = result.addressComponents[5].shortName;
+            }
         }
         catch(Exception e) {
             e.printStackTrace();
