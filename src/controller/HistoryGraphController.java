@@ -11,6 +11,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.collections.ObservableList;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.User;
@@ -26,12 +27,14 @@ public class HistoryGraphController {
 
     @FXML CategoryAxis xAxis;
     @FXML NumberAxis yAxis;
-    @FXML LineChart<String, Number> historyGraph;
+    @FXML LineChart historyGraph;
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
     private ObservableList<WaterSourceReport> sourceReports;
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
+
+    private String graphYear;
 
 
     /**
@@ -39,6 +42,7 @@ public class HistoryGraphController {
      */
     @FXML
     private void initialize() {
+
         ObservableList<String> months = FXCollections.observableArrayList();
         months.add("January");
         months.add("February");
@@ -53,10 +57,18 @@ public class HistoryGraphController {
         months.add("November");
         months.add("December");
         xAxis.setCategories(months);
+
         qualityReports = mainApp.getWaterQualityReports();
         sourceReports = mainApp.getWaterSourceReports();
+        setupGraph();
     }
 
+    /**
+     * sets the graph year
+     */
+    public void setYear(String year) {
+        graphYear = year;
+    }
     /**
      * sets user from login screen
      * @param user current user
@@ -100,4 +112,25 @@ public class HistoryGraphController {
         stage.show();
     }
 
+    /**
+     * setting up the graph
+     */
+    @FXML
+    private void setupGraph() {
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Virus");
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Contamination");
+
+        //if ()
+        for(int i = 0; i < qualityReports.size(); i++) {
+            series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+        }
+        for(int i = 0; i < qualityReports.size(); i++) {
+            series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
+        }
+
+        historyGraph.getData().add(series1);
+        historyGraph.getData().add(series2);
+    }
 }
