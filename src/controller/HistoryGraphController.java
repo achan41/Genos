@@ -24,9 +24,9 @@ import java.io.IOException;
  */
 public class HistoryGraphController {
 
-    @FXML LineChart historyGraph;
-    @FXML CategoryAxis xAx = new CategoryAxis();
-    @FXML NumberAxis yAx = new NumberAxis(0, 1000, 100);
+    @FXML CategoryAxis xAxis;
+    @FXML NumberAxis yAxis;
+    @FXML LineChart<String, Number> historyGraph;
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
     private ObservableList<WaterSourceReport> sourceReports;
@@ -52,7 +52,7 @@ public class HistoryGraphController {
         months.add("October");
         months.add("November");
         months.add("December");
-        xAx.setCategories(months);
+        xAxis.setCategories(months);
         qualityReports = mainApp.getWaterQualityReports();
         sourceReports = mainApp.getWaterSourceReports();
     }
