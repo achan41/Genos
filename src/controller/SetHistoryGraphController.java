@@ -78,6 +78,7 @@ public class SetHistoryGraphController {
             HistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
             //controller.setQualityReportsList(qualityReports);
+            controller.setYear(Integer.parseInt(graphYear.getText()));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -90,7 +91,7 @@ public class SetHistoryGraphController {
     @FXML
     private boolean isValidSubmit() {
         String errorMessage = "";
-        String year = graphYear.getText();
+        //String year = graphYear.getText();
 
         if (graphYear.getText().isEmpty()) {
             errorMessage += "Please enter the year!\n";
