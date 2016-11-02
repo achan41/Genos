@@ -29,7 +29,7 @@ public class HistoryGraphController {
 
     @FXML CategoryAxis xAxis;
     @FXML NumberAxis yAxis;
-    @FXML LineChart<String, String> historyGraph;
+    @FXML LineChart historyGraph;
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
     private ObservableList<WaterSourceReport> sourceReports;

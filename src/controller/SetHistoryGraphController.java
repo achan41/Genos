@@ -32,6 +32,7 @@ public class SetHistoryGraphController {
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
+    // private HistoryGraphController historyGraph;
 
     /**
      * called automatically in order to populate the location list view with available locations
@@ -57,6 +58,13 @@ public class SetHistoryGraphController {
     }
 
     /**
+     *
+     */
+//    public void setHistoryGraph(HistoryGraphController graph) {
+//        historyGraph = graph;
+//    }
+
+    /**
      * set current quality reports to be searched for graphing
      * @param reports
      */
@@ -78,6 +86,7 @@ public class SetHistoryGraphController {
             HistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
             //controller.setQualityReportsList(qualityReports);
+            controller.setYear(Integer.parseInt(graphYear.getText()));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -90,7 +99,7 @@ public class SetHistoryGraphController {
     @FXML
     private boolean isValidSubmit() {
         String errorMessage = "";
-        String year = graphYear.getText();
+        //String year = graphYear.getText();
 
         if (graphYear.getText().isEmpty()) {
             errorMessage += "Please enter the year!\n";
@@ -109,8 +118,11 @@ public class SetHistoryGraphController {
             alert.setContentText(errorMessage);
             alert.showAndWait();
             return false;
+        } else {
+            //HistoryGraphController c = new HistoryGraphController();
+            //c.setYear(Integer.parseInt(graphYear.getText()));
+            return true;
         }
-        return true;
     }
 
     /**
