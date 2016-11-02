@@ -56,8 +56,5 @@ public class MainFXApplication extends Application {
     public ObservableList<WaterSourceReport> getWaterSourceReports() {
         return sourceReports;
     }
-    public User getUser() {
-        return user;
-    }
-
+    public User getUser() { return user; }
 }
