@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
+<VBox prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UserScreenController">
   <children>
     <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <children>
@@ -44,7 +44,7 @@
               </tabs>
             </TabPane>
             <Button fx:id="submitQualityReport" layoutX="276.0" layoutY="289.0" mnemonicParsing="false" onAction="#handleSubmitQuality" prefHeight="32.0" prefWidth="150.0" text="Submit Quality Report" />
-            <Button fx:id="qualityHistoryButton" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleQualityHistory" prefHeight="26.0" prefWidth="150.0" text="View Quality History" />
+            <Button fx:id="historyGraphButton" layoutX="276.0" layoutY="336.0" mnemonicParsing="false" onAction="#handleQualityHistory" prefHeight="26.0" prefWidth="150.0" text="View Quality History" />
       </children>
     </AnchorPane>
   </children>

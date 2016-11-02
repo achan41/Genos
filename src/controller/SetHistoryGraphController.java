@@ -8,10 +8,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterQualityReport;
@@ -74,15 +71,46 @@ public class SetHistoryGraphController {
      */
     @FXML
     protected void handleSubmitGraph(ActionEvent event) throws IOException {
-        Stage stage = (Stage) submitButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HistoryGraphScreen.fxml"));
-        Parent root = fxmlLoader.load();
-        HistoryGraphController controller = fxmlLoader.getController();
-        controller.setUser(user);
-        //controller.setQualityReportsList(qualityReports);
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (isValidSubmit()) {
+            Stage stage = (Stage) submitButton.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/HistoryGraphScreen.fxml"));
+            Parent root = fxmlLoader.load();
+            HistoryGraphController controller = fxmlLoader.getController();
+            controller.setUser(user);
+            //controller.setQualityReportsList(qualityReports);
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        }
+    }
+
+    /**
+     * checks if all needed graphs information are filled in
+     */
+    @FXML
+    private boolean isValidSubmit() {
+        String errorMessage = "";
+        String year = graphYear.getText();
+
+        if (graphYear.getText().isEmpty()) {
+            errorMessage += "Please enter the year!\n";
+        }
+        if (!virusButton.isSelected() && !contamButton.isSelected()) {
+            errorMessage += "Please pick at least one type!\n";
+        }
+        /*if (!contamButton.isSelected()) {
+            errorMessage += "Please pick at least one type!\n";
+        }*/
+        if (errorMessage.length() != 0) {
+            //send alert warning of registration error
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Invalid Graph Setup");
+            alert.setHeaderText("Please check your graph setup again");
+            alert.setContentText(errorMessage);
+            alert.showAndWait();
+            return false;
+        }
+        return true;
     }
 
     /**
