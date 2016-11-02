@@ -43,6 +43,7 @@ public class HistoryGraphController {
      */
     @FXML
     private void initialize() {
+        // not working yet
         /*
         ObservableList<String> months = FXCollections.observableArrayList();
         months.add("January");

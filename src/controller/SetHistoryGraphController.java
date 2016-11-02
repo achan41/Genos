@@ -91,7 +91,6 @@ public class SetHistoryGraphController {
     @FXML
     private boolean isValidSubmit() {
         String errorMessage = "";
-        //String year = graphYear.getText();
 
         if (graphYear.getText().isEmpty()) {
             errorMessage += "Please enter the year!\n";
