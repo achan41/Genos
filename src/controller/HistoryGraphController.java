@@ -36,13 +36,15 @@ public class HistoryGraphController {
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
 
+    //private int
+
 
     /**
      * Called automatically to set the legned for the axes
      */
     @FXML
     private void initialize() {
-        /*
+
         ObservableList<String> months = FXCollections.observableArrayList();
         months.add("January");
         months.add("February");
@@ -57,7 +59,7 @@ public class HistoryGraphController {
         months.add("November");
         months.add("December");
         xAxis.setCategories(months);
-        */
+
         qualityReports = mainApp.getWaterQualityReports();
         sourceReports = mainApp.getWaterSourceReports();
         setupGraph();
@@ -116,10 +118,14 @@ public class HistoryGraphController {
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Contamination");
 
-        //for(int i = 0; i < qualityReports.size(); i++) {
-            //series1.getData().add(new XYChart.Data(qualityReports.get(0).getDate().getMonth(), qualityReports.get(0).getContamPPM()));
-        //}
-        series2.getData().add(new XYChart.Data("February", 50));
+        //if ()
+        for(int i = 0; i < qualityReports.size(); i++) {
+            series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+        }
+        for(int i = 0; i < qualityReports.size(); i++) {
+            series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
+        }
+
         historyGraph.getData().add(series1);
         historyGraph.getData().add(series2);
     }
