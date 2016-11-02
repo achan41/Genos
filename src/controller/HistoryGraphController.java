@@ -27,16 +27,16 @@ import java.util.Date;
  */
 public class HistoryGraphController {
 
+    @FXML CategoryAxis xAxis;
+    @FXML NumberAxis yAxis;
     @FXML LineChart historyGraph;
-    @FXML CategoryAxis xAxis = new CategoryAxis();
-    @FXML NumberAxis yAxis = new NumberAxis(0, 1000, 100);
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
     private ObservableList<WaterSourceReport> sourceReports;
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
 
-    //private int
+    private String graphYear;
 
 
     /**
@@ -65,6 +65,12 @@ public class HistoryGraphController {
         setupGraph();
     }
 
+    /**
+     * sets the graph year
+     */
+    public void setYear(String year) {
+        graphYear = year;
+    }
     /**
      * sets user from login screen
      * @param user current user
