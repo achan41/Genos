@@ -39,6 +39,7 @@ public class HistoryGraphController {
     private int graphYear;
     private boolean virus = false;
     private boolean contaminant = false;
+    private String location;
 
     /**
      * Called automatically to set the legned for the axes
@@ -73,12 +74,26 @@ public class HistoryGraphController {
         graphYear = year;
     }
 
-    public void setVirus(boolean setting) {
+    /**
+     * sets virus to be represented
+     */
+    public void setVirus() {
         virus = true;
     }
 
-    public void setContam(boolean setting) {
+    /**
+     * sets contaminant to be represented
+     */
+    public void setContam() {
         contaminant = true;
+    }
+
+    /**
+     * sets location of the graph
+     * @param location
+     */
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     /**
@@ -135,7 +150,7 @@ public class HistoryGraphController {
         series2.setName("Contamination");
 
         for(int i = 0; i < qualityReports.size(); i++) {
-            if (graphYear == (qualityReports.get(i).getDate().getYear())) {
+            if (graphYear == (qualityReports.get(i).getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
                 if (virus) {
                     series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
                 }
@@ -144,11 +159,6 @@ public class HistoryGraphController {
                 }
             }
         }
-        /*
-        for(int i = 0; i < qualityReports.size(); i++) {
-            series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
-        }*/
-
         historyGraph.getData().add(series1);
         historyGraph.getData().add(series2);
     }
