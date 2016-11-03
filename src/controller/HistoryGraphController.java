@@ -19,8 +19,6 @@ import model.WaterQualityReport;
 import model.WaterSourceReport;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 
 /**
  * Created by twalker61 on 10/29/16.
@@ -32,7 +30,6 @@ public class HistoryGraphController {
     @FXML LineChart historyGraph;
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
-    private ObservableList<WaterSourceReport> sourceReports;
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
 
@@ -65,7 +62,6 @@ public class HistoryGraphController {
 
         */
         qualityReports = mainApp.getWaterQualityReports();
-        sourceReports = mainApp.getWaterSourceReports();
         setupGraph();
     }
 
@@ -112,14 +108,6 @@ public class HistoryGraphController {
      */
     public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
         qualityReports = reports;
-    }
-
-    /**
-     * set current source reports
-     * @param reports
-     */
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
-        sourceReports = reports;
     }
 
     /**

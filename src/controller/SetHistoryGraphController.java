@@ -1,7 +1,5 @@
 package controller;
 
-import com.sun.tools.classfile.Dependency;
-import com.sun.tools.javac.file.Locations;
 import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,10 +10,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.Location;
 import model.User;
 import model.WaterQualityReport;
-import model.WaterSourceReport;
 
 import java.io.IOException;
 import java.util.Set;
