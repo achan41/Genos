@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.76-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SetHistoryGraphController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.SetHistoryGraphController">
    <children>
       <Label layoutX="284.0" layoutY="26.0" text="Create History Graph" />
       <RadioButton fx:id="virusButton" layoutX="336.0" layoutY="150.0" mnemonicParsing="false" text="Virus" />
       <RadioButton fx:id="contamButton" layoutX="336.0" layoutY="191.0" mnemonicParsing="false" text="Contaminant" />
-      <ListView fx:id="locationList" layoutX="42.0" layoutY="118.0" prefHeight="200.0" prefWidth="200.0" />
-      <ScrollBar layoutX="242.0" layoutY="118.0" orientation="VERTICAL" prefHeight="200.0" prefWidth="17.0" />
       <Label layoutX="320.0" layoutY="258.0" text="Year" />
       <TextField fx:id="graphYear" layoutX="366.0" layoutY="253.0" prefHeight="26.0" prefWidth="88.0" />
-      <Label layoutX="126.0" layoutY="79.0" text="Location" />
+      <Label layoutX="90.0" layoutY="142.0" text="Location" />
       <Button fx:id="cancelButton" layoutX="68.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleCancelButton" text="Cancel" />
       <Button fx:id="submitButton" layoutX="380.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleSubmitGraph" text="Submit" />
+      <ComboBox fx:id="locationList" layoutX="90.0" layoutY="167.0" prefWidth="150.0" promptText="Pick one..." />
    </children>
 </Pane>
