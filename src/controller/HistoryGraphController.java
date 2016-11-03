@@ -19,6 +19,8 @@ import model.WaterQualityReport;
 import model.WaterSourceReport;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 /**
  * Created by twalker61 on 10/29/16.
@@ -34,16 +36,19 @@ public class HistoryGraphController {
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
 
-    private String graphYear;
-
+    private int graphYear;
+    private boolean virus = false;
+    private boolean contaminant = false;
+    private String location;
 
     /**
      * Called automatically to set the legned for the axes
      */
     @FXML
     private void initialize() {
-
-        ObservableList<String> months = FXCollections.observableArrayList();
+        // not working yet
+        /*
+]        ObservableList<String> months = FXCollections.observableArrayList();
         months.add("January");
         months.add("February");
         months.add("March");
@@ -58,6 +63,7 @@ public class HistoryGraphController {
         months.add("December");
         xAxis.setCategories(months);
 
+        */
         qualityReports = mainApp.getWaterQualityReports();
         sourceReports = mainApp.getWaterSourceReports();
         setupGraph();
@@ -66,9 +72,32 @@ public class HistoryGraphController {
     /**
      * sets the graph year
      */
-    public void setYear(String year) {
+    public void setYear(int year) {
         graphYear = year;
     }
+
+    /**
+     * sets virus to be represented
+     */
+    public void setVirus() {
+        virus = true;
+    }
+
+    /**
+     * sets contaminant to be represented
+     */
+    public void setContam() {
+        contaminant = true;
+    }
+
+    /**
+     * sets location of the graph
+     * @param location
+     */
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
     /**
      * sets user from login screen
      * @param user current user
@@ -116,20 +145,22 @@ public class HistoryGraphController {
      * setting up the graph
      */
     @FXML
-    private void setupGraph() {
+    protected void setupGraph() {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Virus");
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Contamination");
 
-        //if ()
         for(int i = 0; i < qualityReports.size(); i++) {
-            series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+            if (graphYear == (qualityReports.get(i).getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
+                if (virus) {
+                    series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+                }
+                if (contaminant) {
+                    series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
+                }
+            }
         }
-        for(int i = 0; i < qualityReports.size(); i++) {
-            series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
-        }
-
         historyGraph.getData().add(series1);
         historyGraph.getData().add(series2);
     }

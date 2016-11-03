@@ -193,4 +193,12 @@ public class Location {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    /**
+     * gives the string representation of the location
+     * @return location in (City, State, Country) format
+     */
+    public String toString() {
+        return getCity() + ", " + getState() + ", " + getCountry();
+    }
 }
