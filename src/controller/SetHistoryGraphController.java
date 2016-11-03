@@ -1,5 +1,7 @@
 package controller;
 
+import com.sun.tools.classfile.Dependency;
+import com.sun.tools.javac.file.Locations;
 import fxapp.MainFXApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
+import model.Location;
 import model.User;
 import model.WaterQualityReport;
 import model.WaterSourceReport;
@@ -23,7 +26,7 @@ import java.util.HashSet;
  */
 public class SetHistoryGraphController {
 
-    @FXML ListView<String> locationList = new ListView<String>();
+    @FXML ComboBox<String> locationList = new ComboBox<>();
     @FXML RadioButton virusButton;
     @FXML RadioButton contamButton;
     @FXML TextField graphYear;
@@ -78,15 +81,7 @@ public class SetHistoryGraphController {
             HistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
             //controller.setQualityReportsList(qualityReports);
-
-            controller.setYear(Integer.parseInt(graphYear.getText()));
-            if (virusButton.isSelected()) {
-                controller.setVirus(true);
-            }
-            if (contamButton.isSelected()) {
-                controller.setContam(true);
-            }
-
+            settingInputs(controller);
             controller.setupGraph();
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -107,7 +102,7 @@ public class SetHistoryGraphController {
         if (!virusButton.isSelected() && !contamButton.isSelected()) {
             errorMessage += "Please pick at least one type!\n";
         }
-        if (locationList.isPressed()) {
+        if (locationList.getValue() == null) {
             errorMessage += "Please pick a location!\n";
         }
         if (errorMessage.length() != 0) {
@@ -120,6 +115,21 @@ public class SetHistoryGraphController {
             return false;
         }
         return true;
+    }
+
+    /**
+     * sets all the inputs needed for setting up the graph
+     * @param controller HistoryGraphController object
+     */
+    private void settingInputs(HistoryGraphController controller) {
+        controller.setYear(Integer.parseInt(graphYear.getText()));
+        if (virusButton.isSelected()) {
+            controller.setVirus();
+        }
+        if (contamButton.isSelected()) {
+            controller.setContam();
+        }
+        controller.setLocation(locationList.getValue());
     }
 
     /**
