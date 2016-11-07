@@ -120,6 +120,7 @@ public class SubmitSourceController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
+        controller.sourceSelection(true);
         //controller.setSourceReportsList(sourceReports);
        // controller.setQualityReportsList(qualityReports);
         Location tempLocation = new Location("", "", false);
@@ -182,6 +183,7 @@ public class SubmitSourceController {
             UserScreenController controller = fxmlLoader.<UserScreenController>getController();
 
             controller.setUser(user);
+            controller.setToReportsTab();
             //controller.setSourceReportsList(sourceReports);
             //controller.setQualityReportsList(qualityReports);
 

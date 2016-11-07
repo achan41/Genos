@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton, editProfileButton, submitReportButton, viewMapButton, historyGraphButton;
+    @FXML Button logoutButton, editProfileButton, submitReportButton, submitQualityReport, viewMapButton, historyGraphButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
     @FXML ListView<String> reportListView = new ListView<String>();
     @FXML TabPane tabPane;
@@ -70,6 +70,10 @@ public class UserScreenController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        if (user.getAccountType().equals(AccountType.User)) {
+            submitQualityReport.setVisible(false);
+            //historyGraphButton.setVisible(false);  Does anyone know why this is throwing a null pointer?
+        }
     }
 
     /**
@@ -104,6 +108,13 @@ public class UserScreenController {
      * Changes tab displayed to main screen tab
      */
     public void setToMainTab() {
+        changeTab(profileTab);
+    }
+
+    /**
+     * Changes tab displayed to reports tab
+     */
+    public void setToReportsTab() {
         changeTab(profileTab);
     }
 

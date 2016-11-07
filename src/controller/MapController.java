@@ -44,6 +44,8 @@ public class MapController implements Initializable, MapComponentInitializedList
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
     private MainFXApplication mainApp = new MainFXApplication();
+    private boolean sourceLocationSelection;
+    private boolean qualityLocationSelection;
 
     @FXML
     Button exitMapViewButton;
@@ -86,6 +88,14 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     @FXML
     public void setQualityReport(WaterQualityReport report) {qualityReport = report;}
+
+    public void sourceSelection(boolean bool) {
+        sourceLocationSelection = true;
+    }
+
+    public void qualitySelection(boolean bool) {
+        qualityLocationSelection = true;
+    }
 
     /**
      * sets whether or not loc should be chosen
@@ -236,13 +246,24 @@ public class MapController implements Initializable, MapComponentInitializedList
     @FXML
     protected void handleMapExit(ActionEvent event) throws IOException {
         Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+        FXMLLoader fxmlLoader;
+        if (sourceLocationSelection) {
+            fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
+            SubmitSourceController controller = fxmlLoader.getController();
+            //controller.setUser(user); Getting null pointers for users and reports...
+            //controller.setReport(sourceReport);
+        } else if (qualityLocationSelection) {
+            fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
+            SubmitQualityController controller = fxmlLoader.getController();
+            //controller.setUser(user);
+            //controller.setReport(qualityReport);
+        } else {
+            fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            //controller.setUser(user);
+            controller.setToMainTab();
+        }
         Parent root = fxmlLoader.load();
-        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-        controller.setUser(user);
-        //controller.setQualityReportsList(qualityReports);
-       // controller.setSourceReportsList(sourceReports);
-        controller.setToMainTab();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

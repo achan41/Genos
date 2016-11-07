@@ -64,6 +64,8 @@ public class SubmitQualityController {
         reportTime.setText(report.getTime());
         reporterName.setText(report.getReporterName());
         overallComboBox.setValue(report.getOverallCondition());
+        virusPPMField.setText("" + report.getVirusPPM());
+        contamPPMField.setText("" + report.getContamPPM());
     }
 
     /**
@@ -119,6 +121,7 @@ public class SubmitQualityController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
+        controller.qualitySelection(true);
         //controller.setQualityReportsList(qualityReports);
         //controller.setSourceReportsList(sourceReports);
         Location tempLocation = new Location("", "", false);
@@ -180,6 +183,7 @@ public class SubmitQualityController {
             UserScreenController controller = fxmlLoader.<UserScreenController>getController();
 
             controller.setUser(user);
+            controller.setToReportsTab();
             //controller.setSourceReportsList(sourceReports);
             //controller.setQualityReportsList(qualityReports);
 
