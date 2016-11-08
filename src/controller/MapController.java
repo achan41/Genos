@@ -37,7 +37,6 @@ public class MapController implements Initializable, MapComponentInitializedList
     private GoogleMap map;
 
     private boolean chooseLoc = false;
-    //private String reportType;
     private User user;
     private WaterSourceReport sourceReport;
     private WaterQualityReport qualityReport;
@@ -83,18 +82,34 @@ public class MapController implements Initializable, MapComponentInitializedList
         qualityReports = reports;
     }
 
+    /**
+     * Sets the current source report whose location the user is choosing
+     * @param report the source report
+     */
     @FXML
     public void setSourceReport(WaterSourceReport report) {sourceReport = report;}
 
+    /**
+     * Sets the current quality report whose location the user is choosing
+     * @param report the quality report
+     */
     @FXML
     public void setQualityReport(WaterQualityReport report) {qualityReport = report;}
 
+    /**
+     * Determines whether controller is being used to selection source report location
+     * @param bool true if choosing location, false if simply viewing map
+     */
     public void sourceSelection(boolean bool) {
-        sourceLocationSelection = true;
+        sourceLocationSelection = bool;
     }
 
+    /**
+     * Determines whether controller is being used to selection quality report location
+     * @param bool true if choosing location, false if simply viewing map
+     */
     public void qualitySelection(boolean bool) {
-        qualityLocationSelection = true;
+        qualityLocationSelection = bool;
     }
 
     /**
@@ -104,10 +119,6 @@ public class MapController implements Initializable, MapComponentInitializedList
     public void setChooseLoc(boolean chooseLoc) {
         this.chooseLoc = chooseLoc;
     }
-
-   /* public void setReportType(String reportType) {
-        this.reportType = reportType;
-    } */
 
     /**
      * Set map properties, display map, obtain locations of reports, and display report markers on map
@@ -241,7 +252,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     /**
      * Handles exiting the map
      * @param event exit the map
-     * @throws IOException
+     * @throws IOException problem returning to or calling up the previous scene
      */
     @FXML
     protected void handleMapExit(ActionEvent event) throws IOException {

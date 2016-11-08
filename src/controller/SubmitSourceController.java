@@ -27,10 +27,8 @@ public class SubmitSourceController {
     @FXML Button cancelButton;
     @FXML DatePicker date;
     @FXML TextField textLocation;
-    //@FXML Text locationText;
     private WaterSourceReport report;
     private ObservableList<WaterSourceReport> sourceReports;
-    private ObservableList<WaterQualityReport> qualityReports;
     private User user;
     private LatLong latLong;
     private MainFXApplication mainApp = new MainFXApplication();
@@ -46,7 +44,6 @@ public class SubmitSourceController {
         ObservableList<WaterCondition> conditionList = FXCollections.observableArrayList(WaterCondition.values());
         waterConditionComboBox.setItems(conditionList);
         sourceReports = mainApp.getWaterSourceReports();
-        qualityReports = mainApp.getWaterQualityReports();
     }
 
     /**
@@ -80,14 +77,6 @@ public class SubmitSourceController {
     }
 
     /**
-     * sets report list displayed on userscreen report tab
-     * @param reports reports sumbitted so far
-     */
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
-    }
-
-    /**
      * sets water report location to be chosen location
      * @param latLong latitude/longitude to set current report to
      */
@@ -110,7 +99,11 @@ public class SubmitSourceController {
         textLocation.setText(temp.getName());
     }
 
-
+    /**
+     * handles choosing of location
+     * @param event selects choose location button
+     * @throws java.io.IOException cannot switch to map controller and map screen
+     */
     @FXML
     protected void handleChooseLocation(ActionEvent event) throws java.io.IOException {
         Stage stage = (Stage) cancelButton.getScene().getWindow();

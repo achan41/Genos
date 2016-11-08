@@ -17,9 +17,14 @@ public class WaterSourceReport {
     private final IntegerProperty reportNum = new SimpleIntegerProperty();
 
     /**
-     * initializes report time, water condition and type, and location object
-     * @param condition water's condition
-     * @param type water's type
+     * initializes report time, number, name, date, water condition and virus/contaminant levels, and location object
+     * @param reportNum the auto-generated number of the report
+     * @param name the name of the user that made the report
+     * @param date the date of report creation
+     * @param time the time of report creation
+     * @param location the location object of the report
+     * @param condition the water condition
+     * @param type the type of water
      */
     public WaterSourceReport(int reportNum, String name, LocalDate date, String time, Location location, WaterCondition condition,
                              WaterType type) {
@@ -32,6 +37,16 @@ public class WaterSourceReport {
         this.type.set(type);
     }
 
+    /**
+     * initializes report time, number, name, date, water condition and virus/contaminant levels, and location object
+     * @param reportNum the auto-generated number of the report
+     * @param name the name of the user that made the report
+     * @param date the date of report creation
+     * @param time the time of report creation
+     * @param location the string text location of the report
+     * @param condition the water condition
+     * @param type the type of water
+     */
     public WaterSourceReport(int reportNum, String name, LocalDate date, String time, String location, String desc, WaterCondition condition,
                              WaterType type) {
         this.name.set(name);
@@ -127,7 +142,7 @@ public class WaterSourceReport {
 
     /**
      * returns the string concatenation of the water report data
-     * @return
+     * @return the string representation of the report
      */
     @Override
     public String toString() {

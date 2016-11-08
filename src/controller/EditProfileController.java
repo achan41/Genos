@@ -34,7 +34,7 @@ public class EditProfileController {
     private MainFXApplication mainApp = new MainFXApplication();
 
     /**
-     * called automatically in order to populate the titleBox with Titles
+     * called automatically in order to populate the titleBox with Titles and set reports
      */
     @FXML
     private void initialize() {
@@ -83,7 +83,7 @@ public class EditProfileController {
     /**
      * handles cancel button response, return to user screen
      * @param event cancel submission
-     * @throws java.io.IOException
+     * @throws java.io.IOException problem handling cancel request
      */
     @FXML
     protected void handleCancel(ActionEvent event) throws java.io.IOException {

@@ -14,7 +14,7 @@ public enum AccountType {
     private final String charRep;
 
     /**
-     * Counstructor for AccountType enumeration
+     * Constructor for AccountType enumeration
      * @param cName the full name of type
      * @param cRep the abbreviation of type name
      */

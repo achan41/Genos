@@ -39,7 +39,7 @@ public class HistoryGraphController {
     private String location;
 
     /**
-     * Called automatically to set the legned for the axes
+     * Called automatically to set the legend for the axes
      */
     @FXML
     private void initialize() {
@@ -113,7 +113,7 @@ public class HistoryGraphController {
     /**
      * Return to the create history graph screen
      * @param event back button selected
-     * @throws IOException
+     * @throws IOException problem with receiving back command
      */
     @FXML
     protected void handleBackButton(ActionEvent event) throws IOException {

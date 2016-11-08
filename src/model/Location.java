@@ -33,7 +33,7 @@ public class Location {
         name = n;
         //latLong = new LatLong(0,0);
         if (setLatLong) {
-            setLatLong(name);
+            createLatLong(name);
         }
     }
 
@@ -51,17 +51,28 @@ public class Location {
     }
 
     /**
-     * sets new latitude and longitude coordinates
+     * sets new latitude and longitude coordinates and name of location
+     * @param loc new string of location
+     */
+    public void setLatLong(String loc) {
+        name = loc;
+        createLatLong(loc);
+    }
+
+    /**
+     * sets new latitude and longitude coordinates and name of location
      * @param latLong new latLong of location
      */
     public void setLatLong(LatLong latLong) {
-        this.latLong = latLong;
+        latitude = latLong.getLatitude();
+        longitude = latLong.getLongitude();
+        setName(new LatLng(latLong.getLatitude(), latLong.getLongitude()));
     }
 
     /**
      * Calls Google API to obtain longitude and latitude from address string name
      */
-    private void setLatLong(String name) {
+    private void createLatLong(String name) {
         GeoApiContext context = new GeoApiContext();
         context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
                     .setConnectTimeout(60L, TimeUnit.SECONDS)
@@ -88,6 +99,9 @@ public class Location {
         }
     }
 
+    /**
+     * Calls Google API to obtain name of address from latitude and longitude
+     */
     private void setName(LatLng l) {
         GeoApiContext context = new GeoApiContext();
         context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
@@ -163,6 +177,10 @@ public class Location {
         return longitude;
     }
 
+    /**
+     * Creates string representation of latitude and longitude
+     * @return latitude longitude string
+     */
     public String getLatLongString() {
         String locText = "";
         if (latitude > 0) {
@@ -179,8 +197,8 @@ public class Location {
     }
 
     /**
-     * changes name of description
-     * @param name
+     * changes name of location
+     * @param name new name of location
      */
     public void setName(String name) {
         this.name = name;
@@ -188,7 +206,7 @@ public class Location {
 
     /**
      * changes description of location
-     * @param description
+     * @param description new location information
      */
     public void setDescription(String description) {
         this.description = description;

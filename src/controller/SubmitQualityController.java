@@ -26,9 +26,7 @@ public class SubmitQualityController {
     @FXML DatePicker date;
     @FXML Button cancelButton, submitButton;
     @FXML TextField textLocation;
-    //@FXML Text locationText;
     private WaterQualityReport report;
-    private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
     private LatLong latLong;
@@ -42,7 +40,6 @@ public class SubmitQualityController {
     private void initialize() {
         ObservableList<OverallCondition> overallList = FXCollections.observableArrayList(OverallCondition.values());
         overallComboBox.setItems(overallList);
-        sourceReports = mainApp.getWaterSourceReports();
         qualityReports = mainApp.getWaterQualityReports();
     }
 
@@ -66,14 +63,6 @@ public class SubmitQualityController {
         overallComboBox.setValue(report.getOverallCondition());
         virusPPMField.setText("" + report.getVirusPPM());
         contamPPMField.setText("" + report.getContamPPM());
-    }
-
-    /**
-     * sets report list displayed on userscreen report tab
-     * @param reports reports sumbitted so far
-     */
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
-        sourceReports = reports;
     }
 
     /**
@@ -109,8 +98,8 @@ public class SubmitQualityController {
 
     /**
      * handles choosing of location
-     * @param event
-     * @throws java.io.IOException
+     * @param event selects choose location button
+     * @throws java.io.IOException cannot switch to map controller and map screen
      */
     @FXML
     protected void handleChooseLocation(ActionEvent event) throws java.io.IOException {
@@ -139,7 +128,6 @@ public class SubmitQualityController {
                 contamPPMField.getText());
         controller.setQualityReport(report);
         controller.setChooseLoc(true);
-        //controller.setReportType("quality");
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -154,7 +142,7 @@ public class SubmitQualityController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
-        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+        UserScreenController controller = fxmlLoader.getController();
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
@@ -180,7 +168,7 @@ public class SubmitQualityController {
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             Parent root = fxmlLoader.load();
-            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            UserScreenController controller = fxmlLoader.getController();
 
             controller.setUser(user);
             controller.setToReportsTab();

@@ -57,7 +57,7 @@ public class SetHistoryGraphController {
 
     /**
      * set current quality reports to be searched for graphing
-     * @param reports
+     * @param reports the current quality reports
      */
     public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
         qualityReports = reports;
@@ -66,7 +66,7 @@ public class SetHistoryGraphController {
     /**
      * Submit the data for the history graph and switch to graph screen
      * @param event submit button selected
-     * @throws IOException
+     * @throws IOException cannot switch back to previous scene
      */
     @FXML
     protected void handleSubmitGraph(ActionEvent event) throws IOException {
@@ -131,7 +131,7 @@ public class SetHistoryGraphController {
     /**
      * Return to User Screen
      * @param event cancel button selected
-     * @throws IOException
+     * @throws IOException cannot switch back to previous scene
      */
     @FXML
     protected void handleCancelButton(ActionEvent event) throws IOException {

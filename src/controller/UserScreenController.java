@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 import model.*;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Taiga on 10/1/2016.
@@ -33,6 +32,9 @@ public class UserScreenController {
     private User user;
     private MainFXApplication mainApp = new MainFXApplication();
 
+    /**
+     * called automatically to assign report lists and fill in list view with current reports
+     */
     @FXML
     private void initialize() {
         sourceReports = mainApp.getWaterSourceReports();
@@ -150,7 +152,7 @@ public class UserScreenController {
         Stage stage = (Stage) editProfileButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/EditProfile.fxml"));
         Parent root = fxmlLoader.load();
-        EditProfileController controller = fxmlLoader.<EditProfileController>getController();
+        EditProfileController controller = fxmlLoader.getController();
         controller.setUser(user);
         //controller.setSourceReportsList(sourceReports);
         //controller.setQualityReportsList(qualityReports);
@@ -193,7 +195,7 @@ public class UserScreenController {
             Stage stage = (Stage) editProfileButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
             Parent root = fxmlLoader.load();
-            SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
+            SubmitQualityController controller = fxmlLoader.getController();
             controller.setUser(user);
             //controller.setSourceReportsList(sourceReports);
             //controller.setQualityReportsList(qualityReports);
@@ -220,7 +222,7 @@ public class UserScreenController {
             Stage stage = (Stage) editProfileButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SetHistoryGraphScreen.fxml"));
             Parent root = fxmlLoader.load();
-            SetHistoryGraphController controller = fxmlLoader.<SetHistoryGraphController>getController();
+            SetHistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
             //controller.setQualityReportsList(qualityReports);
             //controller.setSourceReportsList(sourceReports);
@@ -233,14 +235,14 @@ public class UserScreenController {
     /**
      * Handles viewing the map - switch to map scene
      * @param event View Map selected
-     * @throws IOException
+     * @throws IOException unable to switch to map screen
      */
     @FXML
     protected void handleViewMap(ActionEvent event) throws IOException {
         Stage stage = (Stage) viewMapButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
         Parent root = fxmlLoader.load();
-        MapController controller = fxmlLoader.<MapController>getController();
+        MapController controller = fxmlLoader.getController();
         controller.setUser(user);
         //controller.setSourceReportsList(sourceReports);
         //controller.setQualityReportsList(qualityReports);

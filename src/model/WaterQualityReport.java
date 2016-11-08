@@ -19,11 +19,16 @@ public class WaterQualityReport {
     private String contaminantPPM;
 
     /**
-     * initializes report time, water condition and type, and location object
-     * @param
+     * initializes report time, number, name, date, water condition and virus/contaminant levels, and location object
+     * @param reportNum the auto-generated number of the report
+     * @param reporterName the name of the user that made the report
+     * @param date the date of report creation
+     * @param time the time of report creation
+     * @param location the location object of the report
+     * @param overallCondition the overall water quality
+     * @param virusPPM the virus ppm
+     * @param contamPPM the contaminant ppm
      */
-
-
     public WaterQualityReport(int reportNum, String reporterName, LocalDate date, String time, Location location,
                               OverallCondition overallCondition, String virusPPM, String contamPPM) {
         this.reportNum.set(reportNum);
@@ -36,6 +41,17 @@ public class WaterQualityReport {
         this.contaminantPPM = contamPPM;
     }
 
+    /**
+     * initializes report time, number, name, date, water condition and virus/contaminant levels, and location object
+     * @param reportNum the auto-generated number of the report
+     * @param reporterName the name of the user that made the report
+     * @param date the date of report creation
+     * @param time the time of report creation
+     * @param location the string text location of the report
+     * @param overallCondition the overall water quality
+     * @param virusPPM the virus ppm
+     * @param contamPPM the contaminant ppm
+     */
     public WaterQualityReport(int reportNum, String reporterName, LocalDate date, String time, String location,
                               OverallCondition overallCondition, String virusPPM, String contamPPM) {
         this.reportNum.set(reportNum);
@@ -121,21 +137,33 @@ public class WaterQualityReport {
         this.location = location;
     }
 
+    /**
+     * change overall condition of report
+     * @param condition new overall condition of report
+     */
     public void setOverallCondition(OverallCondition condition) {this.overallCondition.set(condition);}
 
+    /**
+     * change virus ppm of report
+     * @param ppm new virus ppm of report
+     */
     public void setVirusPPM(String ppm) {virusPPM = ppm;}
 
+    /**
+     * change contaminant ppm of report
+     * @param ppm new contaminant ppm of report
+     */
     public void setContaminantPPM(String ppm) {contaminantPPM = ppm;}
 
     /**
-     * change water type in report
+     * change number in report
      * @param num new report number
      */
     public void setReportNum(int num) {this.reportNum.setValue(num);}
 
     /**
      * returns the string concatenation of the water report data
-     * @return
+     * @return the string representation of the report
      */
     @Override
     public String toString() {
