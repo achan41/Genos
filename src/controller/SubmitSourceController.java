@@ -10,16 +10,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Created by dionisiatara on 10/11/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class SubmitSourceController {
     @FXML ComboBox<WaterType> waterTypeComboBox;
     @FXML ComboBox<WaterCondition> waterConditionComboBox;
@@ -30,8 +29,8 @@ public class SubmitSourceController {
     private WaterSourceReport report;
     private ObservableList<WaterSourceReport> sourceReports;
     private User user;
-    private LatLong latLong;
-    private MainFXApplication mainApp = new MainFXApplication();
+    @SuppressWarnings("CanBeFinal")
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the waterTypeComboBox with water types
@@ -69,14 +68,6 @@ public class SubmitSourceController {
     }
 
     /**
-     * sets report list displayed on userscreen report tab
-     * @param reports reports sumbitted so far
-     */
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
-        sourceReports = reports;
-    }
-
-    /**
      * sets water report location to be chosen location
      * @param latLong latitude/longitude to set current report to
      */
@@ -109,11 +100,11 @@ public class SubmitSourceController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
         Parent root = fxmlLoader.load();
-        MapController controller = fxmlLoader.<MapController>getController();
+        MapController controller = fxmlLoader.getController();
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        controller.sourceSelection(true);
+        controller.sourceSelection();
         //controller.setSourceReportsList(sourceReports);
        // controller.setQualityReportsList(qualityReports);
         Location tempLocation = new Location("", "", false);
@@ -132,7 +123,7 @@ public class SubmitSourceController {
                 waterConditionComboBox.getValue(),
                 waterTypeComboBox.getValue());
         controller.setSourceReport(report);
-        controller.setChooseLoc(true);
+        controller.setChooseLoc();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -147,12 +138,10 @@ public class SubmitSourceController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
-        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+        UserScreenController controller = fxmlLoader.getController();
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -173,12 +162,10 @@ public class SubmitSourceController {
             Stage stage = (Stage) reportTime.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             Parent root = fxmlLoader.load();
-            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            UserScreenController controller = fxmlLoader.getController();
 
             controller.setUser(user);
             controller.setToReportsTab();
-            //controller.setSourceReportsList(sourceReports);
-            //controller.setQualityReportsList(qualityReports);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -211,7 +198,7 @@ public class SubmitSourceController {
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (latLong == null && textLocation.getText() == null) {
+        if (textLocation.getText() == null) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (waterConditionComboBox.getValue() == null) {
@@ -226,13 +213,7 @@ public class SubmitSourceController {
             location.setDescription("No Description");
         }*/
         if (errorMessage.length() == 0) {
-            if (latLong == null) {
-                report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), description, condition, type);
-            } else {
-                Location location = new Location(description, latLong);
-                report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, location, condition, type);
-                textLocation.setText(location.getName());
-            }
+            report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), description, condition, type);
             return true;
         } else {
             //send alert warning of registration error

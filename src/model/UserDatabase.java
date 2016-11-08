@@ -7,13 +7,14 @@ import java.util.Map;
 /**
  * Created by Taiga on 9/21/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class UserDatabase {
 
     private User user;
     private String username;
     private HashMap<String, User> database = new HashMap<>();
     //database file path
-    private File databaseFile = new File("database.txt");
+    private final File databaseFile = new File("database.txt");
 
     /**
      * create userDatabase after reading database file
@@ -113,11 +114,7 @@ public class UserDatabase {
         if (database.get(username) == null) {
             throw new NullPointerException("This user does not exist");
         }
-        if (tempUser.getPassword().equals(user.getPassword())) {
-            return true;
-        } else {
-            return false;
-        }
+        return tempUser.getPassword().equals(user.getPassword());
     }
 
     /**

@@ -13,11 +13,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * Created by Allen on 10/2/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class EditProfileController {
     @FXML TextField profileName;
     @FXML TextField profileAddress;
@@ -28,10 +28,8 @@ public class EditProfileController {
     @FXML Button profileCancel;
     private User user;
     private UserProfile userProfile;
-    private UserDatabase database = new UserDatabase();
-    private ObservableList<WaterSourceReport> sourceReports;
-    private ObservableList<WaterQualityReport> qualityReports;
-    private MainFXApplication mainApp = new MainFXApplication();
+    private final UserDatabase database = new UserDatabase();
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the titleBox with Titles and set reports
@@ -40,8 +38,6 @@ public class EditProfileController {
     private void initialize() {
         ObservableList<Title> list = FXCollections.observableArrayList(Title.values());
         profileTitle.setItems(list);
-        sourceReports = mainApp.getWaterSourceReports();
-        qualityReports = mainApp.getWaterQualityReports();
     }
 
     /**
@@ -50,22 +46,6 @@ public class EditProfileController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
-    }
-
-    /**
-     * sets report list displayed on userscreen report tab
-     * @param reports reports sumbitted so far
-     */
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
-        sourceReports = reports;
-    }
-
-    /**
-     * sets report list displayed on userscreen report tab
-     * @param reports reports sumbitted so far
-     */
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
     }
 
     /**
@@ -100,9 +80,7 @@ public class EditProfileController {
         Stage stage = (Stage) profileCancel.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
         Parent root = fxmlLoader.load();
-        UserScreenController controller = fxmlLoader.<UserScreenController>getController();
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
+        UserScreenController controller = fxmlLoader.getController();
         controller.setUser(user);
         Scene scene = new Scene(root);
         stage.setScene(scene);

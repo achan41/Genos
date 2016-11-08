@@ -16,13 +16,13 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterQualityReport;
-import model.WaterSourceReport;
 
 import java.io.IOException;
 
 /**
  * Created by twalker61 on 10/29/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class HistoryGraphController {
 
     @FXML CategoryAxis xAxis;
@@ -31,7 +31,7 @@ public class HistoryGraphController {
     @FXML Button backButton;
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
-    private MainFXApplication mainApp = new MainFXApplication();
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     private int graphYear;
     private boolean virus = false;
@@ -88,7 +88,7 @@ public class HistoryGraphController {
 
     /**
      * sets location of the graph
-     * @param location
+     * @param location the location of the graph
      */
     public void setLocation(String location) {
         this.location = location;
@@ -103,14 +103,6 @@ public class HistoryGraphController {
     }
 
     /**
-     * set current quality reports to be searched for graphing
-     * @param reports
-     */
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
-    }
-
-    /**
      * Return to the create history graph screen
      * @param event back button selected
      * @throws IOException problem with receiving back command
@@ -122,8 +114,6 @@ public class HistoryGraphController {
         Parent root = fxmlLoader.load();
         SetHistoryGraphController controller = fxmlLoader.getController();
         controller.setUser(user);
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -133,23 +123,35 @@ public class HistoryGraphController {
      * setting up the graph
      */
     @FXML
-    protected void setupGraph() {
+    void setupGraph() {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Virus");
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Contamination");
 
-        for(int i = 0; i < qualityReports.size(); i++) {
-            if (graphYear == (qualityReports.get(i).getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
+        for (WaterQualityReport qualityReport : qualityReports) {
+            if (graphYear == (qualityReport.getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
                 if (virus) {
-                    series1.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+                    try {
+                        series1.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getContamPPM()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 if (contaminant) {
-                    series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getVirusPPM()));
+                    try {
+                        series2.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getVirusPPM()));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
-        historyGraph.getData().add(series1);
-        historyGraph.getData().add(series2);
+        try {
+            historyGraph.getData().add(series1);
+            historyGraph.getData().add(series2);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

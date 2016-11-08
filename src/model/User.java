@@ -8,13 +8,14 @@ import javafx.beans.property.StringProperty;
 /**
  * Created by Taiga on 9/21/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class User {
 
-    private StringProperty name = new SimpleStringProperty();
+    private final StringProperty name = new SimpleStringProperty();
     private final StringProperty username = new SimpleStringProperty();
     private final StringProperty password = new SimpleStringProperty();
-    private ObjectProperty<AccountType> accountType = new SimpleObjectProperty<>();
-    private ObjectProperty<UserProfile> userProfile = new SimpleObjectProperty<>();
+    private final ObjectProperty<AccountType> accountType = new SimpleObjectProperty<>();
+    private final ObjectProperty<UserProfile> userProfile = new SimpleObjectProperty<>();
 
     /**
      * creates User with 2 parameters

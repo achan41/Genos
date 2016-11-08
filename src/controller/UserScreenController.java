@@ -18,19 +18,20 @@ import java.io.IOException;
 /**
  * Created by Taiga on 10/1/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class UserScreenController {
     @FXML private Label welcomeMessage;
     @FXML Button logoutButton, editProfileButton, submitReportButton, submitQualityReport, viewMapButton, historyGraphButton;
     @FXML Label emailLabel, addressLabel, contactLabel;
-    @FXML ListView<String> reportListView = new ListView<String>();
+    @FXML ListView<String> reportListView = new ListView<>();
     @FXML TabPane tabPane;
     @FXML Tab reportsTab, profileTab;
     @FXML Text reportsCategories;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
-    private ObservableList<String> reportStrings = FXCollections.observableArrayList();
+    private final ObservableList<String> reportStrings = FXCollections.observableArrayList();
     private User user;
-    private MainFXApplication mainApp = new MainFXApplication();
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically to assign report lists and fill in list view with current reports
@@ -74,36 +75,8 @@ public class UserScreenController {
         }
         if (user.getAccountType().equals(AccountType.User)) {
             submitQualityReport.setVisible(false);
-            //historyGraphButton.setVisible(false);  Does anyone know why this is throwing a null pointer?
+            //historyGraphButton.setVisible(false);
         }
-    }
-
-    /**
-     * sets reports from observablelist
-     * @param reports to be added
-     */
-    @FXML
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) {
-        sourceReports = reports;
-        for (WaterSourceReport report : sourceReports) {
-            reportStrings.add(report.toString());
-        }
-        reportListView.setItems(reportStrings);
-        changeTab(reportsTab);
-    }
-
-    /**
-     * sets reports from observablelist
-     * @param reports to be added
-     */
-    @FXML
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
-        for (WaterQualityReport report : qualityReports) {
-            reportStrings.add(report.toString());
-        }
-        reportListView.setItems(reportStrings);
-        changeTab(reportsTab);
     }
 
     /**
@@ -154,8 +127,6 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         EditProfileController controller = fxmlLoader.getController();
         controller.setUser(user);
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -170,10 +141,8 @@ public class UserScreenController {
         Stage stage = (Stage) editProfileButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
         Parent root = fxmlLoader.load();
-        SubmitSourceController controller = fxmlLoader.<SubmitSourceController>getController();
+        SubmitSourceController controller = fxmlLoader.getController();
         controller.setUser(user);
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -197,8 +166,6 @@ public class UserScreenController {
             Parent root = fxmlLoader.load();
             SubmitQualityController controller = fxmlLoader.getController();
             controller.setUser(user);
-            //controller.setSourceReportsList(sourceReports);
-            //controller.setQualityReportsList(qualityReports);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -224,8 +191,6 @@ public class UserScreenController {
             Parent root = fxmlLoader.load();
             SetHistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
-            //controller.setQualityReportsList(qualityReports);
-            //controller.setSourceReportsList(sourceReports);
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -244,8 +209,6 @@ public class UserScreenController {
         Parent root = fxmlLoader.load();
         MapController controller = fxmlLoader.getController();
         controller.setUser(user);
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

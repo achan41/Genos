@@ -7,6 +7,7 @@ import java.time.LocalDate;
 /**
  * Created by twalker61 on 10/24/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class WaterQualityReport {
 
     private final StringProperty time = new SimpleStringProperty();

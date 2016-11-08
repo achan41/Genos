@@ -3,6 +3,7 @@ package model;
 /**
  * Created by dionisiatara on 10/11/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public enum WaterCondition {
     Waste ("Waste", "WST"),
     TreatableClear ("Treatable-Clear", "TCL"),

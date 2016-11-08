@@ -17,13 +17,14 @@ import java.io.IOException;
 /**
  * Created by Taiga on 10/1/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class RegistrationScreenController {
     @FXML TextField registrationName;
     @FXML TextField registrationUsername;
     @FXML PasswordField registrationPassword;
     @FXML ComboBox<AccountType> accountTypeBox;
     @FXML Button cancelButton;
-    private UserDatabase database = new UserDatabase();
+    private final UserDatabase database = new UserDatabase();
 
     /**
      * called automatically in order to populate accountTypeBox with account types

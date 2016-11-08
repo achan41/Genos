@@ -1,13 +1,11 @@
 package model;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.sql.*;
 
 /**
  * Created by Allen on 10/24/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class Database {
     private Connection connection;
     private PreparedStatement statement;

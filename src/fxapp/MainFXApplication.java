@@ -3,7 +3,6 @@ package fxapp;
 
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,14 +12,13 @@ import model.WaterQualityReport;
 import model.WaterSourceReport;
 import model.User;
 
-import java.io.IOException;
-
 /**
  * Created by Kevin on 9/20/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class MainFXApplication extends Application {
 
-    public Stage mainScreen;
+    private Stage mainScreen;
     private static ObservableList<WaterSourceReport> sourceReports;
     private static ObservableList<WaterQualityReport> qualityReports;
     private static User user;
@@ -44,7 +42,7 @@ public class MainFXApplication extends Application {
 
     /**
      * main method used to run app
-     * @param args
+     * @param args line arguments
      */
     public static void main(String[] args) {
         launch(args);
@@ -71,7 +69,7 @@ public class MainFXApplication extends Application {
      * @param user the current user
      */
     public void setUser(User user) {
-        this.user = user;
+        MainFXApplication.user = user;
     }
 
     /**

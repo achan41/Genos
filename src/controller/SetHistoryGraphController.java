@@ -20,6 +20,7 @@ import java.util.HashSet;
 /**
  * Created by twalker61 on 10/29/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class SetHistoryGraphController {
 
     @FXML ComboBox<String> locationList = new ComboBox<>();
@@ -30,14 +31,14 @@ public class SetHistoryGraphController {
     @FXML Button submitButton;
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
-    private MainFXApplication mainApp = new MainFXApplication();
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the location list view with available locations
      */
     @FXML
     private void initialize() {
-        Set<String> temp = new HashSet<String>();
+        Set<String> temp = new HashSet<>();
         qualityReports = mainApp.getWaterQualityReports();
         for (WaterQualityReport r : qualityReports) {
             temp.add(r.getLocation().getCity() + ", " + r.getLocation().getState()
@@ -55,13 +56,6 @@ public class SetHistoryGraphController {
         this.user = user;
     }
 
-    /**
-     * set current quality reports to be searched for graphing
-     * @param reports the current quality reports
-     */
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
-    }
 
     /**
      * Submit the data for the history graph and switch to graph screen
@@ -76,7 +70,6 @@ public class SetHistoryGraphController {
             Parent root = fxmlLoader.load();
             HistoryGraphController controller = fxmlLoader.getController();
             controller.setUser(user);
-            //controller.setQualityReportsList(qualityReports);
             settingInputs(controller);
             controller.setupGraph();
             Scene scene = new Scene(root);
@@ -140,7 +133,6 @@ public class SetHistoryGraphController {
         Parent root = fxmlLoader.load();
         UserScreenController controller = fxmlLoader.getController();
         controller.setUser(user);
-        //controller.setQualityReportsList(qualityReports);
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

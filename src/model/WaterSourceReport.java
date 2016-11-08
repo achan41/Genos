@@ -7,6 +7,7 @@ import java.time.LocalDate;
 /**
  * Created by Taiga on 10/12/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class WaterSourceReport {
     private final StringProperty time = new SimpleStringProperty();
     private final StringProperty name = new SimpleStringProperty();

@@ -25,11 +25,11 @@ import netscape.javascript.JSObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.ArrayList;
 
 /**
  * Created by Kevin on 10/17/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class MapController implements Initializable, MapComponentInitializedListener {
 
     @FXML
@@ -42,7 +42,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     private WaterQualityReport qualityReport;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
-    private MainFXApplication mainApp = new MainFXApplication();
+    private final MainFXApplication mainApp = new MainFXApplication();
     private boolean sourceLocationSelection;
     private boolean qualityLocationSelection;
 
@@ -66,23 +66,6 @@ public class MapController implements Initializable, MapComponentInitializedList
     }
 
     /**
-     * sets source reports from observablelist
-     * @param reports to be added
-     */
-    @FXML
-    public void setSourceReportsList(ObservableList<WaterSourceReport> reports) { sourceReports = reports;
-    }
-
-    /**
-     * sets quality reports from observablelist
-     * @param reports to be added
-     */
-    @FXML
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
-    }
-
-    /**
      * Sets the current source report whose location the user is choosing
      * @param report the source report
      */
@@ -98,26 +81,23 @@ public class MapController implements Initializable, MapComponentInitializedList
 
     /**
      * Determines whether controller is being used to selection source report location
-     * @param bool true if choosing location, false if simply viewing map
      */
-    public void sourceSelection(boolean bool) {
-        sourceLocationSelection = bool;
+    public void sourceSelection() {
+        sourceLocationSelection = true;
     }
 
     /**
      * Determines whether controller is being used to selection quality report location
-     * @param bool true if choosing location, false if simply viewing map
      */
-    public void qualitySelection(boolean bool) {
-        qualityLocationSelection = bool;
+    public void qualitySelection() {
+        qualityLocationSelection = true;
     }
 
     /**
      * sets whether or not loc should be chosen
-     * @param chooseLoc whether or not loc should be chosen
      */
-    public void setChooseLoc(boolean chooseLoc) {
-        this.chooseLoc = chooseLoc;
+    public void setChooseLoc() {
+        chooseLoc = true;
     }
 
     /**
@@ -217,10 +197,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                             if (qualityReport != null) {
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
                                 Parent root = fxmlLoader.load();
-                                SubmitQualityController controller = fxmlLoader.<SubmitQualityController>getController();
+                                SubmitQualityController controller = fxmlLoader.getController();
                                 controller.setUser(user);
-                                //controller.setQualityReportsList(qualityReports);
-                                //controller.setSourceReportsList(sourceReports);
                                 controller.setReport(qualityReport);
                                 controller.setCurrentLocation(latLong);
                                 Scene scene = new Scene(root);
@@ -229,10 +207,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                             } else {
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
                                 Parent root = fxmlLoader.load();
-                                SubmitSourceController controller = fxmlLoader.<SubmitSourceController>getController();
+                                SubmitSourceController controller = fxmlLoader.getController();
                                 controller.setUser(user);
-                                //controller.setSourceReportsList(sourceReports);
-                                //controller.setQualityReportsList(qualityReports);
                                 controller.setReport(sourceReport);
                                 controller.setCurrentLocation(latLong);
                                 Scene scene = new Scene(root);
@@ -261,16 +237,20 @@ public class MapController implements Initializable, MapComponentInitializedList
         if (sourceLocationSelection) {
             fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
             SubmitSourceController controller = fxmlLoader.getController();
-            //controller.setUser(user); Getting null pointers for users and reports...
-            //controller.setReport(sourceReport);
+            controller.setUser(user);
+            if (chooseLoc) {
+                //controller.setReport(sourceReport);
+            }
         } else if (qualityLocationSelection) {
             fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
             SubmitQualityController controller = fxmlLoader.getController();
             //controller.setUser(user);
-            //controller.setReport(qualityReport);
+            if (chooseLoc) {
+                //controller.setReport(qualityReport);
+            }
         } else {
             fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
-            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            UserScreenController controller = fxmlLoader.getController();
             //controller.setUser(user);
             controller.setToMainTab();
         }

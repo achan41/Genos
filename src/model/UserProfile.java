@@ -8,6 +8,7 @@ import javafx.beans.property.SimpleObjectProperty;
 /**
  * Created by Allen on 9/30/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class UserProfile {
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty email = new SimpleStringProperty();

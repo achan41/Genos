@@ -3,6 +3,7 @@ package model;
 /**
  * Created by taiga on 10/24/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public enum OverallCondition {
     Safe ("Safe"),
     Treatable ("Treatable"),

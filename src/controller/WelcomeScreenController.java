@@ -18,9 +18,9 @@ import java.io.IOException;
 public class WelcomeScreenController {
 
     @FXML private Button loginButton, registerButton;
-    private static ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
-    private static ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
-    private MainFXApplication mainApp = new MainFXApplication();
+    private static final ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
+    private static final ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically to create the source reports for the system

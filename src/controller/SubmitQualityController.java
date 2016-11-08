@@ -10,16 +10,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Created by taiga on 10/24/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class SubmitQualityController {
     @FXML ComboBox<OverallCondition> overallComboBox;
     @FXML TextField reporterName, virusPPMField, contamPPMField, reportTime;
@@ -29,8 +28,7 @@ public class SubmitQualityController {
     private WaterQualityReport report;
     private ObservableList<WaterQualityReport> qualityReports;
     private User user;
-    private LatLong latLong;
-    private MainFXApplication mainApp = new MainFXApplication();
+    private final MainFXApplication mainApp = new MainFXApplication();
 
     /**
      * called automatically in order to populate the waterTypeComboBox with water types
@@ -66,14 +64,6 @@ public class SubmitQualityController {
     }
 
     /**
-     * sets report list displayed on userscreen report tab
-     * @param reports reports sumbitted so far
-     */
-    public void setQualityReportsList(ObservableList<WaterQualityReport> reports) {
-        qualityReports = reports;
-    }
-
-    /**
      * sets water report location to be chosen location
      * @param latLong latitude/longitude to set current report to
      */
@@ -106,13 +96,11 @@ public class SubmitQualityController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
         Parent root = fxmlLoader.load();
-        MapController controller = fxmlLoader.<MapController>getController();
+        MapController controller = fxmlLoader.getController();
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        controller.qualitySelection(true);
-        //controller.setQualityReportsList(qualityReports);
-        //controller.setSourceReportsList(sourceReports);
+        controller.qualitySelection();
         Location tempLocation = new Location("", "", false);
         if (reporterName.getText() != null) {
             tempLocation.setName(reporterName.getText());
@@ -127,7 +115,7 @@ public class SubmitQualityController {
                 virusPPMField.getText(),
                 contamPPMField.getText());
         controller.setQualityReport(report);
-        controller.setChooseLoc(true);
+        controller.setChooseLoc();
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
@@ -146,8 +134,6 @@ public class SubmitQualityController {
 
         // Passes on user and report data to user scene, order determines which tab will be active last
         controller.setUser(user);
-        //controller.setSourceReportsList(sourceReports);
-        //controller.setQualityReportsList(qualityReports);
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -172,8 +158,6 @@ public class SubmitQualityController {
 
             controller.setUser(user);
             controller.setToReportsTab();
-            //controller.setSourceReportsList(sourceReports);
-            //controller.setQualityReportsList(qualityReports);
 
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -205,20 +189,14 @@ public class SubmitQualityController {
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (latLong == null && textLocation.getText() == null) {
+        if (textLocation.getText() == null) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (overallComboBox.getValue() == null) {
             errorMessage += "Please select a water type.\n";
         }
         if (errorMessage.length() == 0) {
-            if (latLong == null) {
-                report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, textLocation.getText(), condition, virusPPM, contamPPM);
-            } else {
-                Location location = new Location("", latLong);
-                report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, location, condition, virusPPM, contamPPM);
-                textLocation.setText(location.getName());
-            }
+            report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, textLocation.getText(), condition, virusPPM, contamPPM);
             return true;
         } else {
             //send alert warning of registration error

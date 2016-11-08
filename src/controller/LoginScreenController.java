@@ -5,8 +5,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import model.UserDatabase;
-import fxapp.MainFXApplication;
 import javafx.event.ActionEvent;
 import model.User;
 import model.UserDatabase;
@@ -17,11 +15,12 @@ import java.io.IOException;
 /**
  * Created by Taiga on 10/1/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button cancelButton, loginButton;
-    private UserDatabase database = new UserDatabase();
+    private final UserDatabase database = new UserDatabase();
 
 
     /**
@@ -47,7 +46,7 @@ public class LoginScreenController {
             Stage stage = (Stage) loginButton.getScene().getWindow();
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             Parent root = fxmlLoader.load();
-            UserScreenController controller = fxmlLoader.<UserScreenController>getController();
+            UserScreenController controller = fxmlLoader.getController();
             controller.setUser(database.getUser(usernameField.getText()));
             Scene scene = new Scene(root);
             stage.setScene(scene);
@@ -61,7 +60,7 @@ public class LoginScreenController {
      */
     @FXML
     private boolean isValidLogin() {
-        String message = "";
+        String message;
         try {
             User user = new User(this.usernameField.getText(), this.passwordField.getText());
             boolean validLogin = this.database.login(user);

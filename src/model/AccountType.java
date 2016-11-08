@@ -4,6 +4,7 @@ package model;
 /**
  * Created by Taiga on 10/1/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public enum AccountType {
     User ("User", "USR"),
     Worker ("Worker", "WKR"),

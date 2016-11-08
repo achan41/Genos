@@ -12,13 +12,14 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by twalker61 on 10/18/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class Location {
 
     private double longitude;
     private double latitude;
     private String description;
     private String name;
-    private LatLong latLong;
+    //private LatLong latLong;
     private String city;
     private String state;
     private String country;
@@ -46,7 +47,7 @@ public class Location {
         this.description = description;
         longitude = latLong.getLongitude();
         latitude = latLong.getLatitude();
-        this.latLong = latLong;
+        //this.latLong = latLong;
         setName(new LatLng(latLong.getLatitude(), latLong.getLongitude()));
     }
 

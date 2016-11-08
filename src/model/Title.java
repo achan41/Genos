@@ -3,6 +3,7 @@ package model;
 /**
  * Created by Allen on 10/3/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public enum Title {
     Mr ("Mister", "Mr"),
     Mrs ("Missus", "Mrs"),
