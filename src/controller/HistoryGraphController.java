@@ -150,12 +150,14 @@ public class HistoryGraphController {
                         Month reportMonth = qualityReports.get(i).getDate().getMonth();
                         double totalVirus = qualityReports.get(i).getVirusPPM();
                         double monthCount = 1;
-                        for (int j = i+1; j < qualityReports.size(); j++) {
-                            if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
-                                monthCount++;
-                                totalVirus += qualityReports.get(j).getVirusPPM();
+                        if (qualityReports.get(i+1) != null) {
+                            for (int j = i + 1; j < qualityReports.size() && qualityReports.get(j).getDate().getMonth().equals(reportMonth); j++) {
+                                if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
+                                    monthCount++;
+                                    totalVirus += qualityReports.get(j).getVirusPPM();
+                                }
+                                //series1.getData().add(new XYChart.Data(qualityReports.get(0).getDate().getMonth().toString(), qualityReports.get(0).getVirusPPM()));
                             }
-                            //series1.getData().add(new XYChart.Data(qualityReports.get(0).getDate().getMonth().toString(), qualityReports.get(0).getVirusPPM()));
                         }
                         double average = totalVirus / monthCount;
                         series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
@@ -169,12 +171,14 @@ public class HistoryGraphController {
                         Month reportMonth = qualityReports.get(i).getDate().getMonth();
                         double totalContam = qualityReports.get(i).getContamPPM();
                         double monthCount = 1;
-                        for (int j = i+1; j < qualityReports.size(); j++) {
-                            if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
-                                monthCount++;
-                                totalContam += qualityReports.get(j).getContamPPM();
+                        if (qualityReports.get(i+1) != null) {
+                            for (int j = i + 1; j < qualityReports.size() && qualityReports.get(j).getDate().getMonth().equals(reportMonth); j++) {
+                                if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
+                                    monthCount++;
+                                    totalContam += qualityReports.get(j).getContamPPM();
+                                }
+                                //series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
                             }
-                            //series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
                         }
                         double average = totalContam / monthCount;
                         series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
