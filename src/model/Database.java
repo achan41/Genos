@@ -28,6 +28,10 @@ public class Database {
             Class.forName ("com.mysql.jdbc.Driver").newInstance ();
             String url = "jdbc:mysql://108.201.215.73:3306/cleanwater?autoReconnect=true&useSSL=false";
             connection = DriverManager.getConnection (url, "admin", "genos");
+            restoreUsers();
+            for (User person : users) {
+                System.out.println(person.getUsername());
+            }
             System.out.println("connection set");
         } catch(Exception e) {
             e.printStackTrace();
@@ -105,7 +109,7 @@ public class Database {
 
     public boolean findUser(User user) {
         for (User person : users) {
-            if (person.getUsername().equals(user.getName())) {
+            if (person.getUsername().equals(user.getUsername())) {
                 if (person.getPassword().equals(user.getPassword())) {
                     return true;
                 }
@@ -142,7 +146,7 @@ public class Database {
                 AccountType accountType = AccountType.valueOf(result.getString("accountType"));
                 String profile = result.getString("userProfile");
                 String array[] = profile.split("/");
-                UserProfile userProfile = new UserProfile(array[0], array[1], array[2], array[3]);
+                UserProfile userProfile = new UserProfile(array[0], array[1], array[2], null);
                 User user = new User(username, password, name, accountType);
                 User uUser = new User(user, userProfile);
                 users.add(uUser);
