@@ -143,16 +143,16 @@ public class HistoryGraphController {
 
         for (WaterQualityReport qualityReport : qualityReports) {
             if (graphYear == (qualityReport.getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
-                if (contaminant) {
+                if (virus) {
                     try {
-                        series1.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getContamPPM()));
+                        series1.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getVirusPPM()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                if (virus) {
+                if (contaminant) {
                     try {
-                        series2.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getVirusPPM()));
+                        series2.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getContamPPM()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
