@@ -18,6 +18,7 @@ import model.User;
 import model.WaterQualityReport;
 
 import java.io.IOException;
+import java.util.Comparator;
 
 /**
  * Created by twalker61 on 10/29/16.
@@ -62,7 +63,7 @@ public class HistoryGraphController {
 
         */
         qualityReports = mainApp.getWaterQualityReports();
-        setupGraph();
+        //setupGraph();
     }
 
     /**
@@ -129,16 +130,27 @@ public class HistoryGraphController {
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Contamination");
 
+        FXCollections.sort(qualityReports, new Comparator<WaterQualityReport>() {
+            @Override
+            public int compare(WaterQualityReport o1, WaterQualityReport o2) {
+                if (o1.getDate().equals(o2.getDate())) {
+                    return o1.getTime().compareTo(o2.getTime());
+                } else {
+                    return o1.getDate().compareTo(o2.getDate());
+                }
+            }
+        });
+
         for (WaterQualityReport qualityReport : qualityReports) {
             if (graphYear == (qualityReport.getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
-                if (virus) {
+                if (contaminant) {
                     try {
                         series1.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getContamPPM()));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-                if (contaminant) {
+                if (virus) {
                     try {
                         series2.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getVirusPPM()));
                     } catch (Exception e) {
