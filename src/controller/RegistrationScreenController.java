@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import model.AccountType;
 import model.User;
 import model.Control;
-import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import java.io.IOException;
@@ -25,7 +24,6 @@ public class RegistrationScreenController {
     @FXML PasswordField registrationPassword;
     @FXML ComboBox<AccountType> accountTypeBox;
     @FXML Button cancelButton;
-    private final UserDatabase database = new UserDatabase();
 
     /**
      * called automatically in order to populate accountTypeBox with account types
@@ -55,8 +53,8 @@ public class RegistrationScreenController {
     @FXML
     protected void handleRegistration(ActionEvent event) throws IOException {
         if (isValidUser()) {
-            database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
-                    registrationPassword.getText(), accountTypeBox.getValue()));
+//            database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
+//                    registrationPassword.getText(), accountTypeBox.getValue()));
             Control.getInstance().addUser(new User(registrationUsername.getText(), registrationName.getText(),
                     registrationPassword.getText(), accountTypeBox.getValue()));
             handleCancelRegistration(event);
@@ -80,11 +78,12 @@ public class RegistrationScreenController {
         if (username == null || username.length() == 0 || username.contains("/")) {
             errorMessage += "Please enter a valid username!\n";
         }
-        try {
-            database.userExists(username);
-        } catch (Exception e) {
-            errorMessage += "A user with this name already exists!\n";
-        }
+        //TODO
+//        try {
+//            database.userExists(username);
+//        } catch (Exception e) {
+//            errorMessage += "A user with this name already exists!\n";
+//        }
         if (password == null || password.length() == 0 || password.contains("/")) {
             errorMessage += "Please enter a valid password!\n";
         }

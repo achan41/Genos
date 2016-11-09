@@ -7,7 +7,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import model.User;
-import model.UserDatabase;
+import model.Control;
 import javafx.fxml.FXML;
 
 import java.io.IOException;
@@ -20,7 +20,6 @@ public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Button cancelButton, loginButton;
-    private final UserDatabase database = new UserDatabase();
 
 
     /**
@@ -47,7 +46,7 @@ public class LoginScreenController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             Parent root = fxmlLoader.load();
             UserScreenController controller = fxmlLoader.getController();
-            controller.setUser(database.getUser(usernameField.getText()));
+            controller.setUser(Control.getInstance().getDatabase().getUser(usernameField.getText()));
             Scene scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
@@ -63,8 +62,7 @@ public class LoginScreenController {
         String message;
         try {
             User user = new User(this.usernameField.getText(), this.passwordField.getText());
-            boolean validLogin = this.database.login(user);
-            if (validLogin) {
+            if (Control.getInstance().getDatabase().findUser(user)) {
                 return true;
             } else {
                 message = "Your password is incorrect!";
