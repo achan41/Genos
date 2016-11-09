@@ -29,9 +29,6 @@ public class Database {
             String url = "jdbc:mysql://108.201.215.73:3306/cleanwater?autoReconnect=true&useSSL=false";
             connection = DriverManager.getConnection (url, "admin", "genos");
             restoreUsers();
-            for (User person : users) {
-                System.out.println(person.getUsername());
-            }
             System.out.println("connection set");
         } catch(Exception e) {
             e.printStackTrace();
@@ -146,8 +143,13 @@ public class Database {
                 AccountType accountType = AccountType.valueOf(result.getString("accountType"));
                 String profile = result.getString("userProfile");
                 String array[] = profile.split("/");
-                UserProfile userProfile = new UserProfile(array[0], array[1], array[2], null);
-                User user = new User(username, password, name, accountType);
+                UserProfile userProfile;
+                if (array.length == 3) {
+                    userProfile = new UserProfile(username, array[0], array[1], array[2]);
+                } else {
+                    userProfile = new UserProfile(username, array[0], array[1], array[2], Title.valueOf(array[3]));
+                }
+                User user = new User(username, name, password, accountType);
                 User uUser = new User(user, userProfile);
                 users.add(uUser);
             }
