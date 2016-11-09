@@ -13,3 +13,6 @@ hs_err_pid*
 # project config files
 *.iml
 .idea/
+
+# groovy test files
+*.groovy
