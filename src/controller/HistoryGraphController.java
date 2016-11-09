@@ -18,6 +18,7 @@ import model.User;
 import model.WaterQualityReport;
 
 import java.io.IOException;
+import java.time.Month;
 import java.util.Comparator;
 
 /**
@@ -141,22 +142,47 @@ public class HistoryGraphController {
             }
         });
 
-        for (WaterQualityReport qualityReport : qualityReports) {
-            if (graphYear == (qualityReport.getDate().getYear()) && location.equals(qualityReports.get(0).getLocation().toString())) {
+        for (int i = 0; i < qualityReports.size(); ) {
+            if (graphYear == (qualityReports.get(i).getDate().getYear()) && location.equals(qualityReports.get(i).getLocation().toString())) {
+                int idx = 0;
                 if (virus) {
                     try {
-                        series1.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getVirusPPM()));
+                        Month reportMonth = qualityReports.get(i).getDate().getMonth();
+                        double totalVirus = qualityReports.get(i).getVirusPPM();
+                        double monthCount = 1;
+                        for (int j = i+1; j < qualityReports.size(); j++) {
+                            if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
+                                monthCount++;
+                                totalVirus += qualityReports.get(j).getVirusPPM();
+                            }
+                            //series1.getData().add(new XYChart.Data(qualityReports.get(0).getDate().getMonth().toString(), qualityReports.get(0).getVirusPPM()));
+                        }
+                        double average = totalVirus / monthCount;
+                        series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
+                        idx += monthCount;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
                 if (contaminant) {
                     try {
-                        series2.getData().add(new XYChart.Data(qualityReport.getDate().getMonth().toString(), qualityReport.getContamPPM()));
+                        Month reportMonth = qualityReports.get(i).getDate().getMonth();
+                        double totalContam = qualityReports.get(i).getContamPPM();
+                        double monthCount = 1;
+                        for (int j = i+1; j < qualityReports.size(); j++) {
+                            if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
+                                monthCount++;
+                                totalContam += qualityReports.get(j).getContamPPM();
+                            }
+                            //series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
+                        }
+                        double average = totalContam / monthCount;
+                        series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+                i += idx;
             }
         }
         try {
