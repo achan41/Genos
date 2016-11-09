@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.AccountType;
 import model.User;
+import model.Control;
 import model.UserDatabase;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,6 +56,8 @@ public class RegistrationScreenController {
     protected void handleRegistration(ActionEvent event) throws IOException {
         if (isValidUser()) {
             database.addUser(new User(registrationUsername.getText(), registrationName.getText(),
+                    registrationPassword.getText(), accountTypeBox.getValue()));
+            Control.getInstance().addUser(new User(registrationUsername.getText(), registrationName.getText(),
                     registrationPassword.getText(), accountTypeBox.getValue()));
             handleCancelRegistration(event);
         }
