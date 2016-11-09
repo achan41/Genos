@@ -129,7 +129,7 @@ public class HistoryGraphController {
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Virus");
         XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Contamination");
+        series2.setName("Contaminant");
 
         FXCollections.sort(qualityReports, new Comparator<WaterQualityReport>() {
             @Override
@@ -181,7 +181,7 @@ public class HistoryGraphController {
                             }
                         }
                         double average = totalContam / monthCount;
-                        series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
+                        series2.getData().add(new XYChart.Data(reportMonth.toString(), average));
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

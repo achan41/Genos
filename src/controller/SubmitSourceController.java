@@ -200,7 +200,7 @@ public class SubmitSourceController {
         if (time == null || time.length() == 0 || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (textLocation.getText() == null) {
+        if (textLocation.getText() == null || textLocation.getText().equals("")) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (waterConditionComboBox.getValue() == null) {

@@ -128,20 +128,15 @@ public class EditProfileController {
                 userProfile = new UserProfile(name, email, addr, contact, title);
                 user = new User(user, userProfile);
                 user.setName(name);
-                //TODO
-                try {
-                    if (Control.getInstance().getDatabase().editUser(user.getUsername(), user)) {
-                        sendAlert("INFORMATION", "Edit Profile Success", "The user profile has been updated " +
-                                "successfully.");
-                        return true;
-                    } else {
-                        sendAlert("ERROR", "Edit Profile Error", "The user profile could not be saved to database.");
-                        return false;
-                    }
-                } catch (IOException e) {
-                    sendAlert("ERROR", "Saving to Database", "The changes could not be saved to database.");
+                if (Control.getInstance().getDatabase().editUser(user.getUsername(), user)) {
+                    sendAlert("INFORMATION", "Edit Profile Success", "The user profile has been updated " +
+                            "successfully.");
+                    return true;
+                } else {
+                    sendAlert("ERROR", "Edit Profile Error", "The user profile could not be saved to database.");
                     return false;
                 }
+
             } catch (NullPointerException e) {
                 // creates alert window notifying of user not existing in database
                 sendAlert("ERROR", "Invalid Profile Change", "You have left some fields blank.");
