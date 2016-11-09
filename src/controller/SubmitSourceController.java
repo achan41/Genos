@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.*;
+import model.Control;
 
 import java.time.LocalDate;
 
@@ -157,6 +158,7 @@ public class SubmitSourceController {
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         if (isValidSubmit()) {
             sourceReports.add(report);
+            Control.getInstance().getDatabase().addWaterSourceReport(report);
             mainApp.setSourceReports(sourceReports);
 
             Stage stage = (Stage) reportTime.getScene().getWindow();
