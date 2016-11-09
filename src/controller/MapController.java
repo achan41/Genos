@@ -194,7 +194,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                         try {
                             //go back to submit report screen and preserve location selected
                             Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
-                            if (qualityReport != null) {
+                            if (qualityLocationSelection) {
+                                System.out.println("here");
                                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
                                 Parent root = fxmlLoader.load();
                                 SubmitQualityController controller = fxmlLoader.getController();
@@ -234,27 +235,31 @@ public class MapController implements Initializable, MapComponentInitializedList
     protected void handleMapExit(ActionEvent event) throws IOException {
         Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
         FXMLLoader fxmlLoader;
+        Parent root;
         if (sourceLocationSelection) {
             fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
+            root = fxmlLoader.load();
             SubmitSourceController controller = fxmlLoader.getController();
             controller.setUser(user);
             if (chooseLoc) {
-                //controller.setReport(sourceReport);
+                controller.setReport(sourceReport);
             }
         } else if (qualityLocationSelection) {
             fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
+            root = fxmlLoader.load();
             SubmitQualityController controller = fxmlLoader.getController();
-            //controller.setUser(user);
+            controller.setUser(user);
             if (chooseLoc) {
-                //controller.setReport(qualityReport);
+                controller.setReport(qualityReport);
             }
         } else {
             fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
+            root = fxmlLoader.load();
             UserScreenController controller = fxmlLoader.getController();
-            //controller.setUser(user);
+            controller.setUser(user);
             controller.setToMainTab();
         }
-        Parent root = fxmlLoader.load();
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

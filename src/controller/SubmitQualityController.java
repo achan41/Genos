@@ -60,8 +60,8 @@ public class SubmitQualityController {
         reportTime.setText(report.getTime());
         reporterName.setText(report.getReporterName());
         overallComboBox.setValue(report.getOverallCondition());
-        virusPPMField.setText("" + report.getVirusPPM());
-        contamPPMField.setText("" + report.getContamPPM());
+        //virusPPMField.setText("" + report.getVirusPPM());
+        //contamPPMField.setText("" + report.getContamPPM());
     }
 
     /**
