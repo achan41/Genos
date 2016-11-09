@@ -120,6 +120,22 @@ public class Database {
         return true;
     }
 
+    public boolean editUser(String name, User user) {
+        try {
+            String query = "UPDATE users SET name=?, userProfile=? WHERE name=?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, name);
+            statement.setString(2, user.getProfile().toString());
+            statement.setString(3, user.getName());
+            statement.execute();
+            restoreUsers();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public User getUser(String username) {
         for (User person : users) {
             if (person.getUsername().equals(username)) {
