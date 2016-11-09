@@ -10,18 +10,22 @@ public class Control {
     private Control() {
         database = new Database();
         //test users
-        if (database != null && database.addUser(new User("u", "a", "p", AccountType.User))) {
-            database.getUsers().add(new User("u", "a", "p", AccountType.User));
-        }
-        if (database != null && database.addUser(new User("w", "a", "p", AccountType.Worker))) {
-            database.getUsers().add(new User("w", "a", "p", AccountType.Worker));
-        }
-        if (database != null && database.addUser(new User("m", "a", "p", AccountType.Manager))) {
-            database.getUsers().add(new User("m", "a", "p", AccountType.Manager));
-        }
-        if (database != null && database.addUser(new User("a", "a", "p", AccountType.Admin))) {
-            database.getUsers().add(new User("a","a", "p", AccountType.Admin));
-        }
+        database.addUser(new User("u", "a", "p", AccountType.User));
+        database.getUsers().add(new User("u", "a", "p", AccountType.User));
+        database.addUser(new User("w", "a", "p", AccountType.Worker));
+        database.getUsers().add(new User("w", "a", "p", AccountType.Worker));
+        database.addUser(new User("m", "a", "p", AccountType.Manager));
+        database.getUsers().add(new User("m", "a", "p", AccountType.Manager));
+        database.addUser(new User("a", "a", "p", AccountType.Admin));
+        database.getUsers().add(new User("a","a", "p", AccountType.Admin));
+    }
+
+    public void restoreWsReports() {
+        database.restoreWsReports();
+    }
+
+    public void restoreWqReports() {
+        database.restoreWqReports();
     }
 
     /**
@@ -40,7 +44,6 @@ public class Control {
     public Database getDatabase() {
         return database;
     }
-
     public static Control getInstance() {
         return instance;
     }

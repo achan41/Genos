@@ -2,8 +2,9 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import com.lynden.gmapsfx.javascript.object.LatLong;
 import java.sql.*;
+import java.time.LocalDate;
 
 /**
  * Created by Allen on 10/24/2016.
@@ -102,9 +103,15 @@ public class Database {
         return false;
     }
 
-    public boolean findUser(String username) {
-        //TODO
-        return true;
+    public boolean findUser(User user) {
+        for (User person : users) {
+            if (person.getUsername().equals(user.getName())) {
+                if (person.getPassword().equals(user.getPassword())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public boolean removeUser(String username) {
@@ -121,5 +128,86 @@ public class Database {
         return null;
     }
 
+    public void restoreUsers() {
+        users.removeAll();
+        String query = "SELECT * FROM users";
+
+        try {
+            statement = connection.prepareStatement(query);
+            result = statement.executeQuery();
+            while(result.next()) {
+                String username = result.getString("username");
+                String password = result.getString("password");
+                String name = result.getString("name");
+                AccountType accountType = AccountType.valueOf(result.getString("accountType"));
+                String profile = result.getString("userProfile");
+                String array[] = profile.split("/");
+                UserProfile userProfile = new UserProfile(array[0], array[1], array[2], array[3]);
+                User user = new User(username, password, name, accountType);
+                User uUser = new User(user, userProfile);
+                users.add(uUser);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void restoreWsReports() {
+        wsReports.removeAll();
+        String query = "SELECT * FROM watersource";
+
+        try {
+            statement = connection.prepareStatement(query);
+            result = statement.executeQuery();
+            while(result.next()) {
+                String time = result.getString("time");
+                String nameOfReporter = result.getString("name");
+                LocalDate date = LocalDate.parse(result.getString("date"));
+                WaterCondition overallCondition = WaterCondition.valueOf(result.getString("overallCondition"));
+                WaterType type = WaterType.valueOf(result.getString("type"));
+                String latlong = result.getString("location");
+                latlong = latlong.replaceAll("[^0-9.]", "");
+                String array[] = latlong.split("\\s+");
+                Location location = new Location(new LatLong(Integer.parseInt(array[0]), Integer.parseInt(array[1])));
+                Integer reportNum = (int)result.getDouble("reportNum");
+                WaterSourceReport wsReport
+                        = new WaterSourceReport(reportNum, nameOfReporter, date, time, location, overallCondition, type);
+                wsReports.add(wsReport);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void restoreWqReports() {
+        wqReports.removeAll();
+        String query = "SELECT * FROM waterquality";
+
+        try {
+            statement = connection.prepareStatement(query);
+            result = statement.executeQuery();
+            while(result.next()) {
+                String time = result.getString("time");
+                String nameOfReporter = result.getString("name");
+                LocalDate date = LocalDate.parse(result.getString("date"));
+                String latlong = result.getString("location");
+                latlong = latlong.replaceAll("[^0-9.]", "");
+                String array[] = latlong.split("\\s+");
+                Location location = new Location(new LatLong(Integer.parseInt(array[0]), Integer.parseInt(array[1])));
+                Integer reportNum = (int)result.getDouble("reportNum");
+                OverallCondition overallCondition = OverallCondition.valueOf(result.getString("overallCondition"));
+                String virusPPM = Double.toString(result.getDouble("virusPPM"));
+                String contaminantPPM = Double.toString(result.getDouble("contaminantPPM"));
+                WaterQualityReport wqReport
+                        = new WaterQualityReport(reportNum, nameOfReporter, date, time, location, overallCondition, virusPPM, contaminantPPM);
+                wqReports.add(wqReport);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public ObservableList<User> getUsers() { return users; }
+    public ObservableList<WaterSourceReport> getWsReports() { return wsReports; }
+    public ObservableList<WaterQualityReport> getWqReports() { return wqReports; }
 }

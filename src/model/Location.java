@@ -39,7 +39,7 @@ public class Location {
     }
 
     /**
-     * initializes location using only latitude and longitude coordniates
+     * initializes location using only latitude and longitude coordinates
      * @param description name of description
      * @param latLong latLong of location
      */
@@ -48,6 +48,16 @@ public class Location {
         longitude = latLong.getLongitude();
         latitude = latLong.getLatitude();
         //this.latLong = latLong;
+        setName(new LatLng(latLong.getLatitude(), latLong.getLongitude()));
+    }
+
+    /**
+     * initializes location using only latitude and longitude coordinates with no description
+     * @param latLong latLong of location
+     */
+    public Location(LatLong latLong) {
+        longitude = latLong.getLongitude();
+        latitude = latLong.getLatitude();
         setName(new LatLng(latLong.getLatitude(), latLong.getLongitude()));
     }
 

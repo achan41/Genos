@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
+import model.Control;
 
 import java.io.IOException;
 
@@ -38,8 +39,12 @@ public class UserScreenController {
      */
     @FXML
     private void initialize() {
-        sourceReports = mainApp.getWaterSourceReports();
-        qualityReports = mainApp.getWaterQualityReports();
+        Control.getInstance().restoreWqReports();
+        Control.getInstance().restoreWsReports();
+//        sourceReports = mainApp.getWaterSourceReports();
+//        qualityReports = mainApp.getWaterQualityReports();
+        sourceReports = Control.getInstance().getDatabase().getWsReports();
+        qualityReports = Control.getInstance().getDatabase().getWqReports();
         for (WaterSourceReport report : sourceReports) {
             reportStrings.add(report.toString());
         }
