@@ -82,6 +82,9 @@ public class UserScreenController {
             submitQualityReport.setVisible(false);
             //historyGraphButton.setVisible(false);
         }
+        if (!user.getAccountType().equals(AccountType.Manager)) {
+            //historyGraphButton.setVisible(false);
+        }
     }
 
     /**
