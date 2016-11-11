@@ -12,7 +12,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
-import model.Control;
 
 import java.io.IOException;
 
@@ -39,12 +38,12 @@ public class UserScreenController {
      */
     @FXML
     private void initialize() {
-        Control.getInstance().restoreWqReports();
-        Control.getInstance().restoreWsReports();
+        model.Control.getInstance().restoreWqReports();
+        model.Control.getInstance().restoreWsReports();
 //        sourceReports = mainApp.getWaterSourceReports();
 //        qualityReports = mainApp.getWaterQualityReports();
-        sourceReports = Control.getInstance().getDatabase().getWsReports();
-        qualityReports = Control.getInstance().getDatabase().getWqReports();
+        sourceReports = model.Control.getInstance().getDatabase().getWsReports();
+        qualityReports = model.Control.getInstance().getDatabase().getWqReports();
         for (WaterSourceReport report : sourceReports) {
             reportStrings.add(report.toString());
         }
@@ -66,7 +65,7 @@ public class UserScreenController {
                         + ". " + user.getName() + "!");
             } else if (user.getProfile().getName() != null) {
                 welcomeMessage.setText("Welcome, " + user.getProfile().getName() + "!");
-            }  else if (user.getName() != null) {
+            } else if (user.getName() != null) {
                 welcomeMessage.setText("Welcome, " + user.getName() + "!");
             } else if (user.getUsername() != null) {
                 welcomeMessage.setText("Welcome, " + user.getUsername() + "!");
@@ -80,9 +79,6 @@ public class UserScreenController {
         }
         if (user.getAccountType().equals(AccountType.User)) {
             submitQualityReport.setVisible(false);
-            //historyGraphButton.setVisible(false);
-        }
-        if (!user.getAccountType().equals(AccountType.Manager)) {
             //historyGraphButton.setVisible(false);
         }
     }
@@ -187,7 +183,7 @@ public class UserScreenController {
      */
     @FXML
     protected void handleQualityHistory(ActionEvent event) throws IOException {
-        if (!user.getAccountType().equals(AccountType.Manager)) {
+        if (!user.getAccountType().equals(AccountType.Worker) && !user.getAccountType().equals(AccountType.Manager)) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Account Type");
             alert.setHeaderText("Please check your account type");
@@ -212,6 +208,8 @@ public class UserScreenController {
      */
     @FXML
     protected void handleViewMap(ActionEvent event) throws IOException {
+        mainApp.setQualityReports(qualityReports);
+        mainApp.setSourceReports(sourceReports);
         Stage stage = (Stage) viewMapButton.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/MapScreen.fxml"));
         Parent root = fxmlLoader.load();

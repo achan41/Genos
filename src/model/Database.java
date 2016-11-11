@@ -2,7 +2,6 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import com.lynden.gmapsfx.javascript.object.LatLong;
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -67,7 +66,7 @@ public class Database {
             statement = connection.prepareStatement(query);
             statement.setString(1, waterSourceReport.getTime());
             statement.setString(2, waterSourceReport.getReporterName());
-            statement.setString(3, waterSourceReport.getLocation().getLatLongString());
+            statement.setString(3, waterSourceReport.getLocation().toString());
             statement.setString(4, waterSourceReport.getCondition().toString());
             statement.setString(5, waterSourceReport.getType().toString());
             statement.setString(6, waterSourceReport.getDate().toString());
@@ -89,12 +88,12 @@ public class Database {
             statement = connection.prepareStatement(query);
             statement.setString(1, waterPurityReport.getTime());
             statement.setString(2, waterPurityReport.getReporterName());
-            statement.setString(3, waterPurityReport.getLocation().getLatLongString());
+            statement.setString(3, waterPurityReport.getLocation().toString());
             statement.setString(4, waterPurityReport.getDate().toString());
             statement.setDouble(5, waterPurityReport.getReportNum());
             statement.setString(6, waterPurityReport.getOverallCondition().toString());
             statement.setDouble(7, waterPurityReport.getVirusPPM());
-            statement.setDouble(7, waterPurityReport.getContamPPM());
+            statement.setDouble(8, waterPurityReport.getContamPPM());
             statement.execute();
             wqReports.add(waterPurityReport);
             return true;
@@ -120,14 +119,20 @@ public class Database {
         return true;
     }
 
-    public boolean editUser(String name, User user) {
+    public boolean editUser(String username, User user) {
         try {
-            String query = "UPDATE users SET name=?, userProfile=? WHERE name=?";
+            String query = "UPDATE users SET name=?, userProfile=? WHERE username=?";
             statement = connection.prepareStatement(query);
-            statement.setString(1, name);
+            statement.setString(1, user.getName());
             statement.setString(2, user.getProfile().toString());
-            statement.setString(3, user.getName());
+            statement.setString(3, username);
             statement.execute();
+            for (User person : users) {
+                if (person.getUsername().equals(user.getUsername())) {
+                    person.setProfile(user.getProfile());
+                    person.setName(person.getProfile().getName());
+                }
+            }
             restoreUsers();
             return true;
         } catch (SQLException e) {
@@ -146,7 +151,7 @@ public class Database {
     }
 
     public void restoreUsers() {
-        users.removeAll();
+        users.clear();
         String query = "SELECT * FROM users";
 
         try {
@@ -161,9 +166,9 @@ public class Database {
                 String array[] = profile.split("/");
                 UserProfile userProfile;
                 if (array.length == 3) {
-                    userProfile = new UserProfile(username, array[0], array[1], array[2]);
+                    userProfile = new UserProfile(name, array[0], array[1], array[2]);
                 } else {
-                    userProfile = new UserProfile(username, array[0], array[1], array[2], Title.valueOf(array[3]));
+                    userProfile = new UserProfile(name, array[0], array[1], array[2], Title.valueOf(array[3]));
                 }
                 User user = new User(username, name, password, accountType);
                 User uUser = new User(user, userProfile);
@@ -175,7 +180,7 @@ public class Database {
     }
 
     public void restoreWsReports() {
-        wsReports.removeAll();
+        wsReports.clear();
         String query = "SELECT * FROM watersource";
 
         try {
@@ -187,10 +192,12 @@ public class Database {
                 LocalDate date = LocalDate.parse(result.getString("date"));
                 WaterCondition overallCondition = WaterCondition.valueOf(result.getString("overallCondition"));
                 WaterType type = WaterType.valueOf(result.getString("type"));
-                String latlong = result.getString("location");
-                latlong = latlong.replaceAll("[^0-9.]", "");
-                String array[] = latlong.split("\\s+");
-                Location location = new Location(new LatLong(Integer.parseInt(array[0]), Integer.parseInt(array[1])));
+                String desc = result.getString("location");
+                String array[] = desc.split(",", 6);
+                Location location = new Location(array[1], array[0], true);
+                location.setCity(array[2]);
+                location.setState(array[3]);
+                location.setCountry(array[4]);
                 Integer reportNum = (int)result.getDouble("reportNum");
                 WaterSourceReport wsReport
                         = new WaterSourceReport(reportNum, nameOfReporter, date, time, location, overallCondition, type);
@@ -202,7 +209,7 @@ public class Database {
     }
 
     public void restoreWqReports() {
-        wqReports.removeAll();
+        wqReports.clear();
         String query = "SELECT * FROM waterquality";
 
         try {
@@ -212,10 +219,12 @@ public class Database {
                 String time = result.getString("time");
                 String nameOfReporter = result.getString("name");
                 LocalDate date = LocalDate.parse(result.getString("date"));
-                String latlong = result.getString("location");
-                latlong = latlong.replaceAll("[^0-9.]", "");
-                String array[] = latlong.split("\\s+");
-                Location location = new Location(new LatLong(Integer.parseInt(array[0]), Integer.parseInt(array[1])));
+                String desc = result.getString("location");
+                String array[] = desc.split(",", 6);
+                Location location = new Location(array[1], array[0], true);
+                location.setCity(array[2]);
+                location.setState(array[3]);
+                location.setCountry(array[4]);
                 Integer reportNum = (int)result.getDouble("reportNum");
                 OverallCondition overallCondition = OverallCondition.valueOf(result.getString("overallCondition"));
                 String virusPPM = Double.toString(result.getDouble("virusPPM"));

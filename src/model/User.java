@@ -119,11 +119,19 @@ public class User {
     }
 
     /**
-     * sets user username to be password
+     * sets new password
      * @param password password
      */
     public void setPassword(String password) {
         this.password.set(password);
+    }
+
+    /**
+     * sets new profile
+     * @param profile the new profile
+     */
+    public void setProfile(UserProfile profile) {
+        this.userProfile.set(profile);
     }
 
     /**

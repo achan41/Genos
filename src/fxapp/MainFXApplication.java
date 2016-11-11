@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import model.Control;
 import model.WaterQualityReport;
 import model.WaterSourceReport;
 import model.User;
@@ -38,6 +39,11 @@ public class MainFXApplication extends Application {
         primaryStage.setScene(scene);
         mainScreen = primaryStage;
         mainScreen.show();
+        Control.getInstance().getDatabase().restoreWqReports();
+        Control.getInstance().getDatabase().restoreWsReports();
+        sourceReports = Control.getInstance().getDatabase().getWsReports();
+        qualityReports = Control.getInstance().getDatabase().getWqReports();
+
     }
 
     /**

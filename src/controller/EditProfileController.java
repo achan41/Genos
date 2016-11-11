@@ -136,7 +136,6 @@ public class EditProfileController {
                     sendAlert("ERROR", "Edit Profile Error", "The user profile could not be saved to database.");
                     return false;
                 }
-
             } catch (NullPointerException e) {
                 // creates alert window notifying of user not existing in database
                 sendAlert("ERROR", "Invalid Profile Change", "You have left some fields blank.");

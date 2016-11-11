@@ -132,6 +132,18 @@ public class Location {
         }
     }
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     /**
      * return city of location
      * @return city The city location
@@ -228,6 +240,6 @@ public class Location {
      * @return location in (City, State, Country) format
      */
     public String toString() {
-        return getCity() + ", " + getState() + ", " + getCountry();
+        return getDescription()+ ", " + getName() + ", " + getCity() + ", " + getState() + ", " + getCountry();
     }
 }
