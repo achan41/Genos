@@ -30,7 +30,7 @@ public class UserScreenControllerTest extends GuiTest {
 
         Parent parent = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("UserScreen.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("../view/UserScreen.fxml"));
             parent = fxmlLoader.load();
             return parent;
         } catch (IOException ex) {
