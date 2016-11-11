@@ -38,11 +38,6 @@ public class MainFXApplication extends Application {
         primaryStage.setScene(scene);
         Stage mainScreen = primaryStage;
         mainScreen.show();
-        Control.getInstance().getDatabase().restoreWqReports();
-        Control.getInstance().getDatabase().restoreWsReports();
-        sourceReports = Control.getInstance().getDatabase().getWsReports();
-        qualityReports = Control.getInstance().getDatabase().getWqReports();
-
     }
 
     /**

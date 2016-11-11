@@ -44,6 +44,8 @@ public class UserScreenController {
 //        qualityReports = mainApp.getWaterQualityReports();
         sourceReports = model.Control.getInstance().getDatabase().getWsReports();
         qualityReports = model.Control.getInstance().getDatabase().getWqReports();
+        mainApp.setQualityReports(qualityReports);
+        mainApp.setSourceReports(sourceReports);
         for (WaterSourceReport report : sourceReports) {
             reportStrings.add(report.toString());
         }
