@@ -121,12 +121,7 @@ public class EditProfileController {
             errorMessage += "You have selected an invalid title.\n";
         }
         if (errorMessage.length() > 0) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Invalid Profile Change");
-            alert.setHeaderText("Please check your profile information!");
-            alert.initOwner(profileName.getScene().getWindow());
-            alert.setContentText(errorMessage);
-            alert.showAndWait();
+            sendAlert("ERROR", "Invalid Profile Change","Please check your profile information!");
             return false;
         } else {
             //sends user profile data to database saving method
