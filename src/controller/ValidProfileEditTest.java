@@ -34,7 +34,7 @@ public class ValidProfileEditTest extends GuiTest {
     protected Parent getRootNode() {
         Parent root = null;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/EditProfile.fxml"));
+            fxmlLoader = new FXMLLoader(getClass().getResource("../view/EditProfile.fxml"));
             root = fxmlLoader.load();
             return root;
         } catch (IOException e) {
@@ -51,6 +51,7 @@ public class ValidProfileEditTest extends GuiTest {
         email = find("#profileEmail");
         address = find("#profileAddress");
         number = find("#profileContact");
+        title = find("#profileTitle");
     }
 
     /**
@@ -59,59 +60,69 @@ public class ValidProfileEditTest extends GuiTest {
     @Test
     public void ValidProfileEditTest() throws IOException {
         //Testing null profile
-        profile = new UserProfile(null, null, null, null);
+        profile = new UserProfile(null, null, null, null, null);
         user = new User(new User(null, null, null, null), profile);
 
         controller.setUser(user);
-        assertNull("#profileName");
-        assertNull("#profileEmail");
-        assertNull("#profileAddress");
-        assertNull("#profileContact");
-        assertFalse(controller.isValidProfileEdit());
+        assertNull(name.getText());
+        assertNull(email.getText());
+        assertNull(address.getText());
+        assertNull(number.getText());
+        assertNull(title.getValue());
+        assertEquals(controller.isValidProfileEdit(), "ERROR/Invalid Profile Edit/" +
+                "Please enter a valid name!\n" +
+                "Please enter a valid email!\n" +
+                "Please enter a valid address!\n" +
+                "Please enter a valid contact number!\n" +
+                "You have selected an invalid title.\n");
 
         //Testing blank profile
         profile = new UserProfile("", "", "", "");
         user = new User(new User("",""), profile);
 
         controller.setUser(user);
-        verifyThat("#profileName", hasText(""));
-        verifyThat("#profileEmail", hasText(""));
-        verifyThat("#profileAddress", hasText(""));
-        verifyThat("#profileContact", hasText(""));
-        assertFalse(controller.isValidProfileEdit());
+        assertEquals("Blank profile name not correct.", "", name.getText());
+        assertEquals("Blank profile email not correct.", "", email.getText());
+        assertEquals("Blank profile address not correct.", "", address.getText());
+        assertEquals("Blank profile number not correct.", "", number.getText());
+        assertEquals("Blank profile edit did not return correct error message.", "ERROR/Invalid Profile Edit/" +
+                "Please enter a valid name!\n" +
+                "Please enter a valid email!\n" +
+                "Please enter a valid address!\n" +
+                "Please enter a valid contact number!\n" +
+                 "You have selected an invalid title.\n",
+                controller.isValidProfileEdit());
 
         //Testing null title
-        profile = new UserProfile("name", "user@mail.com", "123 Drive Lane", "404/1230987");
+        profile = new UserProfile("name", "user@mail.com", "123 Drive Lane", "4041230987");
         user = new User(new User("user","pass"), profile);
 
         controller.setUser(user);
         assertNull(profile.getTitle());
-        assertNull(title);
-        assertFalse(controller.isValidProfileEdit());
+        assertNull(title.getValue());
+        assertEquals(controller.isValidProfileEdit(), "ERROR/Invalid Profile Edit/" +
+                "You have selected an invalid title.\n");
+
 
         //Testing valid user
-        profile = new UserProfile("name", "user@mail.com", "123 Drive Lane", "4041230987", Title.Dr);
+        profile = new UserProfile("name", "user@mail.com", "123 Drive Lane", "4041230987");
         user = new User(new User("user","pass"), profile);
 
         controller.setUser(user);
+        assertEquals("Name of valid user is incorrect.", "name", name.getText());
+        assertEquals("Email of valid user is incorrect.", "user@mail.com", email.getText());
+        assertEquals("Address of valid user is incorrect.", "123 Drive Lane", address.getText());
+        assertEquals("Number of valid user is incorrect.", "4041230987", number.getText());
         verifyThat("#profileName", hasText("name"));
         verifyThat("#profileEmail", hasText("user@mail.com"));
         verifyThat("#profileAddress", hasText("123 Drive Lane"));
         verifyThat("#profileContact", hasText("4041230987"));
-        //Testing alternate Titles
-        assertTrue(controller.isValidProfileEdit());
-        profile.setTitle(Title.Mr);
-        user.setProfile(profile);
-        assertTrue(controller.isValidProfileEdit());
-        profile.setTitle(Title.Mrs);
-        user.setProfile(profile);
-        assertTrue(controller.isValidProfileEdit());
-        profile.setTitle(Title.Ms);
-        user.setProfile(profile);
-        assertTrue(controller.isValidProfileEdit());
+        assertEquals("All valid data except Title Error", "ERROR/Invalid Profile Edit/You have selected an invalid title.\n",
+                controller.isValidProfileEdit());
+
 
         //Testing missing @ symbol in email field
-        profile = new UserProfile("name", "usermail.com", "123 Drive Lane", "4041230987", Title.Dr);
+        profile = new UserProfile("name", "usermail.com", "123 Drive Lane", "4041230987", Title.Mr);
         user = new User(new User("user","pass"), profile);
 
         controller.setUser(user);
@@ -119,7 +130,9 @@ public class ValidProfileEditTest extends GuiTest {
         verifyThat("#profileEmail", hasText("usermail.com"));
         verifyThat("#profileAddress", hasText("123 Drive Lane"));
         verifyThat("#profileContact", hasText("4041230987"));
-        assertFalse(controller.isValidProfileEdit());
+        assertEquals("Invalid Email Profile Edit Error","ERROR/Invalid Profile Edit/Please enter a valid email!\n" +
+                        "You have selected an invalid title.\n",
+                controller.isValidProfileEdit());
 
         //Testing invalid profiles containing "/"
         profile = new UserProfile("na/me", "user@ma/il.com", "123 Dr/ive Lane", "404/1230987", Title.Dr);
@@ -130,7 +143,12 @@ public class ValidProfileEditTest extends GuiTest {
         assertTrue(email.getText().contains("/"));
         assertTrue(address.getText().contains("/"));
         assertTrue(number.getText().contains("/"));
-        assertFalse(controller.isValidProfileEdit());
+        assertEquals(controller.isValidProfileEdit(), "ERROR/Invalid Profile Edit/" +
+                "Please enter a valid name!\n" +
+                "Please enter a valid email!\n" +
+                "Please enter a valid address!\n" +
+                "Please enter a valid contact number!\n" +
+                "You have selected an invalid title.\n");
 
     }
 
