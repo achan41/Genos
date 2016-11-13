@@ -46,6 +46,11 @@ public class EditProfileController {
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
+        profileName.setText(user.getName());
+        profileAddress.setText(user.getProfile().getAddress());
+        profileEmail.setText(user.getProfile().getEmail());
+        profileContact.setText(user.getProfile().getNumber());
+        profileTitle.setValue(user.getProfile().getTitle());
     }
 
     //TODO
@@ -93,7 +98,7 @@ public class EditProfileController {
      * checks if valid edit profile changes
      * @return true if valid profile edit
      */
-    private boolean isValidProfileEdit() {
+    public boolean isValidProfileEdit() {
         String errorMessage = "";
         String name = profileName.getText();
         String email = profileEmail.getText();
@@ -124,23 +129,32 @@ public class EditProfileController {
             alert.showAndWait();
             return false;
         } else {
-            try {
-                userProfile = new UserProfile(name, email, addr, contact, title);
-                user = new User(user, userProfile);
-                user.setName(name);
-                if (Control.getInstance().getDatabase().editUser(user.getUsername(), user)) {
-                    sendAlert("INFORMATION", "Edit Profile Success", "The user profile has been updated " +
-                            "successfully.");
-                    return true;
-                } else {
-                    sendAlert("ERROR", "Edit Profile Error", "The user profile could not be saved to database.");
-                    return false;
-                }
-            } catch (NullPointerException e) {
-                // creates alert window notifying of user not existing in database
-                sendAlert("ERROR", "Invalid Profile Change", "You have left some fields blank.");
+            //sends user profile data to database saving method
+            return sendProfileToDatabase(new UserProfile(name, email, addr, contact, title));
+        }
+    }
+
+    /**
+     * sends changed profile data to database
+     * @param userProfile profile to append to current user and add to database
+     * @return whether or not the profile was able to be added to database
+     */
+    private boolean sendProfileToDatabase(UserProfile userProfile) {
+        try {
+            user = new User(user, userProfile);
+            user.setName(userProfile.getName());
+            if (Control.getInstance().getDatabase().editUser(user.getUsername(), user)) {
+                sendAlert("INFORMATION", "Edit Profile Success", "The user profile has been updated " +
+                        "successfully.");
+                return true;
+            } else {
+                sendAlert("ERROR", "Edit Profile Error", "The user profile could not be saved to database.");
                 return false;
             }
+        } catch (NullPointerException e) {
+            // creates alert window notifying of user not existing in database
+            sendAlert("ERROR", "Invalid Profile Change", "You have left some fields blank.");
+            return false;
         }
     }
 
