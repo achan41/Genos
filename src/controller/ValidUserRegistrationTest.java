@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.fxml.FXMLLoader;
 import java.io.IOException;
 import model.User;
+import model.Title;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -18,22 +20,24 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by BurtonGuster on 11/9/16.
  */
-public class ValidQualitySubmitTest extends GuiTest {
+public class ValidUserRegistrationTest extends GuiTest {
 
     private User user;
     private FXMLLoader fxmlLoader;
 
     @Override
     protected Parent getRootNode() {
-        Parent root = null;
+
+        Parent parent = null;
         try {
-            fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
-            root = fxmlLoader.load();
-            return root;
-        } catch (IOException e) {
-            e.printStackTrace();
+            fxmlLoader = new FXMLLoader(getClass().getResource("../view/RegistrationScreen.fxml"));
+            parent = fxmlLoader.load();
+            return parent;
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
-        return root;
+        return parent;
+
     }
 
     @Before
@@ -42,7 +46,7 @@ public class ValidQualitySubmitTest extends GuiTest {
     }
 
     /**
-     * Test method for {@link SubmitQualityController#isValidSubmit()}.
+     * Test method for {@link RegistrationScreenController#isValidUser()}.
      */
     @Test
     public void setUserTest() {
