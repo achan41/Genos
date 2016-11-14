@@ -66,7 +66,7 @@ public class RegistrationScreenController {
      * @return true if valid user registration
      */
     @FXML
-    private boolean isValidUser() {
+    public boolean isValidUser() {
         String errorMessage = "";
         //get text from registration form
         String name = registrationName.getText();

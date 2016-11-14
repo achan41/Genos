@@ -2,6 +2,7 @@ package controller;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.AccountType;
@@ -45,13 +46,13 @@ public class RegistrationScreenControllerTest extends GuiTest {
     /**
      * Test methods for {@link RegistrationScreenController#isValidUser()}
      */
-    @Test
+    @Test(expected = Exception.class)
     public void validRegistrationTest() {
         // test if all inputs are blanks
         assertEquals(0, name.getText().length());
         assertEquals(0, username.getText().length());
         assertEquals(0, password.getText().length());
         assertNull(type.getValue());
-        assertEquals();
+        assertFalse(controller.isValidUser());
     }
 }
