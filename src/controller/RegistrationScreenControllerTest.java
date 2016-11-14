@@ -5,8 +5,10 @@ import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.AccountType;
+import org.junit.Before;
+import org.junit.Test;
 import org.loadui.testfx.GuiTest;
-
+import static org.junit.Assert.*;
 import java.io.IOException;
 
 /**
@@ -14,6 +16,7 @@ import java.io.IOException;
  */
 public class RegistrationScreenControllerTest extends GuiTest {
     private FXMLLoader fxmlLoader;
+    private RegistrationScreenController controller;
     private TextField name, username, password;
     private ComboBox<AccountType> type;
 
@@ -28,5 +31,27 @@ public class RegistrationScreenControllerTest extends GuiTest {
             e.printStackTrace();
         }
         return parent;
+    }
+
+    @Before
+    public void setup() {
+        controller = fxmlLoader.getController();
+        name = find("#registrationName");
+        username = find("#registrationUsername");
+        password = find("#registrationPassword");
+        type = find("#accountTypeBox");
+    }
+
+    /**
+     * Test methods for {@link RegistrationScreenController#isValidUser()}
+     */
+    @Test
+    public void validRegistrationTest() {
+        // test if all inputs are blanks
+        assertEquals(0, name.getText().length());
+        assertEquals(0, username.getText().length());
+        assertEquals(0, password.getText().length());
+        assertNull(type.getValue());
+        assertEquals();
     }
 }
