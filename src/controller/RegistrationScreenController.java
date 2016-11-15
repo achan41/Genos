@@ -78,7 +78,7 @@ public class RegistrationScreenController {
         if (username == null || username.length() == 0 || username.contains("/")) {
             errorMessage += "Please enter a valid username!\n";
         }
-        //TODO
+//        TODO
 //        try {
 //            database.userExists(username);
 //        } catch (Exception e) {

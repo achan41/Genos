@@ -70,8 +70,8 @@ public class RegistrationScreenControllerTest extends GuiTest {
         verifyThat("#registrationUsername", hasText("abcd"));
         password.setText("1234");
         verifyThat("#registrationPassword", hasText("1234"));
-        //type.setValue(AccountType.Admin);
-        //assertEquals(AccountType.Admin, type.getValue());
+        // type.setValue(AccountType.Admin);
+        // assertEquals(AccountType.Admin, type.getValue());
         assertEquals(0, name.getText().length());
         assertFalse(controller.isValidUser());
     }
