@@ -1,11 +1,9 @@
 package controller;
 
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import jdk.nashorn.internal.runtime.ECMAException;
 import model.AccountType;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,14 +68,14 @@ public class RegistrationScreenControllerTest extends GuiTest {
         verifyThat("#registrationUsername", hasText("abcd"));
         password.setText("1234");
         verifyThat("#registrationPassword", hasText("1234"));
-        // type.setValue(AccountType.Admin);
-        // assertEquals(AccountType.Admin, type.getValue());
+        //type.setValue(AccountType.Admin);
+        //assertEquals(AccountType.Admin, type.getValue());
         assertEquals(0, name.getText().length());
         assertFalse(controller.isValidUser());
     }
 
     /**
-     *
+     * Test method for {@link RegistrationScreenController#isValidUser()}
      */
     @Test(expected = Exception.class)
     public void slashInputTest() {
@@ -92,6 +90,9 @@ public class RegistrationScreenControllerTest extends GuiTest {
         assertFalse(controller.isValidUser());
     }
 
+    /**
+     * Test method for {@link RegistrationScreenController#isValidUser()}
+     */
     @Test(expected = Exception.class)
     public void validInputTest() {
         // test if all inputs are valid
