@@ -19,7 +19,6 @@ import model.User;
 @SuppressWarnings("DefaultFileTemplate")
 public class MainFXApplication extends Application {
 
-    private Stage mainScreen;
     private static ObservableList<WaterSourceReport> sourceReports;
     private static ObservableList<WaterQualityReport> qualityReports;
     private static User user;
@@ -37,7 +36,7 @@ public class MainFXApplication extends Application {
 
         primaryStage.setTitle("Clean Water App: Welcome!");
         primaryStage.setScene(scene);
-        mainScreen = primaryStage;
+        Stage mainScreen = primaryStage;
         mainScreen.show();
         Control.getInstance().getDatabase().restoreWqReports();
         Control.getInstance().getDatabase().restoreWsReports();

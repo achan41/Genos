@@ -131,14 +131,11 @@ public class HistoryGraphController {
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Contaminant");
 
-        FXCollections.sort(qualityReports, new Comparator<WaterQualityReport>() {
-            @Override
-            public int compare(WaterQualityReport o1, WaterQualityReport o2) {
-                if (o1.getDate().equals(o2.getDate())) {
-                    return o1.getTime().compareTo(o2.getTime());
-                } else {
-                    return o1.getDate().compareTo(o2.getDate());
-                }
+        FXCollections.sort(qualityReports, (o1, o2) -> {
+            if (o1.getDate().equals(o2.getDate())) {
+                return o1.getTime().compareTo(o2.getTime());
+            } else {
+                return o1.getDate().compareTo(o2.getDate());
             }
         });
 
@@ -160,7 +157,11 @@ public class HistoryGraphController {
                             }
                         }
                         double average = totalVirus / monthCount;
-                        series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
+                        try {
+                            series1.getData().add(new XYChart.Data(reportMonth.toString(), average));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                         idx += monthCount;
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -181,7 +182,11 @@ public class HistoryGraphController {
                             }
                         }
                         double average = totalContam / monthCount;
-                        series2.getData().add(new XYChart.Data(reportMonth.toString(), average));
+                        try {
+                            series2.getData().add(new XYChart.Data(reportMonth.toString(), average));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -191,6 +196,10 @@ public class HistoryGraphController {
         }
         try {
             historyGraph.getData().add(series1);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
             historyGraph.getData().add(series2);
         } catch (Exception e) {
             e.printStackTrace();

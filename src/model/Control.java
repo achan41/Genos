@@ -3,6 +3,7 @@ package model;
 /**
  * Created by Allen on 10/30/2016.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class Control {
     private Database database;
     private static final Control instance = new Control();

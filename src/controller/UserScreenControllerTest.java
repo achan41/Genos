@@ -20,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by BurtonGuster on 11/9/16.
  */
+@SuppressWarnings("DefaultFileTemplate")
 public class UserScreenControllerTest extends GuiTest {
 
     private User user;

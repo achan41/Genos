@@ -29,7 +29,6 @@ public class SetHistoryGraphController {
     @FXML TextField graphYear;
     @FXML Button cancelButton;
     @FXML Button submitButton;
-    private ObservableList<WaterQualityReport> qualityReports;
     private User user;
     private final MainFXApplication mainApp = new MainFXApplication();
 
@@ -39,7 +38,7 @@ public class SetHistoryGraphController {
     @FXML
     private void initialize() {
         Set<String> temp = new HashSet<>();
-        qualityReports = mainApp.getWaterQualityReports();
+        ObservableList<WaterQualityReport> qualityReports = mainApp.getWaterQualityReports();
         for (WaterQualityReport r : qualityReports) {
             temp.add(r.getLocation().toString());
         }
