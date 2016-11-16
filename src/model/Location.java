@@ -236,6 +236,18 @@ public class Location {
     }
 
     /**
+     * Sets latitude
+     * @param latitude the new latitude
+     */
+    public void setLatitude(double latitude) { this.latitude = latitude; }
+
+    /**
+     * Sets longitude
+     * @param longitude the new longitude
+     */
+    public void setLongitude(double longitude) { this.longitude = longitude; }
+
+    /**
      * gives the string representation of the location
      * @return location in (City, State, Country) format
      */
