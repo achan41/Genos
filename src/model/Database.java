@@ -115,8 +115,17 @@ public class Database {
     }
 
     public boolean removeUser(String username) {
-        //TODO
-        return true;
+        try {
+            String query = "DELETE FROM users WHERE username=?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.execute();
+            restoreUsers();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean editUser(String username, User user) {

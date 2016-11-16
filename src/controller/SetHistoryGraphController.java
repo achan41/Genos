@@ -39,8 +39,10 @@ public class SetHistoryGraphController {
     private void initialize() {
         Set<String> temp = new HashSet<>();
         ObservableList<WaterQualityReport> qualityReports = mainApp.getWaterQualityReports();
-        for (WaterQualityReport r : qualityReports) {
-            temp.add(r.getLocation().toString());
+        if (qualityReports != null) {
+            for (WaterQualityReport r : qualityReports) {
+                temp.add(r.getLocation().toString());
+            }
         }
         ObservableList<String> locations = FXCollections.observableArrayList(temp);
         locationList.setItems(locations);
