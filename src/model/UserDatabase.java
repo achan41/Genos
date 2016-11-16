@@ -123,7 +123,7 @@ public class UserDatabase {
      * @param database database to be added
      */
     public void addDatabase(HashMap<String, User> database) {
-        database.putAll(database);
+        this.database.putAll(database);
     }
 
     /**

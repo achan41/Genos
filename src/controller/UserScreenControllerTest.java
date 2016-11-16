@@ -4,7 +4,6 @@ import model.AccountType;
 import model.UserProfile;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.loadui.testfx.GuiTest;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;

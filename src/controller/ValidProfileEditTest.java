@@ -10,16 +10,15 @@ import model.UserProfile;
 import org.junit.Before;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
-
 import java.io.IOException;
-
-import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.controls.Commons.hasText;
 
 /**
- * Created by Quang on 11/9/16.
+ * Created by Quang on 11/11/16.
+ * Tests the input for isValidProfileEdit method in EditProfileController
+ * Currently does not test further through database saving method due to inability to access remote database.
  */
 public class ValidProfileEditTest extends GuiTest {
 
@@ -56,7 +55,7 @@ public class ValidProfileEditTest extends GuiTest {
      * Test method for {@link EditProfileController#isValidProfileEdit()}.
      */
     @Test
-    public void ValidProfileEditTest() throws IOException {
+    public void ValidEditTest() throws IOException {
         //Testing null profile
         UserProfile profile = new UserProfile(null, null, null, null, null);
         User user = new User(new User(null, null, null, null), profile);

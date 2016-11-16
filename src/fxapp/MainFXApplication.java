@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Control;
 import model.WaterQualityReport;
 import model.WaterSourceReport;
 import model.User;

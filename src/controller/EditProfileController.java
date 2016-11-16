@@ -56,7 +56,7 @@ public class EditProfileController {
     /**
      * handles edit profile submission, return to user screen
      * @param event submit profile
-     * @throws java.io.IOException cann't access userdatabase
+     * @throws java.io.IOException can't access user database
      */
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {

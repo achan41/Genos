@@ -16,10 +16,8 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import model.User;
 import model.WaterQualityReport;
-
 import java.io.IOException;
 import java.time.Month;
-import java.util.Comparator;
 
 /**
  * Created by twalker61 on 10/29/16.
