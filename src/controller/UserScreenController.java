@@ -40,8 +40,6 @@ public class UserScreenController {
     private void initialize() {
         model.Control.getInstance().restoreWqReports();
         model.Control.getInstance().restoreWsReports();
-//        sourceReports = mainApp.getWaterSourceReports();
-//        qualityReports = mainApp.getWaterQualityReports();
         sourceReports = model.Control.getInstance().getDatabase().getWsReports();
         qualityReports = model.Control.getInstance().getDatabase().getWqReports();
         mainApp.setQualityReports(qualityReports);
@@ -79,9 +77,14 @@ public class UserScreenController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        if (user.getAccountType().equals(AccountType.User)) {
+        if (user.getAccountType() != null && user.getAccountType().equals(AccountType.User)) {
             submitQualityReport.setVisible(false);
             //historyGraphButton.setVisible(false);
+        }
+        if (user.getAccountType() != null && (user.getAccountType().equals(AccountType.Worker)
+                || user.getAccountType().equals(AccountType.Manager))) {
+            //historyGraphButton.setVisible(false);
+            submitQualityReport.setVisible(true);
         }
     }
 
