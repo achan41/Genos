@@ -36,10 +36,7 @@ public class Control {
      * @return true if successful add of user
      */
     public boolean addUser(User user) {
-        if (database != null && database.addUser(user)) {
-            return true;
-        }
-        return false;
+        return (database != null && database.addUser(user));
     }
 
     public Database getDatabase() {

@@ -68,7 +68,7 @@ public class LoginScreenController {
                 message = "Your password is incorrect!";
                 // creates alert window notifying of incorrect password
                 this.passwordField.clear();
-                sendAlert("ERROR","Login Error", message);
+                sendError(message);
             }
         }
         catch (NullPointerException e) {
@@ -76,21 +76,19 @@ public class LoginScreenController {
             message = "This user does not exist";
             this.usernameField.clear();
             this.passwordField.clear();
-            sendAlert("ERROR","Login Error", message);
+            sendError(message);
         }
         return false;
     }
 
     /**
      * sends alert to user in this screen
-     * @param type type of alert
-     * @param title alert title
      * @param message message to send
      */
     @FXML
-    private void sendAlert(String type, String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.valueOf(type));
-        alert.setTitle(title);
+    private void sendError(String message) {
+        Alert alert = new Alert(Alert.AlertType.valueOf("ERROR"));
+        alert.setTitle("Login Error");
         alert.initOwner(loginButton.getScene().getWindow());
         alert.setContentText(message);
         alert.showAndWait();

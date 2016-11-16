@@ -1,30 +1,28 @@
 package controller;
 
-import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Title;
+import model.User;
 import model.UserProfile;
 import org.junit.Before;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
-import javafx.scene.Parent;
-import javafx.fxml.FXMLLoader;
-import java.io.IOException;
-import model.User;
 
+import java.io.IOException;
+
+import static com.sun.xml.internal.ws.dump.LoggingDumpTube.Position.Before;
 import static org.junit.Assert.*;
 import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.controls.Commons.hasText;
 
 /**
- * Created by BurtonGuster on 11/9/16.
+ * Created by Quang on 11/9/16.
  */
 public class ValidProfileEditTest extends GuiTest {
 
-    private User user;
-    private UserProfile profile;
     private FXMLLoader fxmlLoader;
     private EditProfileController controller;
     private TextField name, email, address, number;
@@ -60,8 +58,8 @@ public class ValidProfileEditTest extends GuiTest {
     @Test
     public void ValidProfileEditTest() throws IOException {
         //Testing null profile
-        profile = new UserProfile(null, null, null, null, null);
-        user = new User(new User(null, null, null, null), profile);
+        UserProfile profile = new UserProfile(null, null, null, null, null);
+        User user = new User(new User(null, null, null, null), profile);
 
         controller.setUser(user);
         assertNull(name.getText());

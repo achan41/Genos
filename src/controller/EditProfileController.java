@@ -63,7 +63,7 @@ public class EditProfileController {
         String alert = isValidProfileEdit();
         String alertData[] = alert.split("/");
         sendAlert(alertData[0],alertData[1],alertData[2]);
-        if (!alertData[0].equals("ERROR")) {;
+        if (!alertData[0].equals("ERROR")) {
             swapToUserScreen(new User(user, userProfile));
         }
 
