@@ -135,9 +135,19 @@ public class Database {
         return false;
     }
 
-    /*public boolean removeUser(String username) {
-        return true;
-    }*/
+    public boolean removeUser(String username) {
+        try {
+            String query = "DELETE FROM users WHERE username=?";
+            statement = connection.prepareStatement(query);
+            statement.setString(1, username);
+            statement.execute();
+            restoreUsers();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 
     /**
      * changes user information according to parameters

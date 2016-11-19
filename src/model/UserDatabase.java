@@ -123,8 +123,8 @@ class UserDatabase {
      *
      * @param database database to be added
      */
-    public void addDatabase(Map<String, User> database) {
-        database.putAll(database);
+    public void addDatabase(HashMap<String, User> database) {
+        this.database.putAll(database);
     }
 
     /**

@@ -1,23 +1,24 @@
 package controller;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import model.Title;
+import model.User;
 import model.UserProfile;
 import org.junit.Before;
 import org.junit.Test;
 import org.loadui.testfx.GuiTest;
-import javafx.scene.Parent;
-import javafx.fxml.FXMLLoader;
 import java.io.IOException;
-import model.User;
-
 import static org.junit.Assert.*;
 import static org.loadui.testfx.Assertions.verifyThat;
 import static org.loadui.testfx.controls.Commons.hasText;
 
 /**
- * Created by BurtonGuster on 11/9/16.
+ * Created by Quang on 11/11/16.
+ * Tests the input for isValidProfileEdit method in EditProfileController
+ * Currently does not test further through database saving method due to inability to access remote database.
  */
 public class EditProfileControllerTest extends GuiTest {
 
@@ -57,7 +58,7 @@ public class EditProfileControllerTest extends GuiTest {
      * Test method for {@link EditProfileController#isValidProfileEdit()}.
      */
     @Test
-    public void validProfileEditTest() throws IOException {
+    public void ValidEditTest() throws IOException {
         //Testing null profile
         UserProfile profile = new UserProfile(null, null, null, null, null);
         User user = new User(new User(null, null, null, null), profile);
