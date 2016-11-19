@@ -20,7 +20,9 @@ import static org.loadui.testfx.controls.Commons.hasText;
 public class RegistrationScreenControllerTest extends GuiTest {
     private FXMLLoader fxmlLoader;
     private RegistrationScreenController controller;
-    private TextField name, username, password;
+    private TextField name;
+    private TextField username;
+    private TextField password;
     private ComboBox<AccountType> type;
 
     @Override

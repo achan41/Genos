@@ -38,11 +38,14 @@ public class RegistrationScreenController {
      * closes window upon cancelling registration
      * @param event cancel registration
      */
+    @SuppressWarnings("SuspiciousNameCombination")
     @FXML
     protected void handleCancelRegistration(ActionEvent event) throws IOException {
+        int sceneWidth = 400;
+        int sceneHeight = 275;
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
-        stage.setScene(new Scene(root, 400, 275));
+        stage.setScene(new Scene(root, sceneWidth, sceneHeight));
         stage.show();
     }
 
@@ -72,25 +75,24 @@ public class RegistrationScreenController {
         String name = registrationName.getText();
         String username = registrationUsername.getText();
         String password = registrationPassword.getText();
-        if (name == null || name.length() == 0 || name.contains("/")) {
+        if ((name == null) || name.isEmpty() || name.contains("/")) {
             errorMessage += "Please enter a valid name!\n";
         }
-        if (username == null || username.length() == 0 || username.contains("/")) {
+        if ((username == null) || username.isEmpty() || username.contains("/")) {
             errorMessage += "Please enter a valid username!\n";
         }
-//        TODO
 //        try {
 //            database.userExists(username);
 //        } catch (Exception e) {
 //            errorMessage += "A user with this name already exists!\n";
 //        }
-        if (password == null || password.length() == 0 || password.contains("/")) {
+        if ((password == null) || password.isEmpty() || password.contains("/")) {
             errorMessage += "Please enter a valid password!\n";
         }
         if (accountTypeBox.getValue() == null) {
             errorMessage += "You have selected an invalid account type.\n";
         }
-        if (errorMessage.length() == 0) {
+        if (errorMessage.isEmpty()) {
             return true;
         } else {
             //send alert warning of registration error

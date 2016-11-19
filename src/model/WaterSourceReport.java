@@ -27,8 +27,9 @@ public class WaterSourceReport {
      * @param condition the water condition
      * @param type the type of water
      */
-    public WaterSourceReport(int reportNum, String name, LocalDate date, String time, Location location, WaterCondition condition,
-                             WaterType type) {
+    public WaterSourceReport(int reportNum, String name, LocalDate date,
+                             String time, Location location,
+                             WaterCondition condition, WaterType type) {
         this.name.set(name);
         this.reportNum.setValue(reportNum);
         this.date.set(date);
@@ -45,11 +46,13 @@ public class WaterSourceReport {
      * @param date the date of report creation
      * @param time the time of report creation
      * @param location the string text location of the report
+     * @param desc description of report
      * @param condition the water condition
      * @param type the type of water
      */
-    public WaterSourceReport(int reportNum, String name, LocalDate date, String time, String location, String desc, WaterCondition condition,
-                             WaterType type) {
+    public WaterSourceReport(int reportNum, String name, LocalDate date,
+                             String time, String location, String desc,
+                             WaterCondition condition, WaterType type) {
         this.name.set(name);
         this.reportNum.setValue(reportNum);
         this.date.set(date);

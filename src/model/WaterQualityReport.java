@@ -112,14 +112,17 @@ public class WaterQualityReport {
     }
 
     /**
-     * returns water type of report
-     * @return water type of report
+     * returns virus count of report
+     * @return virus count of report
      */
-
     public double getVirusPPM() {
         return Double.parseDouble(virusPPM);
     }
 
+    /**
+     * returns contaminant count of report
+     * @return contaminant count of report
+     */
     public double getContamPPM() {
         return Double.parseDouble(contaminantPPM);
     }

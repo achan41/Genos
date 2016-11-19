@@ -15,9 +15,13 @@ import model.WaterSourceReport;
 
 import java.io.IOException;
 
+/**
+ * App Welcome Screen
+ */
 public class WelcomeScreenController {
 
-    @FXML private Button loginButton, registerButton;
+    @FXML private Button loginButton;
+    @FXML private Button registerButton;
     private static final ObservableList<WaterSourceReport> sourceReports = FXCollections.observableArrayList();
     private static final ObservableList<WaterQualityReport> qualityReports = FXCollections.observableArrayList();
     private final MainFXApplication mainApp = new MainFXApplication();

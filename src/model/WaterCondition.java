@@ -7,14 +7,14 @@ package model;
 public enum WaterCondition {
     Waste ("Waste", "WST"),
     TreatableClear ("Treatable-Clear", "TCL"),
-    TreatatableMuddy ("Treatable-Muddy", "TMD"),
+    TreatableMuddy ("Treatable-Muddy", "TMD"),
     Potable ("Potable", "PTB");
 
     private final String name;
     private final String charRep;
 
     /**
-     * Counstructor for WaterCondition enumeration
+     * Constructor for WaterCondition enumeration
      * @param cName the full name of water condition
      * @param cRep the abbreviation for full name
      */

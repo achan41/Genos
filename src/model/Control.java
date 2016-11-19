@@ -4,8 +4,8 @@ package model;
  * Created by Allen on 10/30/2016.
  */
 @SuppressWarnings("DefaultFileTemplate")
-public class Control {
-    private Database database;
+public final class Control {
+    private final Database database;
     private static final Control instance = new Control();
 
     private Control() {
@@ -21,10 +21,16 @@ public class Control {
         database.getUsers().add(new User("a","a", "p", AccountType.Admin));
     }
 
+    /**
+     * restores water source reports from database
+     */
     public void restoreWsReports() {
         database.restoreWsReports();
     }
 
+    /**
+     * restores water quality reports from database
+     */
     public void restoreWqReports() {
         database.restoreWqReports();
     }
@@ -36,15 +42,21 @@ public class Control {
      * @return true if successful add of user
      */
     public boolean addUser(User user) {
-        if (database != null && database.addUser(user)) {
-            return true;
-        }
-        return false;
+        return (database != null) && database.addUser(user);
     }
 
+    /**
+     * returns database for application
+     * @return database
+     */
     public Database getDatabase() {
         return database;
     }
+
+    /**
+     * Returns this instance of control
+     * @return this Control class
+     */
     public static Control getInstance() {
         return instance;
     }

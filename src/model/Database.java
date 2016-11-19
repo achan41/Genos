@@ -2,6 +2,7 @@ package model;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+
 import java.sql.*;
 import java.time.LocalDate;
 
@@ -28,12 +29,17 @@ public class Database {
             String url = "jdbc:mysql://localhost/cleanwater?autoReconnect=true&useSSL=false";
             connection = DriverManager.getConnection (url, "admin", "genos");
             restoreUsers();
-            System.out.println("connection set");
+            //System.out.println("connection set");
         } catch(Exception e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * adds user to database
+     * @param user new user
+     * @return true if user successfully added, otherwise false
+     */
     public boolean addUser(User user) {
         try {
             String query = "SELECT 'username' FROM users WHERE username = ?";
@@ -59,6 +65,11 @@ public class Database {
         return false;
     }
 
+    /**
+     * adds water source report to database
+     * @param waterSourceReport new water source report
+     * @return true if report successfully added, false otherwise
+     */
     public boolean addWaterSourceReport(WaterSourceReport waterSourceReport) {
         try {
             String query = "INSERT INTO watersource (id, time, name, location, overallCondition, type, date, reportNum)"
@@ -80,6 +91,11 @@ public class Database {
         return false;
     }
 
+    /**
+     * adds water quality report to database
+     * @param waterPurityReport new water quality report
+     * @return true if report successfully added, false otherwise
+     */
     public boolean addWaterQualityReport(WaterQualityReport waterPurityReport) {
         try {
             String query = "INSERT INTO waterquality (id, time, name, location, date, "
@@ -103,6 +119,11 @@ public class Database {
         return false;
     }
 
+    /**
+     * Looks for user in database
+     * @param user user searched for
+     * @return true if user is in database, false if not
+     */
     public boolean findUser(User user) {
         for (User person : users) {
             if (person.getUsername().equals(user.getUsername())) {
@@ -114,11 +135,16 @@ public class Database {
         return false;
     }
 
-    public boolean removeUser(String username) {
-        //TODO
+    /*public boolean removeUser(String username) {
         return true;
-    }
+    }*/
 
+    /**
+     * changes user information according to parameters
+     * @param username username of new user
+     * @param user user object for new user
+     * @return true if edit successfully performed, false if not
+     */
     public boolean editUser(String username, User user) {
         try {
             String query = "UPDATE users SET name=?, userProfile=? WHERE username=?";
@@ -141,6 +167,11 @@ public class Database {
         return false;
     }
 
+    /**
+     * retrieves user based on username
+     * @param username username of desired user
+     * @return the user corresponding to username
+     */
     public User getUser(String username) {
         for (User person : users) {
             if (person.getUsername().equals(username)) {
@@ -150,7 +181,7 @@ public class Database {
         return null;
     }
 
-    public void restoreUsers() {
+    private void restoreUsers() {
         users.clear();
         String query = "SELECT * FROM users";
 
@@ -179,6 +210,9 @@ public class Database {
         }
     }
 
+    /**
+     * restores water source reports to application from database
+     */
     public void restoreWsReports() {
         wsReports.clear();
         String query = "SELECT * FROM watersource";
@@ -200,7 +234,8 @@ public class Database {
                 location.setCountry(array[4]);
                 Integer reportNum = (int)result.getDouble("reportNum");
                 WaterSourceReport wsReport
-                        = new WaterSourceReport(reportNum, nameOfReporter, date, time, location, overallCondition, type);
+                        = new WaterSourceReport(reportNum, nameOfReporter,
+                        date, time, location, overallCondition, type);
                 wsReports.add(wsReport);
             }
         } catch (SQLException e) {
@@ -208,6 +243,9 @@ public class Database {
         }
     }
 
+    /**
+     * restores water quality reports to application from database
+     */
     public void restoreWqReports() {
         wqReports.clear();
         String query = "SELECT * FROM waterquality";
@@ -230,7 +268,8 @@ public class Database {
                 String virusPPM = Double.toString(result.getDouble("virusPPM"));
                 String contaminantPPM = Double.toString(result.getDouble("contaminantPPM"));
                 WaterQualityReport wqReport
-                        = new WaterQualityReport(reportNum, nameOfReporter, date, time, location, overallCondition, virusPPM, contaminantPPM);
+                        = new WaterQualityReport(reportNum, nameOfReporter, date, time,
+                        location, overallCondition, virusPPM, contaminantPPM);
                 wqReports.add(wqReport);
             }
         } catch (SQLException e) {
@@ -238,7 +277,27 @@ public class Database {
         }
     }
 
-    public ObservableList<User> getUsers() { return users; }
-    public ObservableList<WaterSourceReport> getWsReports() { return wsReports; }
-    public ObservableList<WaterQualityReport> getWqReports() { return wqReports; }
+    /**
+     * retrieves user list
+     * @return ObservableList of users
+     */
+    public ObservableList<User> getUsers() {
+        return users;
+    }
+
+    /**
+     * retrieves list of water source reports
+     * @return ObservableList of water source reports
+     */
+    public ObservableList<WaterSourceReport> getWsReports() {
+        return wsReports;
+    }
+
+    /**
+     * retrieves list of water quality reports
+     * @return ObservableList of water quality reports
+     */
+    public ObservableList<WaterQualityReport> getWqReports() {
+        return wqReports;
+    }
 }

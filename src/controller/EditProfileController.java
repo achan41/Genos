@@ -6,12 +6,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Control;
+import model.Title;
+import model.User;
+import model.UserProfile;
 
 import java.io.IOException;
 
@@ -20,7 +25,8 @@ import java.io.IOException;
  */
 @SuppressWarnings("DefaultFileTemplate")
 public class EditProfileController {
-    @FXML TextField profileName;
+    @FXML
+    TextField profileName;
     @FXML TextField profileAddress;
     @FXML TextField profileEmail;
     @FXML TextField profileContact;
@@ -43,6 +49,7 @@ public class EditProfileController {
     /**
      * sets user from login screen
      * @param user user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
@@ -52,18 +59,18 @@ public class EditProfileController {
         profileContact.setText(user.getProfile().getNumber());
     }
 
-    //TODO
     /**
      * handles edit profile submission, return to user screen
      * @param event submit profile
-     * @throws java.io.IOException cann't access userdatabase
+     * @throws java.io.IOException can't access userdatabase
      */
     @FXML
     protected void handleSubmit(ActionEvent event) throws java.io.IOException {
         String alert = isValidProfileEdit();
-        String alertData[] = alert.split("/");
-        sendAlert(alertData[0],alertData[1],alertData[2]);
-        if (!alertData[0].equals("ERROR")) {;
+        if (alert != null) {
+            String alertData[] = alert.split("/");
+            sendAlert(alertData[0],alertData[1],alertData[2]);
+        } else {
             swapToUserScreen(new User(user, userProfile));
         }
 
@@ -108,22 +115,22 @@ public class EditProfileController {
         String addr = profileAddress.getText();
         String contact = profileContact.getText();
         Title title = profileTitle.getValue();
-        if (name == null || name.length() == 0 || name.contains("/")) {
+        if ((name == null) || name.isEmpty() || name.contains("/")) {
             errorMessage += "Please enter a valid name!\n";
         }
-        if (email == null || email.length() == 0 || email.contains("/") || !email.contains("@")) {
+        if ((email == null) || email.isEmpty() || email.contains("/") || !email.contains("@")) {
             errorMessage += "Please enter a valid email!\n";
         }
-        if (addr == null || addr.length() == 0 || addr.contains("/")) {
+        if ((addr == null) || addr.isEmpty() || addr.contains("/")) {
             errorMessage += "Please enter a valid address!\n";
         }
-        if (contact == null || contact.length() == 0 || contact.contains("/")) {
+        if ((contact == null) || contact.isEmpty() || contact.contains("/")) {
             errorMessage += "Please enter a valid contact number!\n";
         }
         if (profileTitle.getValue() == null) {
             errorMessage += "You have selected an invalid title.\n";
         }
-        if (errorMessage.length() > 0) {
+        if (!errorMessage.isEmpty()) {
             return "ERROR/Invalid Profile Edit/" + errorMessage;
         } else {
             //sends user profile data to database saving method

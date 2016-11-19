@@ -3,7 +3,10 @@ package controller;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 import model.User;
@@ -19,18 +22,22 @@ import java.io.IOException;
 public class LoginScreenController {
     @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
-    @FXML private Button cancelButton, loginButton;
+    @FXML private Button cancelButton;
+    @FXML private Button loginButton;
 
 
     /**
      * closes window upon cancelling registration
      * @param event cancel login
      */
+    @SuppressWarnings("SuspiciousNameCombination")
     @FXML
     protected void handleCancelLogin(ActionEvent event) throws IOException {
+        int sceneWidth = 400;
+        int sceneHeight = 275;
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
-        Scene scene = new Scene(root, 400, 275);
+        Scene scene = new Scene(root, sceneWidth, sceneHeight);
         stage.setScene(scene);
         stage.show();
     }

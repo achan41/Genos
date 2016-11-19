@@ -8,7 +8,7 @@ import java.util.Map;
  * Created by Taiga on 9/21/2016.
  */
 @SuppressWarnings("DefaultFileTemplate")
-public class UserDatabase {
+class UserDatabase {
 
     private User user;
     private String username;
@@ -36,6 +36,7 @@ public class UserDatabase {
             BufferedReader bufferReader = new BufferedReader(inputDatabase);
             String databaseLine;
             //iterate through each line until null line
+            //noinspection NestedAssignment
             while ((databaseLine = bufferReader.readLine()) != null) {
                 // split line based on "/"
                 String[] userData = databaseLine.split("/");
@@ -74,7 +75,7 @@ public class UserDatabase {
      * @param user String username
      * @return boolean value whether user exists in database
      */
-    public boolean userExists(String user) {
+    private boolean userExists(String user) {
         return database.containsKey(user);
     }
 
@@ -94,7 +95,7 @@ public class UserDatabase {
      * @param user User object
      * @return boolean value whether user exists in database
      */
-    public boolean userExists(User user) {
+    private boolean userExists(User user) {
         try {
             return database.containsValue(user);
         } catch (NullPointerException e) {
@@ -122,7 +123,7 @@ public class UserDatabase {
      *
      * @param database database to be added
      */
-    public void addDatabase(HashMap<String, User> database) {
+    public void addDatabase(Map<String, User> database) {
         database.putAll(database);
     }
 
@@ -209,13 +210,13 @@ public class UserDatabase {
     }
 
     /**
-     * saves databse to file
+     * saves database to file
      * @throws IOException cannot access file
      */
     private void saveDatabase() throws IOException {
         try {
             FileWriter databaseWriter = new FileWriter(databaseFile.getAbsolutePath());
-            BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
+            //BufferedWriter bufferedWriter = new BufferedWriter(databaseWriter);
             // iterate through user data and append to one line, using the User.toString method
             for (Map.Entry<String, User> entry : database.entrySet()) {
                 databaseWriter.write(entry.getValue().toString() + "\n");

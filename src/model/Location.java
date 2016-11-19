@@ -28,6 +28,7 @@ public class Location {
      * initialize location, set description and name, set latitude/longitude
      * @param desc water type and water condition of location
      * @param n name of location
+     * @param setLatLong if latLong property should be set
      */
     public Location(String n, String desc, boolean setLatLong) {
         description = desc;
@@ -84,11 +85,12 @@ public class Location {
      * Calls Google API to obtain longitude and latitude from address string name
      */
     private void createLatLong(String name) {
+        long connectionTime = 60L;
         GeoApiContext context = new GeoApiContext();
         context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
-                    .setConnectTimeout(60L, TimeUnit.SECONDS)
-                    .setReadTimeout(60L, TimeUnit.SECONDS)
-                    .setWriteTimeout(60L, TimeUnit.SECONDS);
+                    .setConnectTimeout(connectionTime, TimeUnit.SECONDS)
+                    .setReadTimeout(connectionTime, TimeUnit.SECONDS)
+                    .setWriteTimeout(connectionTime, TimeUnit.SECONDS);
         GeocodingApiRequest request = GeocodingApi.geocode(context, name);
         try {
             GeocodingResult result = request.await()[0];
@@ -114,11 +116,12 @@ public class Location {
      * Calls Google API to obtain name of address from latitude and longitude
      */
     private void setName(LatLng l) {
+        long connectionTime = 60L;
         GeoApiContext context = new GeoApiContext();
         context = context.setApiKey("AIzaSyBGCSUhS73bdmKgWHaSRRMbICVYsOP3qn4")
-                .setConnectTimeout(60L, TimeUnit.SECONDS)
-                .setReadTimeout(60L, TimeUnit.SECONDS)
-                .setWriteTimeout(60L, TimeUnit.SECONDS);
+                .setConnectTimeout(connectionTime, TimeUnit.SECONDS)
+                .setReadTimeout(connectionTime, TimeUnit.SECONDS)
+                .setWriteTimeout(connectionTime, TimeUnit.SECONDS);
         GeocodingApiRequest request = GeocodingApi.reverseGeocode(context, l);
         try {
             GeocodingResult result = request.await()[0];
@@ -132,14 +135,26 @@ public class Location {
         }
     }
 
+    /**
+     * set city of location
+     * @param city new city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * set state of location
+     * @param state new state
+     */
     public void setState(String state) {
         this.state = state;
     }
 
+    /**
+     * set country of location
+     * @param country new country
+     */
     public void setCountry(String country) {
         this.country = country;
     }
@@ -148,7 +163,7 @@ public class Location {
      * return city of location
      * @return city The city location
      */
-    public String getCity() {
+    private String getCity() {
         return city;
     }
 
@@ -156,7 +171,7 @@ public class Location {
      * return state of location
      * @return state The state location
      */
-    public String getState() {
+    private String getState() {
         return state;
     }
 
@@ -164,7 +179,7 @@ public class Location {
      * return country of location
      * @return country The country location
      */
-    public String getCountry() {
+    private String getCountry() {
         return country;
     }
 
@@ -207,14 +222,14 @@ public class Location {
     public String getLatLongString() {
         String locText = "";
         if (latitude > 0) {
-            locText += Math.floor(latitude*100)/100 + "*N ";
+            locText += (Math.floor(latitude * 100) / 100) + "*N ";
         } else {
-            locText += Math.floor(latitude*100)/100 + "*S ";
+            locText += (Math.floor(latitude * 100) / 100) + "*S ";
         }
         if (longitude > 0) {
-            locText += Math.floor(longitude*100)/100 + "*E";
+            locText += (Math.floor(longitude * 100) / 100) + "*E";
         } else {
-            locText += Math.floor(longitude*100)/100 + "*W";
+            locText += (Math.floor(longitude * 100) / 100) + "*W";
         }
         return locText;
     }

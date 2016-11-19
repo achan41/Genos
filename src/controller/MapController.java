@@ -29,7 +29,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Kevin on 10/17/2016.
  */
-@SuppressWarnings("DefaultFileTemplate")
+@SuppressWarnings({"DefaultFileTemplate"})
 public class MapController implements Initializable, MapComponentInitializedListener {
 
     @FXML
@@ -60,6 +60,7 @@ public class MapController implements Initializable, MapComponentInitializedList
     /**
      * sets user from login screen
      * @param user current user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
@@ -103,10 +104,14 @@ public class MapController implements Initializable, MapComponentInitializedList
     /**
      * Set map properties, display map, obtain locations of reports, and display report markers on map
      */
+    @Override
     public void mapInitialized() {
         MapOptions options = new MapOptions();
 
-        LatLong center = new LatLong(34, -84);
+        int atlLat = 34;
+        int atlLong = -84;
+
+        LatLong center = new LatLong(atlLat, atlLong);
 
         options.center(center)
                 .zoom(7)
@@ -195,8 +200,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                             //go back to submit report screen and preserve location selected
                             Stage stage = (Stage) exitMapViewButton.getScene().getWindow();
                             if (qualityLocationSelection) {
-                                System.out.println("here");
-                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitQualityScreen.fxml"));
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                                        .getResource("../view/SubmitQualityScreen.fxml"));
                                 Parent root = fxmlLoader.load();
                                 SubmitQualityController controller = fxmlLoader.getController();
                                 controller.setUser(user);
@@ -206,7 +211,8 @@ public class MapController implements Initializable, MapComponentInitializedList
                                 stage.setScene(scene);
                                 stage.show();
                             } else {
-                                FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/SubmitSourceScreen.fxml"));
+                                FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+                                        .getResource("../view/SubmitSourceScreen.fxml"));
                                 Parent root = fxmlLoader.load();
                                 SubmitSourceController controller = fxmlLoader.getController();
                                 controller.setUser(user);

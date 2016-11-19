@@ -9,13 +9,17 @@ import javafx.beans.property.SimpleObjectProperty;
  * Created by Allen on 9/30/2016.
  */
 @SuppressWarnings("DefaultFileTemplate")
-public class UserProfile {
+public final class UserProfile {
     private final StringProperty name = new SimpleStringProperty();
     private final StringProperty email = new SimpleStringProperty();
     private final StringProperty address = new SimpleStringProperty();
     private final StringProperty number = new SimpleStringProperty();
     private final ObjectProperty<Title> title = new SimpleObjectProperty<>();
 
+    /**
+     * constructor with only user name
+     * @param name name of user
+     */
     public UserProfile(String name) {
         this.setName(name);
         this.setEmail("Edit your profile");
@@ -27,7 +31,7 @@ public class UserProfile {
      * constructor with classic parameters but no title
      * @param name user's name in profile
      * @param email user's email in profile
-     * @param address user's address in profiile
+     * @param address user's address in profile
      * @param number user's contact number in profile
      */
     public UserProfile(String name, String email, String address, String number) {

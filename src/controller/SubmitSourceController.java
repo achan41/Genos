@@ -23,7 +23,11 @@ import java.time.LocalDate;
 public class SubmitSourceController {
     @FXML ComboBox<WaterType> waterTypeComboBox;
     @FXML ComboBox<WaterCondition> waterConditionComboBox;
-    @FXML TextField reportName, reportTime, reportDescription;
+    @FXML TextField reportName;
+    @FXML
+    TextField reportTime;
+    @FXML
+    TextField reportDescription;
     @FXML Button cancelButton;
     @FXML DatePicker date;
     @FXML TextField textLocation;
@@ -49,6 +53,7 @@ public class SubmitSourceController {
     /**
      * sets user from login screen
      * @param user current user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
@@ -197,10 +202,10 @@ public class SubmitSourceController {
         if (localDate == null) {
             errorMessage += "Please select a valid date!\n";
         }
-        if (time == null || time.length() == 0 || time.contains("/")) {
+        if ((time == null) || time.isEmpty() || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (textLocation.getText() == null || textLocation.getText().equals("")) {
+        if ((textLocation.getText() == null) || "".equals(textLocation.getText())) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (waterConditionComboBox.getValue() == null) {
@@ -214,8 +219,10 @@ public class SubmitSourceController {
         } /*else if (description == "") {
             location.setDescription("No Description");
         }*/
-        if (errorMessage.length() == 0) {
-            report = new WaterSourceReport(sourceReports.size() + 1, name, localDate, time, textLocation.getText(), description, condition, type);
+        if (errorMessage.isEmpty()) {
+            report = new WaterSourceReport(sourceReports.size() + 1,
+                    name, localDate, time, textLocation.getText(),
+                    description, condition, type);
             return true;
         } else {
             //send alert warning of registration error

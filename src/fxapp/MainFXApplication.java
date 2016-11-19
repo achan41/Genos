@@ -8,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import model.Control;
 import model.WaterQualityReport;
 import model.WaterSourceReport;
 import model.User;
@@ -28,16 +27,18 @@ public class MainFXApplication extends Application {
      * @param primaryStage the main container for the application windows
      * @throws Exception unable to start application
      */
+    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void start(Stage primaryStage) throws Exception{
+        int sceneWidth = 400;
+        int sceneHeight = 275;
         Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
 
-        Scene scene = new Scene(root, 400, 275);
+        Scene scene = new Scene(root, sceneWidth, sceneHeight);
 
         primaryStage.setTitle("Clean Water App: Welcome!");
         primaryStage.setScene(scene);
-        Stage mainScreen = primaryStage;
-        mainScreen.show();
+        primaryStage.show();
     }
 
     /**

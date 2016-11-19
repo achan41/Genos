@@ -19,7 +19,6 @@ import model.WaterQualityReport;
 
 import java.io.IOException;
 import java.time.Month;
-import java.util.Comparator;
 
 /**
  * Created by twalker61 on 10/29/16.
@@ -69,6 +68,7 @@ public class HistoryGraphController {
 
     /**
      * sets the graph year
+     * @param year the year for the graph
      */
     public void setYear(int year) {
         graphYear = year;
@@ -99,6 +99,7 @@ public class HistoryGraphController {
     /**
      * sets user from login screen
      * @param user current user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
@@ -140,7 +141,8 @@ public class HistoryGraphController {
         });
 
         for (int i = 0; i < qualityReports.size(); ) {
-            if (graphYear == (qualityReports.get(i).getDate().getYear()) && location.equals(qualityReports.get(i).getLocation().toString())) {
+            if ((graphYear == (qualityReports.get(i).getDate().getYear()))
+                    && location.equals(qualityReports.get(i).getLocation().toString())) {
                 int idx = 0;
                 if (virus) {
                     try {
@@ -148,12 +150,13 @@ public class HistoryGraphController {
                         double totalVirus = qualityReports.get(i).getVirusPPM();
                         double monthCount = 1;
                         if (qualityReports.get(i+1) != null) {
-                            for (int j = i + 1; j < qualityReports.size() && qualityReports.get(j).getDate().getMonth().equals(reportMonth); j++) {
+                            for (int j = i + 1; (j < qualityReports.size())
+                                    && qualityReports.get(j).getDate().getMonth().equals(reportMonth);
+                                 j++) {
                                 if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
                                     monthCount++;
                                     totalVirus += qualityReports.get(j).getVirusPPM();
                                 }
-                                //series1.getData().add(new XYChart.Data(qualityReports.get(0).getDate().getMonth().toString(), qualityReports.get(0).getVirusPPM()));
                             }
                         }
                         double average = totalVirus / monthCount;
@@ -173,12 +176,13 @@ public class HistoryGraphController {
                         double totalContam = qualityReports.get(i).getContamPPM();
                         double monthCount = 1;
                         if (qualityReports.get(i+1) != null) {
-                            for (int j = i + 1; j < qualityReports.size() && qualityReports.get(j).getDate().getMonth().equals(reportMonth); j++) {
+                            for (int j = i + 1; (j < qualityReports.size())
+                                    && qualityReports.get(j).getDate().getMonth().equals(reportMonth);
+                                 j++) {
                                 if (reportMonth.equals(qualityReports.get(j).getDate().getMonth())) {
                                     monthCount++;
                                     totalContam += qualityReports.get(j).getContamPPM();
                                 }
-                                //series2.getData().add(new XYChart.Data(qualityReports.get(i).getDate().getMonth().toString(), qualityReports.get(i).getContamPPM()));
                             }
                         }
                         double average = totalContam / monthCount;

@@ -22,9 +22,17 @@ import java.time.LocalDate;
 @SuppressWarnings("DefaultFileTemplate")
 public class SubmitQualityController {
     @FXML ComboBox<OverallCondition> overallComboBox;
-    @FXML TextField reporterName, virusPPMField, contamPPMField, reportTime;
+    @FXML TextField reporterName;
+    @FXML
+    TextField virusPPMField;
+    @FXML
+    TextField contamPPMField;
+    @FXML
+    TextField reportTime;
     @FXML DatePicker date;
-    @FXML Button cancelButton, submitButton;
+    @FXML Button cancelButton;
+    @FXML
+    Button submitButton;
     @FXML TextField textLocation;
     private WaterQualityReport report;
     private ObservableList<WaterQualityReport> qualityReports;
@@ -45,6 +53,7 @@ public class SubmitQualityController {
     /**
      * sets user from login screen
      * @param user current user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
@@ -188,17 +197,19 @@ public class SubmitQualityController {
         if (localDate == null) {
             errorMessage += "Please select a valid date!\n";
         }
-        if (time == null || time.length() == 0 || time.contains("/")) {
+        if ((time == null) || time.isEmpty() || time.contains("/")) {
             errorMessage += "Please enter a valid time!\n";
         }
-        if (textLocation.getText() == null || textLocation.getText().equals("")) {
+        if ((textLocation.getText() == null) || "".equals(textLocation.getText())) {
             errorMessage += "Please enter a valid location!\n";
         }
         if (overallComboBox.getValue() == null) {
             errorMessage += "Please select a water type.\n";
         }
-        if (errorMessage.length() == 0) {
-            report = new WaterQualityReport(qualityReports.size() + 1, name, localDate, time, textLocation.getText(), condition, virusPPM, contamPPM);
+        if (errorMessage.isEmpty()) {
+            report = new WaterQualityReport(qualityReports.size() + 1, name,
+                    localDate, time, textLocation.getText(),
+                    condition, virusPPM, contamPPM);
             return true;
         } else {
             //send alert warning of registration error

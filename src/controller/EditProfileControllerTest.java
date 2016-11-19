@@ -1,8 +1,6 @@
 package controller;
 
-import javafx.event.ActionEvent;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Title;
 import model.UserProfile;
@@ -21,13 +19,14 @@ import static org.loadui.testfx.controls.Commons.hasText;
 /**
  * Created by BurtonGuster on 11/9/16.
  */
-public class ValidProfileEditTest extends GuiTest {
+public class EditProfileControllerTest extends GuiTest {
 
-    private User user;
-    private UserProfile profile;
     private FXMLLoader fxmlLoader;
     private EditProfileController controller;
-    private TextField name, email, address, number;
+    private TextField name;
+    private TextField email;
+    private TextField address;
+    private TextField number;
     private ComboBox<Title> title;
 
     @Override
@@ -58,10 +57,10 @@ public class ValidProfileEditTest extends GuiTest {
      * Test method for {@link EditProfileController#isValidProfileEdit()}.
      */
     @Test
-    public void ValidProfileEditTest() throws IOException {
+    public void validProfileEditTest() throws IOException {
         //Testing null profile
-        profile = new UserProfile(null, null, null, null, null);
-        user = new User(new User(null, null, null, null), profile);
+        UserProfile profile = new UserProfile(null, null, null, null, null);
+        User user = new User(new User(null, null, null, null), profile);
 
         controller.setUser(user);
         assertNull(name.getText());

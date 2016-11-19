@@ -49,6 +49,7 @@ public class SetHistoryGraphController {
     /**
      * sets user from login screen
      * @param user current user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
@@ -92,7 +93,7 @@ public class SetHistoryGraphController {
         if (locationList.getValue() == null) {
             errorMessage += "Please pick a location!\n";
         }
-        if (errorMessage.length() != 0) {
+        if (!errorMessage.isEmpty()) {
             //send alert warning of registration error
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Graph Setup");

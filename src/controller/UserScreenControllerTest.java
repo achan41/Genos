@@ -4,7 +4,6 @@ import model.AccountType;
 import model.UserProfile;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.loadui.testfx.GuiTest;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
@@ -17,16 +16,19 @@ import model.Title;
 import static org.junit.Assert.*;
 
 /**
- * Created by BurtonGuster on 11/9/16.
+ * Created by twalker61 on 11/9/16.
  */
 @SuppressWarnings("DefaultFileTemplate")
 public class UserScreenControllerTest extends GuiTest {
 
-    private User user;
     private FXMLLoader fxmlLoader;
     private UserScreenController controller;
-    private Label welcome, email, address, contact;
-    private Button quality, hist;
+    private Label welcome;
+    private Label email;
+    private Label address;
+    private Label contact;
+    private Button quality;
+    private Button hist;
 
     @Override
     protected Parent getRootNode() {
@@ -62,6 +64,7 @@ public class UserScreenControllerTest extends GuiTest {
 
         //ExpectedException e = ExpectedException.none();
 
+        User user;
         user = new User(null, "pass");
         controller.setUser(user);
         assertEquals(welcome.getText(), "Welcome");

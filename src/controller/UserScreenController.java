@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.*;
+import model.Control;
 
 import java.io.IOException;
 
@@ -21,11 +22,27 @@ import java.io.IOException;
 @SuppressWarnings("DefaultFileTemplate")
 public class UserScreenController {
     @FXML private Label welcomeMessage;
-    @FXML Button logoutButton, editProfileButton, submitReportButton, submitQualityReport, viewMapButton, historyGraphButton;
-    @FXML Label emailLabel, addressLabel, contactLabel;
+    @FXML Button logoutButton;
+    @FXML
+    Button editProfileButton;
+    @FXML
+    Button submitReportButton;
+    @FXML
+    Button submitQualityReport;
+    @FXML
+    Button viewMapButton;
+    @FXML
+    Button historyGraphButton;
+    @FXML Label emailLabel;
+    @FXML
+    Label addressLabel;
+    @FXML
+    Label contactLabel;
     @FXML ListView<String> reportListView = new ListView<>();
     @FXML TabPane tabPane;
-    @FXML Tab reportsTab, profileTab;
+    @FXML Tab reportsTab;
+    @FXML
+    Tab profileTab;
     @FXML Text reportsCategories;
     private ObservableList<WaterSourceReport> sourceReports;
     private ObservableList<WaterQualityReport> qualityReports;
@@ -56,11 +73,12 @@ public class UserScreenController {
     /**
      * sets user from login screen
      * @param user user
+     * @throws NullPointerException if user is null
      */
     public void setUser(User user) throws NullPointerException {
         this.user = user;
         try {
-            if (user.getProfile().getName() != null && user.getProfile().getTitle() != null && user.getName() != null) {
+            if ((user.getProfile().getName() != null) && (user.getProfile().getTitle() != null) && (user.getName() != null)) {
                 welcomeMessage.setText("Welcome, " + user.getProfile().getTitle().toString()
                         + ". " + user.getName() + "!");
             } else if (user.getProfile().getName() != null) {
@@ -77,11 +95,11 @@ public class UserScreenController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        if (user.getAccountType() != null && user.getAccountType().equals(AccountType.User)) {
+        if ((user.getAccountType() != null) && user.getAccountType().equals(AccountType.User)) {
             submitQualityReport.setVisible(false);
             //historyGraphButton.setVisible(false);
         }
-        if (user.getAccountType() != null && (user.getAccountType().equals(AccountType.Worker)
+        if ((user.getAccountType() != null) && (user.getAccountType().equals(AccountType.Worker)
                 || user.getAccountType().equals(AccountType.Manager))) {
             //historyGraphButton.setVisible(false);
             submitQualityReport.setVisible(true);
@@ -116,11 +134,14 @@ public class UserScreenController {
      * handles logout request - return to welcome screen
      * @param event logout
      */
+    @SuppressWarnings("SuspiciousNameCombination")
     @FXML
     protected void handleLogout(ActionEvent event) throws IOException {
+        int sceneWidth = 400;
+        int sceneHeight = 275;
         Stage stage = (Stage) logoutButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../view/WelcomeScreen.fxml"));
-        Scene scene = new Scene(root, 400, 275);
+        Scene scene = new Scene(root, sceneWidth, sceneHeight);
         stage.setScene(scene);
         stage.show();
     }
@@ -158,7 +179,7 @@ public class UserScreenController {
     }
 
     /**
-     * handles submit a quality report - switches to submit quality repotr screen
+     * handles submit a quality report - switches to submit quality report screen
      * @param event submit report selected
      */
     @FXML
@@ -167,7 +188,8 @@ public class UserScreenController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Account Type");
             alert.setHeaderText("Please check your account type");
-            alert.setContentText("You do not have the valid privileges to access the quality report submission screen.");
+            alert.setContentText(
+                    "You do not have the valid privileges to access the quality report submission screen.");
             alert.showAndWait();
         } else {
             Stage stage = (Stage) editProfileButton.getScene().getWindow();
@@ -192,7 +214,8 @@ public class UserScreenController {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Invalid Account Type");
             alert.setHeaderText("Please check your account type");
-            alert.setContentText("You do not have the valid privileges to access the quality report submission screen.");
+            alert.setContentText(
+                    "You do not have the valid privileges to access the quality report submission screen.");
             alert.showAndWait();
         } else {
             Stage stage = (Stage) editProfileButton.getScene().getWindow();
