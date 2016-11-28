@@ -26,8 +26,8 @@ public class Database {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Class.forName ("com.mysql.jdbc.Driver").newInstance ();
-            String url = "jdbc:mysql://localhost/cleanwater?autoReconnect=true&useSSL=false";
-            connection = DriverManager.getConnection (url, "admin", "genos");
+            String url = "jdbc:mysql://sql9.freesqldatabase.com/sql9146873?autoReconnect=true&useSSL=false";
+            connection = DriverManager.getConnection (url, "sql9146873", "Hr9KJIpfm9");
             restoreUsers();
             //System.out.println("connection set");
         } catch(Exception e) {
